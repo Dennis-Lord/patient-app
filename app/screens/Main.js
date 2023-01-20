@@ -1,20 +1,22 @@
-import { StyleSheet,SafeAreaView, View, Text } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
+import { MainCard } from '../components/Card-components'
 
 const MainScreen = () => {
   return (
-    <SafeAreaView>
-      <View >
-        <Text className={fontstyle.fonts}>MainScreen</Text>
-      </View>
-    </SafeAreaView>
+    <View style={screenstyle.screenView}>
+      <MainCard />
+    </View>
   )
 }
 
-const fontstyle = StyleSheet.create( {
-  fonts: {
-    fontSize: 30,
-    fontWeight: 600,
+const screenstyle = StyleSheet.create({
+  screenView: {
+    flex: 1,
+    padding: 40,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 })
 

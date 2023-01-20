@@ -1,12 +1,63 @@
-import { View, Text } from 'react-native'
+import { Text, StyleSheet } from 'react-native'
 import React from 'react'
 
-const HeroFont = () => {
+const HeroFont = ({text}) => {
   return (
-    <View>
-      <Text>HeroFont</Text>
-    </View>
+      <Text style={fontStyle.heroFont}>{text}</Text>
   )
 }
 
-export default HeroFont
+const MediumFont = ({text}) => {
+  return (
+      <Text style={fontStyle.mediumFont}>{text}</Text>
+  )
+}
+
+const SemiBoldFont = ({text}) => {
+  return (
+      <Text style={fontStyle.semiboldFont}>{text}</Text>
+  )
+}
+
+const SemiFont = ({text}) => {
+  return (
+      <Text style={fontStyle.semiFont}>{text}</Text>
+  )
+}
+
+const LightFont = ({text}) => {
+  return (
+      <Text style={fontStyle.lightFont}>{text}</Text>
+  )
+}
+
+
+
+const fontStyle = StyleSheet.create({
+  heroFont: {
+    fontSize: 28,
+    fontWeight: '700',
+    letterSpacing: -1,
+  },
+  mediumFont: {
+    fontSize: 18, 
+    fontWeight: '600',
+    letterSpacing: 0.6,
+  },
+  semiboldFont: {
+    fontSize: 22, 
+    fontWeight: '600',
+    letterSpacing: -1,
+  },
+  semiFont: {
+    fontSize: 20, 
+    fontWeight: '500',
+    letterSpacing: -1,
+  },
+  lightFont: {
+    fontSize: 14, 
+    fontWeight: '600',
+  },
+})
+
+export {HeroFont, MediumFont, SemiBoldFont, SemiFont, LightFont};

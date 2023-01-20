@@ -11,12 +11,11 @@ const Stack = createNativeStackNavigator();
 
 const Index = () => {
   return (
-    // <NavigationContainer>
-    //   <Stack.Navigator screenOptions= {{headerShown: false}}>
-    //     <Stack.Screen name="Index" component={MainScreen} />
-    //   </Stack.Navigator>
-    // </NavigationContainer>
-    <MainScreen />
+    <NavigationContainer>
+      <Stack.Navigator screenOptions= {{headerShown: false}}>
+        <Stack.Screen name="Index" component={MainScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   )
 };
 
