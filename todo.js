@@ -1,7 +1,7 @@
 /*
  * screen folder structure [auth, tabbed, sub-screens / component-screens] - #
  * font styling and color template - 
- * font & view components
+ * font & view components - 
  * build tab screens
  * bottom tab navigation
  * main sub, profile ... settings sub screens

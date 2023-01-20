@@ -37,12 +37,12 @@ const fontStyle = StyleSheet.create({
   heroFont: {
     fontSize: 28,
     fontWeight: '700',
-    letterSpacing: -1,
+    letterSpacing: 0.3,
   },
   mediumFont: {
     fontSize: 18, 
     fontWeight: '600',
-    letterSpacing: 0.6,
+    letterSpacing: 0.3,
   },
   semiboldFont: {
     fontSize: 22, 
