@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
-import { MediumFont } from './Font-components'
+import { MediumFont, SemiFont } from './Font-components'
 import { windowWidth } from '../templates/template'
 
 // card components for main screen
@@ -28,6 +28,16 @@ const NavCard_s = ({cardText}) => {
               <MediumFont text={cardText}/>
           </View>
       </View>
+    )
+}
+
+const ProfileCard = ({name, value}) => {
+    return(
+        <View style={styles.profileCardContainer}>
+            <MediumFont text={name}/>
+            <View style={styles.br}/>
+            <SemiFont text={value}/>
+        </View>
     )
 }
 
@@ -68,6 +78,17 @@ const styles = StyleSheet.create({
         bottom: 6,
         left: 6
     },
+    profileCardContainer: {
+        width: '100%',
+        height: 30,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+        marginBottom: 10,
+    },
+    br: {
+        width: 10,
+    },
 })
 
-export {MainCard, NavCard, NavCard_s}
+export {MainCard, NavCard, NavCard_s, ProfileCard}
