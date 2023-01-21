@@ -14,6 +14,12 @@ const MainCard = () => {
   )
 }
 
+const SponsorCard = () => {
+  return (
+    <View style={styles.sponsorCard}></View>
+  )
+}
+
 const NavCard = ({cardText}) => {
     return (
       <View style={styles.navCard}>
@@ -60,7 +66,15 @@ const styles = StyleSheet.create({
         height: 149,
         backgroundColor: '#E8E8E8',
         borderRadius: 7,
-        borderWidth: 1,
+        borderWidth: 2,
+        borderColor: '#707070',
+    },
+    sponsorCard: {
+        width: (windowWidth - 30),
+        height: 149,
+        backgroundColor: '#E8E8E8',
+        borderRadius: 7,
+        borderWidth: 2,
         borderColor: '#707070',
     },
     navCard: {
@@ -111,4 +125,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export {MainCard, NavCard, NavCard_s, ProfileCard, OptionsCard}
+export {MainCard, NavCard, NavCard_s, ProfileCard, OptionsCard, SponsorCard}
