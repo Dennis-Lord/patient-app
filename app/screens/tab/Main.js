@@ -1,9 +1,9 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { MainCard, NavCard, NavCard_s } from '../../components/Card-components'
 import { HeroFont } from '../../components/Font-components'
 
-const MainScreen = () => {
+const MainScreen = ({navigation}) => {
   return (
     <View style={screenstyle.screenView}>
       <View style={screenstyle.heroPos}>
@@ -11,11 +11,11 @@ const MainScreen = () => {
       </View>
       <MainCard />
       <View style={screenstyle.container}>
-        <NavCard cardText={'Medical history'}/>
-        <NavCard cardText={'Analysis'}/>
+        <NavCard cardText={'Medical history'} nav={navigation} navigateTo={"ListScreen"}/>
+        <NavCard cardText={'Analysis'} nav={navigation} navigateTo={"ListScreen"}/>
         <View style={screenstyle.flexContainer}>
-        <NavCard_s cardText={'Documents'}/>
-        <NavCard_s cardText={'Referrals'}/>
+        <NavCard_s cardText={'Documents'} nav={navigation} navigateTo={"ListScreen"}/>
+        <NavCard_s cardText={'Referrals'} nav={navigation} navigateTo={"ListScreen"}/>
         </View>
       </View>
     </View>
@@ -28,6 +28,7 @@ const screenstyle = StyleSheet.create({
     marginTop: 40,
     display: 'flex',
     alignItems: 'center',
+    paddingBottom: 40,
   },
   heroPos: {
     marginTop: 6,

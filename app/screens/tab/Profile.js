@@ -22,7 +22,7 @@ const ProfileScreen = () => {
       </View>
       <View style={styles.profile}>
         {
-          profileObject.map(({n,v}) => <ProfileCard key={n} name={n} value={v}/>)
+          profileObject.map(({n,v, i}) => <ProfileCard key={n} name={n} value={v} icon={i}/>)
         }
       </View>
     </View>
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
     display: 'flex',
     paddingHorizontal: 20,
+    paddingBottom: 40,
   },
   container: {
     width: '100%',

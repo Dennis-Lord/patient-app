@@ -34,8 +34,8 @@ const LightFont = ({text}) => {
 
 const fontStyle = StyleSheet.create({
   heroFont: {
-    fontSize: 28,
-    fontWeight: '700',
+    fontSize: 24,
+    fontWeight: '600',
     letterSpacing: 0.3,
   },
   mediumFont: {

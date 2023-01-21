@@ -1,7 +1,7 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { MediumFont, SemiFont } from './Font-components'
-import { windowWidth } from '../templates/template'
+import { windowHeight, windowWidth } from '../templates/template'
 
 // icon import
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
@@ -20,32 +20,39 @@ const SponsorCard = () => {
   )
 }
 
-const NavCard = ({cardText}) => {
+const NavCard = ({cardText, nav, navigateTo}) => {
     return (
-      <View style={styles.navCard}>
-          <View style={styles.navtextPos}>
-              <MediumFont text={cardText}/>
-          </View>
-      </View>
+        <TouchableOpacity onPress={() => nav.navigate(navigateTo)}>
+            <View style={styles.navCard}>
+                <View style={styles.navtextPos}>
+                    <MediumFont text={cardText}/>
+                </View>
+            </View>
+        </TouchableOpacity>
     )
 }
 
-const NavCard_s = ({cardText}) => {
+const NavCard_s = ({cardText, nav, navigateTo}) => {
     return (
-      <View style={styles.navCard_s}>
-          <View style={styles.navtextPos_s}>
-              <MediumFont text={cardText}/>
-          </View>
-      </View>
+        <TouchableOpacity onPress={() => nav.navigate(navigateTo)}>
+            <View style={styles.navCard_s}>
+                <View style={styles.navtextPos_s}>
+                    <MediumFont text={cardText}/>
+                </View>
+            </View>
+        </TouchableOpacity>
     )
 }
 
-const ProfileCard = ({name, value}) => {
+const ProfileCard = ({name, value, icon}) => {
     return(
         <View style={styles.profileCardContainer}>
+            <MaterialCommunityIcons name={icon} size={24} color="#404040" />
+            <View style={styles.br} />
             <MediumFont text={name}/>
-            <View style={styles.br}/>
-            <SemiFont text={value}/>
+            <View style={styles.textAlign}>
+                <SemiFont text={value}/>
+            </View>
         </View>
     )
 }
@@ -55,7 +62,7 @@ const OptionsCard = ({iconName, option}) => {
         <View style={styles.optionsContainer}>
             <MaterialCommunityIcons name={iconName} size={24} color="#404040" />
             <View style={styles.br}/>
-            <SemiFont text={option}/>
+            <MediumFont text={option}/>
         </View>
     )
 }
@@ -71,7 +78,8 @@ const styles = StyleSheet.create({
     },
     sponsorCard: {
         width: (windowWidth - 30),
-        height: 149,
+        // height: 149,
+        height: (windowHeight / 3.9),
         backgroundColor: '#E8E8E8',
         borderRadius: 7,
         borderWidth: 2,
@@ -81,7 +89,7 @@ const styles = StyleSheet.create({
         width: 330,
         height: 105,
         borderRadius: 7,
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: '#707070',
         padding: 6,
         marginBottom: 12,
@@ -91,10 +99,10 @@ const styles = StyleSheet.create({
         height: 30,
     },
     navCard_s: {
-        width: '47%',
+        width: (windowWidth/2.3),
         height: 105,
         borderRadius: 7,
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: '#707070',
         padding: 6,
     },
@@ -115,6 +123,11 @@ const styles = StyleSheet.create({
     },
     br: {
         width: 10,
+    },
+    textAlign: {
+        position: 'absolute',
+        left: (windowWidth/2.4),
+        bottom: 0
     },
     optionsContainer: {
         width: '70%',

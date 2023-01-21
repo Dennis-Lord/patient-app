@@ -1,43 +1,53 @@
 import { Dimensions } from "react-native";
 
 const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const profileObject = [
     {
         n: 'Name',
-        v: 'Dennis Lord A.'
+        v: 'Dennis Lord A.',
+        i: 'human-greeting-proximity'
     },
     {
         n: 'Gender',
-        v: 'Male'
+        v: 'Male',
+        i: 'gender-male'
     },
     {
         n: 'Title',
-        v: 'Mr.'
+        v: 'Mr.',
+        i: 'label-variant'
     },
     {
         n: 'Age',
-        v: '26'
+        v: '26',
+        i: 'select-group'
     },
     {
         n: 'Type',
-        v: 'O'
+        v: 'O',
+        i: 'blood-bag'
     },
     {
         n: 'Height',
-        v: '165 cm'
+        v: '165 cm',
+        i: 'human-male-height'
     },
     {
         n: 'Weight',
-        v: '123 kg'
+        v: '123 kg',
+        i: 'weight'
     },
     {
         n: 'Allergies',
-        v: 'Groundnut'
+        v: 'Groundnut',
+        i: 'allergy'
     },
     {
         n: 'Sponsor(s)',
-        v: 'NHIS'
+        v: 'NHIS',
+        i: 'help-network'
     },
 ]
 
@@ -64,4 +74,4 @@ const optionsObject = [
     },
 ];
 
-export {windowWidth, profileObject, optionsObject}
+export {windowWidth, profileObject, optionsObject, windowHeight}

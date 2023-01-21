@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
     display: 'flex',
     paddingHorizontal: 20,
+    paddingBottom: 40,
   },
   header: {
     width: '100%',
