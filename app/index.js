@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // screen imports
-import ProfileScreen from './screens/tab/Profile';
+import SettingsScreen from './screens/tab/Settings';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,7 +13,7 @@ const Index = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions= {{headerShown: false}}>
-        <Stack.Screen name="Index" component={ProfileScreen} />
+        <Stack.Screen name="Index" component={SettingsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )

@@ -3,6 +3,9 @@ import React from 'react'
 import { MediumFont, SemiFont } from './Font-components'
 import { windowWidth } from '../templates/template'
 
+// icon import
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+
 // card components for main screen
 
 const MainCard = () => {
@@ -37,6 +40,16 @@ const ProfileCard = ({name, value}) => {
             <MediumFont text={name}/>
             <View style={styles.br}/>
             <SemiFont text={value}/>
+        </View>
+    )
+}
+
+const OptionsCard = ({iconName, option}) => {
+    return(
+        <View style={styles.optionsContainer}>
+            <MaterialCommunityIcons name={iconName} size={24} color="#404040" />
+            <View style={styles.br}/>
+            <SemiFont text={option}/>
         </View>
     )
 }
@@ -89,6 +102,13 @@ const styles = StyleSheet.create({
     br: {
         width: 10,
     },
+    optionsContainer: {
+        width: '70%',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+        marginLeft: 10,
+    }
 })
 
-export {MainCard, NavCard, NavCard_s, ProfileCard}
+export {MainCard, NavCard, NavCard_s, ProfileCard, OptionsCard}

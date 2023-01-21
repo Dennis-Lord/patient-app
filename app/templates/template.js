@@ -41,4 +41,27 @@ const profileObject = [
     },
 ]
 
-export {windowWidth, profileObject}
+const optionsObject = [
+    {
+        iconName: "account",
+        option: "Account"
+    },
+    {
+        iconName: "shield-key",
+        option: "Privacy policy"
+    },
+    {
+        iconName: "information",
+        option: "About us"
+    },
+    {
+        iconName: "help-rhombus",
+        option: "Help"
+    },
+    {
+        iconName: "frequently-asked-questions",
+        option: "FAQ"
+    },
+];
+
+export {windowWidth, profileObject, optionsObject}
