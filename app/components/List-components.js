@@ -22,9 +22,9 @@ const FlagComponent = ({flag}) => {
 
 
 
-const FilterFileCard = () => {
+const FilterFileCard = ({nav, route}) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => nav.navigate(route)}>
       <View style={styles.cardContainer}>
         <View style={styles.lc}>
           <LightFont text={"Edna Konadu Donkoh"}/>

@@ -12,10 +12,10 @@ const SettingsScreen = () => {
     <View style={styles.screenView}>
       <HeroFont text={"Settings"}/>
       <View style={styles.optionsContainer}>
-        {optionsObject.map(({iconName, option}) => <OptionsCard key={option} iconName={iconName} option={option}/>)}
+        {optionsObject.map(({iconName, option}) => <OptionsCard key={option} iconName={iconName} option={option} s={24} o={'a'}/>)}
       </View>
       <View style={styles.br}/>
-      <OptionsCard iconName={"logout"} option={"Log out"}/>
+      <OptionsCard iconName={"logout"} option={"Log out"} s={24} o={'a'}/>
     </View>
   )
 }

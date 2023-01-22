@@ -57,13 +57,19 @@ const ProfileCard = ({name, value, icon}) => {
     )
 }
 
-const OptionsCard = ({iconName, option}) => {
-    return(
-        <View style={styles.optionsContainer}>
-            <MaterialCommunityIcons name={iconName} size={24} color="#404040" />
+const OptionsCard = ({iconName, option, o, s}) => {
+    return(o === "a" ?
+            <View style={styles.optionsContainer}>
+            <MaterialCommunityIcons name={iconName} size={s} color="#404040" />
             <View style={styles.br}/>
             <MediumFont text={option}/>
-        </View>
+        </View> 
+        :
+        <View style={styles.optionsContainer}>
+            <MaterialCommunityIcons name={iconName} size={s} color="#404040" />
+            <View style={styles.br}/>
+            <SemiFont text={option}/>
+        </View> 
     )
 }
 

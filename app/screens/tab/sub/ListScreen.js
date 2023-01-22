@@ -3,7 +3,7 @@ import React from 'react'
 import { HeroFont } from '../../../components/Font-components'
 import { FilterFileCard, FilterOption } from '../../../components/List-components'
 
-const ListScreen = () => {
+const ListScreen = ({navigation}) => {
   return (
     <View style={listStyles.screenView}>
       <HeroFont text={"Medical history"}/>
@@ -12,7 +12,7 @@ const ListScreen = () => {
         <FilterOption filter={"Folders"}/>
       </View>
       <View style={listStyles.listContainer}>
-      <FilterFileCard />
+      <FilterFileCard nav={navigation} route={"MedicalHistory"}/>
       </View>
     </View>
   )
