@@ -28,7 +28,6 @@ const screenstyle = StyleSheet.create({
     marginTop: 40,
     display: 'flex',
     alignItems: 'center',
-    paddingBottom: 40,
   },
   heroPos: {
     marginTop: 6,

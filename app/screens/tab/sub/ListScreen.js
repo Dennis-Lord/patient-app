@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { HeroFont } from '../../../components/Font-components'
 import { FilterFileCard, FilterOption } from '../../../components/List-components'
@@ -11,7 +11,9 @@ const ListScreen = () => {
         <FilterOption filter={"Folders"}/>
         <FilterOption filter={"Folders"}/>
       </View>
+      <View style={listStyles.listContainer}>
       <FilterFileCard />
+      </View>
     </View>
   )
 }
@@ -22,13 +24,16 @@ const listStyles = StyleSheet.create({
         marginTop: 40,
         display: 'flex',
         paddingHorizontal: 20,
-        paddingBottom: 40,
       },
       filterContainer: {
         width: "100%",
         marginTop: 14,
         flexDirection: 'row',
         justifyContent: 'space-between',
+      },
+      listContainer: {
+        marginTop: 26,
+        flex: 1,
       }
 })
 
