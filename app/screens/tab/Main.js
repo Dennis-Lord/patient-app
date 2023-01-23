@@ -2,6 +2,7 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { MainCard, NavCard, NavCard_s } from '../../components/Card-components'
 import { HeroFont } from '../../components/Font-components'
+import Analysis from './sub/Analysis'
 
 const MainScreen = ({navigation}) => {
   return (
@@ -12,7 +13,7 @@ const MainScreen = ({navigation}) => {
       <MainCard />
       <View style={screenstyle.container}>
         <NavCard cardText={'Medical history'} nav={navigation} navigateTo={"ListScreen"}/>
-        <NavCard cardText={'Analysis'} nav={navigation} navigateTo={"ListScreen"}/>
+        <NavCard cardText={'Analysis'} nav={navigation} navigateTo={"Analysis"}/>
         <View style={screenstyle.flexContainer}>
         <NavCard_s cardText={'Documents'} nav={navigation} navigateTo={"ListScreen"}/>
         <NavCard_s cardText={'Referrals'} nav={navigation} navigateTo={"ListScreen"}/>

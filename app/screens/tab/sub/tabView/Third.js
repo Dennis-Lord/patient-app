@@ -8,10 +8,6 @@ const ThirdRoute = () => {
     <ScrollView style={styles.container}>    
       <MediumFont text={'Date'}/>
       <VisitsCard />
-      <VisitsCard />
-      <VisitsCard />
-      <VisitsCard />
-      <VisitsCard />
     </ScrollView>
   )
 }

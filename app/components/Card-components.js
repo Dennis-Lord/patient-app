@@ -2,6 +2,7 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { LightFont, MediumFont, SemiBoldFont, SemiFont, SemiLightFont } from './Font-components'
 import { windowHeight, windowWidth } from '../templates/template'
+import { iconColor } from '../templates/template'
 
 // icon import
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
@@ -47,7 +48,7 @@ const NavCard_s = ({cardText, nav, navigateTo}) => {
 const ProfileCard = ({name, value, icon}) => {
     return(
         <View style={styles.profileCardContainer}>
-            <MaterialCommunityIcons name={icon} size={24} color="#404040" />
+            <MaterialCommunityIcons name={icon} size={24} color={iconColor.c} />
             <View style={styles.br} />
             <MediumFont text={name}/>
             <View style={styles.textAlign}>
@@ -60,20 +61,20 @@ const ProfileCard = ({name, value, icon}) => {
 const OptionsCard = ({iconName, option, o, s}) => {
     return(o === "a" ?
             <View style={styles.optionsContainer}>
-            <MaterialCommunityIcons name={iconName} size={s} color="#404040" />
+            <MaterialCommunityIcons name={iconName} size={s} color={iconColor.c} />
             <View style={styles.br}/>
             <MediumFont text={option}/>
         </View> 
         : 
         o === "b" ?
         <View style={styles.optionsContainerB}>
-            <MaterialCommunityIcons name={iconName} size={s} color="#404040" />
+            <MaterialCommunityIcons name={iconName} size={s} color={iconColor.c} />
             <View style={styles.br}/>
             <SemiLightFont text={option}/>
         </View>
         :
         <View style={styles.optionsContainer}>
-            <MaterialCommunityIcons name={iconName} size={s} color="#404040" />
+            <MaterialCommunityIcons name={iconName} size={s} color={iconColor.c} />
             <View style={styles.br}/>
             <SemiFont text={option}/>
         </View> 
@@ -84,7 +85,7 @@ const DownloadCard = () => {
     return ( 
         <View style={styles.downloadContainer}>
             <View style={styles.di_container}>
-                <MaterialCommunityIcons name={'download'} size={24} color="#404040" />
+                <MaterialCommunityIcons name={'download'} size={24} color={iconColor.c} />
             </View>
             <View style={styles.br} />
             <MediumFont text={'lab_report.pdf'}/>
@@ -96,7 +97,7 @@ const DrugCard = ({icon, name, dose, time, date}) => {
     return ( 
         <View style={styles.downloadContainer}>
             <View style={styles.di_container}>
-                <MaterialCommunityIcons name={icon} size={24} color="#404040" />
+                <MaterialCommunityIcons name={icon} size={24} color={iconColor.c} />
             </View>
             <View style={styles.d_c}>
                 <SemiLightFont text={name}/>
@@ -125,6 +126,46 @@ const VisitsCard = () => {
             </View>
         </View>
     );
+}
+
+const AnalysisDetailsCard = ({icon, label, value, option}) => {
+    return ( option === 'a' ? 
+        <View style={styles.ad_Container}>
+            <View style={styles.di_container}>
+                <MaterialCommunityIcons name={icon} size={24} color={iconColor.c} />
+            </View>
+            <View style={styles.d_c}>
+                <LightFont text={label}/>
+                <SemiLightFont text={value}/>
+            </View>
+        </View>
+        :
+        <View style={styles.ad_Container}>
+            <View style={styles.di_container}>
+                <MaterialCommunityIcons name={icon} size={24} color={iconColor.c} />
+            </View>
+            <View style={styles.d_c}>
+                <SemiLightFont text={label}/>
+                <LightFont text={value}/>
+            </View>
+        </View>
+     );
+}
+
+const InvestigationCard = ({test, resultObserved, flag, unit, refRange}) => {
+    return ( 
+        <View style={styles.i_c}>
+            <View style={styles.i_c_l}>
+                <SemiFont text={'WBC'}/>
+                <LightFont text={'Normal'}/>
+            </View>
+            <View style={styles.i_c_r}>
+                <SemiLightFont text={'10^9L'}/>
+                <LightFont text={'4.0-10.0'}/>
+            </View>
+        </View>
+    );
+
 }
 
 const styles = StyleSheet.create({
@@ -204,9 +245,18 @@ const styles = StyleSheet.create({
     },
     downloadContainer: {
         width: '100%',
-        height: 64,
+        height: 58,
         borderWidth: 2,
         borderColor: 'gray',
+        borderRadius: 10,
+        padding: 8,
+        flexDirection: 'row',
+        marginVertical: 8,
+        alignItems: 'center'
+    },
+    ad_Container: {
+        flexGrow: 1,
+        height: 64,
         borderRadius: 10,
         padding: 8,
         flexDirection: 'row',
@@ -217,7 +267,7 @@ const styles = StyleSheet.create({
         width: 42,
         height: 42,
         borderRadius: 8,
-        backgroundColor: 'gray',
+        backgroundColor: iconColor.bg,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -250,7 +300,24 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         marginRight: 8
+    },
+    i_c: {
+        width: '100%',
+        height: 64,
+        padding: 8,
+        flexDirection: 'row',
+        marginVertical: 4,
+        alignItems: 'center',
+        borderBottomWidth: 1.5,
+        borderBottomColor: 'gray'
+    },
+    i_c_l: {
+        width: '70%',
+        height: '100%',
+    },
+    i_c_r: {
+        flex: 1,
     }
 })
 
-export {MainCard, NavCard, NavCard_s, ProfileCard, OptionsCard, SponsorCard, DownloadCard, DrugCard, VisitsCard}
+export {MainCard, NavCard, NavCard_s, ProfileCard, OptionsCard, SponsorCard, DownloadCard, DrugCard, VisitsCard, AnalysisDetailsCard, InvestigationCard}
