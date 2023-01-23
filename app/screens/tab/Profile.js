@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, ScrollView, View } from 'react-native'
 import React from 'react'
 import { HeroFont, SemiFont, MediumFont, LightFont } from '../../components/Font-components'
 import { ProfileCard } from '../../components/Card-components'
@@ -21,9 +21,11 @@ const ProfileScreen = () => {
         <LightFont text={"02.04.2022"}/>
       </View>
       <View style={styles.profile}>
+        <ScrollView>
         {
           profileObject.map(({n,v, i}) => <ProfileCard key={n} name={n} value={v} icon={i}/>)
         }
+        </ScrollView>
       </View>
     </View>
   )
@@ -34,7 +36,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 40,
     display: 'flex',
-    paddingHorizontal: 20,
+    paddingHorizontal: 18,
   },
   container: {
     width: '100%',

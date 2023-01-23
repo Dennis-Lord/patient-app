@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { HeroFont, MediumFont} from '../../components/Font-components'
 import { SponsorCard, OptionsCard } from '../../components/Card-components';
@@ -10,7 +10,9 @@ const SponsorsScreen = () => {
       <View style={styles.header}>
         <HeroFont text={"Sponsors"}/>
         <View style={styles.editButton}>
-          <OptionsCard iconName={"file-edit"} option={"Edit"}/>
+          <TouchableOpacity>
+          <OptionsCard iconName={"file-edit"} option={"Edit"} s={24}/>
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.sponsorsContainer}>

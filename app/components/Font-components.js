@@ -31,6 +31,12 @@ const LightFont = ({text}) => {
   )
 }
 
+const SemiLightFont = ({text}) => {
+  return (
+      <Text style={fontStyle.semiLightFont}>{text}</Text>
+  )
+}
+
 
 const fontStyle = StyleSheet.create({
   heroFont: {
@@ -57,7 +63,11 @@ const fontStyle = StyleSheet.create({
     fontSize: 14, 
     fontWeight: '600',
   },
+  semiLightFont: {
+    fontSize: 16, 
+    fontWeight: '600',
+  },
   
 })
 
-export {HeroFont, MediumFont, SemiBoldFont, SemiFont, LightFont};
+export {HeroFont, MediumFont, SemiBoldFont, SemiFont, LightFont, SemiLightFont};

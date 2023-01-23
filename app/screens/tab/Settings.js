@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 // component imports
 import { HeroFont, SemiFont } from '../../components/Font-components'
@@ -12,10 +12,15 @@ const SettingsScreen = () => {
     <View style={styles.screenView}>
       <HeroFont text={"Settings"}/>
       <View style={styles.optionsContainer}>
-        {optionsObject.map(({iconName, option}) => <OptionsCard key={option} iconName={iconName} option={option} s={24} o={'a'}/>)}
+        {optionsObject.map(({iconName, option}) => 
+        <TouchableOpacity key={option} >
+          <OptionsCard iconName={iconName} option={option} s={24} o={'a'}/>
+        </TouchableOpacity>)}
       </View>
       <View style={styles.br}/>
+      <TouchableOpacity>
       <OptionsCard iconName={"logout"} option={"Log out"} s={24} o={'a'}/>
+      </TouchableOpacity>
     </View>
   )
 }

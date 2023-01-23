@@ -1,18 +1,12 @@
 import { View, StyleSheet, Animated, TouchableOpacity, StatusBar} from 'react-native'
 import * as React from 'react';
-import { HeroFont, SemiFont } from '../../../components/Font-components'
+import { HeroFont, LightFont } from '../../../components/Font-components'
 import { OptionsCard } from '../../../components/Card-components';
 import { TabView, SceneMap } from 'react-native-tab-view';
 
-const FirstRoute = () => (
-  <View style={[styles.container]} />
-);
-const SecondRoute = () => (
-  <View style={[styles.container]} />
-);
-const ThirdRoute = () => (
-  <View style={[styles.container]} />
-);
+import FirstRoute from './tabView/First';
+import SecondRoute from './tabView/Second';
+import ThirdRoute from './tabView/Third';
 
 class TabViewExample extends React.Component {
   state = {
@@ -35,9 +29,9 @@ class TabViewExample extends React.Component {
           const opacity = props.position.interpolate({
             inputRange,
             outputRange: inputRange.map((inputIndex) =>
-              inputIndex === i ? 1 : 0.5
+              inputIndex === i ? 1 : 0.4
             ),
-          });
+          }) ;
 
           return (
             <TouchableOpacity
@@ -45,7 +39,7 @@ class TabViewExample extends React.Component {
               style={styles.tabItem}
               onPress={() => this.setState({ index: i })}>
               <Animated.View style={{ opacity }}>
-              <SemiFont text={route.title}/>
+              <LightFont text={route.title}/>
               </Animated.View>
             </TouchableOpacity>
           );
@@ -100,14 +94,14 @@ const styles = StyleSheet.create({
   },
   tabViewContainer: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: 'black'
-  },
-  container: {
-    flex: 1,
   },
   tabBar: {
     flexDirection: 'row',
+    borderRadius: 8,
+    borderWidth: 2,
+    borderColor: 'gray',
+    height: 40,
+    alignItems: 'center'
   },
   tabItem: {
     flex: 1,

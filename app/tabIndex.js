@@ -6,7 +6,6 @@ import SponsorsScreen from './screens/tab/Sponsors';
 import SettingsScreen from './screens/tab/Settings';
 
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { windowWidth } from './templates/template';
 import NavIndex from './screens/tab/navIndex';
 
 function MyTabBar({ state, descriptors, navigation }) {
