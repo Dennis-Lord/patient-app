@@ -75,7 +75,7 @@ const optionsObject = [
 ];
 
 const iconColor = {
-    bg: '#f4f4f5',
+    bg: '#d4d4d4',
     c: '#52525b',
 }
 

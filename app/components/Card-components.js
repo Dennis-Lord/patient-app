@@ -168,6 +168,7 @@ const InvestigationCard = ({test, resultObserved, flag, unit, refRange}) => {
 
 }
 
+
 const styles = StyleSheet.create({
     mainCard: {
         width: (windowWidth - 30),

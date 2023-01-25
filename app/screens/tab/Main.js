@@ -3,23 +3,25 @@ import React from 'react'
 import { MainCard, NavCard, NavCard_s } from '../../components/Card-components'
 import { HeroFont } from '../../components/Font-components'
 import Analysis from './sub/Analysis'
+import Referrals from './sub/Referrals'
 
 const MainScreen = ({navigation}) => {
   return (
-    <View style={screenstyle.screenView}>
-      <View style={screenstyle.heroPos}>
-        <HeroFont text={'Meddocs'}/>
-      </View>
-      <MainCard />
-      <View style={screenstyle.container}>
-        <NavCard cardText={'Medical history'} nav={navigation} navigateTo={"ListScreen"}/>
-        <NavCard cardText={'Analysis'} nav={navigation} navigateTo={"Analysis"}/>
-        <View style={screenstyle.flexContainer}>
-        <NavCard_s cardText={'Documents'} nav={navigation} navigateTo={"ListScreen"}/>
-        <NavCard_s cardText={'Referrals'} nav={navigation} navigateTo={"ListScreen"}/>
-        </View>
-      </View>
-    </View>
+    // <View style={screenstyle.screenView}>
+    //   <View style={screenstyle.heroPos}>
+    //     <HeroFont text={'Meddocs'}/>
+    //   </View>
+    //   <MainCard />
+    //   <View style={screenstyle.container}>
+    //     <NavCard cardText={'Medical history'} nav={navigation} navigateTo={"ListScreen"}/>
+    //     <NavCard cardText={'Analysis'} nav={navigation} navigateTo={"Analysis"}/>
+    //     <View style={screenstyle.flexContainer}>
+    //     <NavCard_s cardText={'Documents'} nav={navigation} navigateTo={"ListScreen"}/>
+    //     <NavCard_s cardText={'Referrals'} nav={navigation} navigateTo={"Referrals"}/>
+    //     </View>
+    //   </View>
+    // </View>
+    <Referrals />
   )
 }
 
