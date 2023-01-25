@@ -9,6 +9,7 @@ import ListScreen from './sub/ListScreen';
 import MedicalFile from './sub/MedicalFile';
 import Analysis from './sub/Analysis';
 import Referrals from './sub/Referrals';
+import Documents from './sub/Documents';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,8 +20,9 @@ const NavIndex = () => {
         <Stack.Screen name="Index" component={MainScreen} />
         <Stack.Screen name="Analysis" component={Analysis} />
         <Stack.Screen name="ListScreen" component={ListScreen} />
-        <Stack.Screen name="MedicalHistory" component={MedicalFile} />
+        <Stack.Screen name="MedicalFile" component={MedicalFile} />
         <Stack.Screen name="Referrals" component={Referrals} />
+        <Stack.Screen name="Documents" component={Documents} />
       </Stack.Navigator>
   )
 };

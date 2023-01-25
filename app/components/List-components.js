@@ -22,7 +22,9 @@ const FlagComponent = ({flag}) => {
 
 
 
-const FilterFileCard = ({nav, route}) => {
+const FilterFileCard = ({nav, route, data}) => {
+  const dataFile = data;
+  
   return (
     <TouchableOpacity onPress={() => nav.navigate(route)}>
       <View style={styles.cardContainer}>

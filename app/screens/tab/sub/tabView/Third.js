@@ -5,7 +5,7 @@ import { VisitsCard } from '../../../../components/Card-components'
 
 const ThirdRoute = () => {
   return (
-    <ScrollView style={styles.container}>    
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>    
       <MediumFont text={'Date'}/>
       <VisitsCard />
     </ScrollView>

@@ -5,7 +5,7 @@ import { DrugCard } from '../../../../components/Card-components'
 
 const SecondRoute = () => {
   return (
-    <ScrollView style={styles.container}> 
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}> 
       <View style={styles.dateFrameContainer}>
         <View style={styles.downloadWrapper}>
           <LightFont text={'begun'}/>

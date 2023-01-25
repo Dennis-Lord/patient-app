@@ -4,7 +4,7 @@
  * font & view components - #
  * build tab screens - #
  * bottom tab navigation - #
- * main sub, profile ... settings sub screens
+ * main sub, profile ... settings sub screens - #
  * hardcoded data object insertion to all variables
  * unit testing
  * color scheme

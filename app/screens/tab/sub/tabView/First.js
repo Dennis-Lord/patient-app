@@ -5,7 +5,7 @@ import { DownloadCard, OptionsCard } from '../../../../components/Card-component
 
 const FirstRoute = () => {
   return (
-    <ScrollView style={styles.container}>    
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>    
     <View style={styles.diagnosisContainer}>
       <MediumFont text={"Diagnosis"}/>
       <LightFont text={"Corona virus infection"}/>

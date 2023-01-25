@@ -21,9 +21,12 @@ const SponsorCard = () => {
   )
 }
 
-const NavCard = ({cardText, nav, navigateTo}) => {
+const NavCard = ({cardText, nav, routeProps}) => {
+    const r = routeProps.route
+    const dataObject = routeProps.r_props
+
     return (
-        <TouchableOpacity onPress={() => nav.navigate(navigateTo)}>
+        <TouchableOpacity onPress={() => nav.navigate(r, {dataObject})}>
             <View style={styles.navCard}>
                 <View style={styles.navtextPos}>
                     <MediumFont text={cardText}/>
@@ -33,9 +36,11 @@ const NavCard = ({cardText, nav, navigateTo}) => {
     )
 }
 
-const NavCard_s = ({cardText, nav, navigateTo}) => {
+const NavCard_s = ({cardText, nav, routeProps}) => {
+    const r = routeProps.route
+    const dataObject = routeProps.r_props
     return (
-        <TouchableOpacity onPress={() => nav.navigate(navigateTo)}>
+        <TouchableOpacity onPress={() => nav.navigate(r, {dataObject})}>
             <View style={styles.navCard_s}>
                 <View style={styles.navtextPos_s}>
                     <MediumFont text={cardText}/>

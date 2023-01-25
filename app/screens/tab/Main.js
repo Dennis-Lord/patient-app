@@ -1,27 +1,61 @@
-import { StyleSheet, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { MainCard, NavCard, NavCard_s } from '../../components/Card-components'
 import { HeroFont } from '../../components/Font-components'
-import Analysis from './sub/Analysis'
-import Referrals from './sub/Referrals'
+import h_db from '../../templates/dbTemplate'
 
 const MainScreen = ({navigation}) => {
+  const {medical_files} = h_db.medical_folder;
+  const {analysis_files} = h_db.medical_folder;
+  const {referrals} = h_db.medical_folder;
+
+  const routeprops = {
+    route: 'ListScreen',
+    r_props: {
+      title: 'Medical history',
+      sub_route: 'MedicalFile',
+      data: medical_files,
+    },
+  }
+  const routeprops_a = {
+    route: 'ListScreen',
+    r_props: {
+      title: 'Analysis',
+      sub_route: 'Analysis',
+      data: analysis_files,
+    },
+  }
+  const routeprops_b = {
+    route: 'ListScreen',
+    r_props: {
+      title: 'Referrals',
+      sub_route: 'Referrals',
+      data: referrals,
+    },
+  }
+  const routeprops_c = {
+    route: 'Documents',
+    r_props: {
+      title: 'Documents',
+      sub_route: 'Documents',
+      data: ['a', 'b', 'c'],
+    },
+  }
   return (
-    // <View style={screenstyle.screenView}>
-    //   <View style={screenstyle.heroPos}>
-    //     <HeroFont text={'Meddocs'}/>
-    //   </View>
-    //   <MainCard />
-    //   <View style={screenstyle.container}>
-    //     <NavCard cardText={'Medical history'} nav={navigation} navigateTo={"ListScreen"}/>
-    //     <NavCard cardText={'Analysis'} nav={navigation} navigateTo={"Analysis"}/>
-    //     <View style={screenstyle.flexContainer}>
-    //     <NavCard_s cardText={'Documents'} nav={navigation} navigateTo={"ListScreen"}/>
-    //     <NavCard_s cardText={'Referrals'} nav={navigation} navigateTo={"Referrals"}/>
-    //     </View>
-    //   </View>
-    // </View>
-    <Referrals />
+    <View style={screenstyle.screenView}>
+      <View style={screenstyle.heroPos}>
+        <HeroFont text={'Meddocs'}/>
+      </View>
+      <MainCard />
+      <View style={screenstyle.container}>
+        <NavCard cardText={'Medical history'} nav={navigation} routeProps={routeprops}/>
+        <NavCard cardText={'Analysis'} nav={navigation} routeProps={routeprops_a}/>
+        <View style={screenstyle.flexContainer}>
+        <NavCard_s cardText={'Documents'} nav={navigation} routeProps={routeprops_c}/>
+        <NavCard_s cardText={'Referrals'} nav={navigation} routeProps={routeprops_b}/>
+        </View>
+      </View>
+    </View>
   )
 }
 

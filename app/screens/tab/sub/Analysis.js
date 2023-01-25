@@ -30,15 +30,7 @@ const Analysis = () => {
                 </View>
             </TouchableOpacity>
         </View>
-        <ScrollView>
-            <InvestigationCard />
-            <InvestigationCard />
-            <InvestigationCard />
-            <InvestigationCard />
-            <InvestigationCard />
-            <InvestigationCard />
-            <InvestigationCard />
-            <InvestigationCard />
+        <ScrollView showsVerticalScrollIndicator={false}>
             <InvestigationCard />
         </ScrollView>
     </View>
