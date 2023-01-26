@@ -77,15 +77,17 @@ const optionsObject = [
 const iconColor = {
     bg: '#d4d4d4',
     c: '#52525b',
+    gbg: '#d9f99d',
+    gc: '#16BC00',
+    rc: '#F83434',
+    rbg: '#FCB4B4'
 }
 
 const fontColor = {
     p: '#171717',
     s: '#404040',
-    gbg: '',
-    g: '',
-    rbg: '',
-    r: '',
+    g: '#57F834',
+    r: '#F84134',
 }
 
 export {windowWidth, profileObject, optionsObject, windowHeight, iconColor}
