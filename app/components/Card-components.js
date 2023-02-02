@@ -63,25 +63,25 @@ const ProfileCard = ({name, value, icon}) => {
     )
 }
 
-const OptionsCard = ({iconName, option, o, s}) => {
+const OptionsCard = ({iconName, option, o, s, tc}) => {
     return(o === "a" ?
             <View style={styles.optionsContainer}>
             <MaterialCommunityIcons name={iconName} size={s} color={iconColor.c} />
             <View style={styles.br}/>
-            <MediumFont text={option}/>
+            <MediumFont text={option} tc={tc}/>
         </View> 
         : 
         o === "b" ?
         <View style={styles.optionsContainerB}>
             <MaterialCommunityIcons name={iconName} size={s} color={iconColor.c} />
             <View style={styles.br}/>
-            <SemiLightFont text={option}/>
+            <SemiLightFont text={option} tc={tc}/>
         </View>
         :
         <View style={styles.optionsContainer}>
             <MaterialCommunityIcons name={iconName} size={s} color={iconColor.c} />
             <View style={styles.br}/>
-            <SemiFont text={option}/>
+            <SemiFont text={option} tc={tc}/>
         </View> 
     )
 }
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 105,
         borderRadius: 10,
-        borderWidth: 3,
+        borderWidth: 2,
         borderColor: iconColor.bgd,
         padding: 6,
         marginBottom: 12,
@@ -216,6 +216,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: iconColor.bgd,
         padding: 6,
+        marginTop: 2,
     },
     navtextPos_s: {
         position: 'absolute',

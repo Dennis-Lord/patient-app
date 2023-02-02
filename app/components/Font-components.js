@@ -1,39 +1,39 @@
 import { Text, StyleSheet } from 'react-native'
 import React from 'react'
 
-const HeroFont = ({text}) => {
+const HeroFont = ({text, tc}) => {
   return (
-      <Text style={fontStyle.heroFont}>{text}</Text>
+      <Text style={[fontStyle.heroFont, {color: tc}]}>{text}</Text>
   )
 }
 
-const MediumFont = ({text}) => {
+const MediumFont = ({text, tc}) => {
   return (
-      <Text style={fontStyle.mediumFont}>{text}</Text>
+      <Text style={[fontStyle.mediumFont, {color: tc}]}>{text}</Text>
   )
 }
 
-const SemiBoldFont = ({text}) => {
+const SemiBoldFont = ({text, tc}) => {
   return (
-      <Text style={fontStyle.semiboldFont}>{text}</Text>
+      <Text style={[fontStyle.semiboldFont, {color: tc}]}>{text}</Text>
   )
 }
 
-const SemiFont = ({text}) => {
+const SemiFont = ({text, tc}) => {
   return (
-      <Text style={fontStyle.semiFont}>{text}</Text>
+      <Text style={[fontStyle.semiFont, {color: tc}]}>{text}</Text>
   )
 }
 
-const LightFont = ({text}) => {
+const LightFont = ({text, tc}) => {
   return (
-      <Text style={fontStyle.lightFont}>{text}</Text>
+      <Text style={[fontStyle.lightFont, {color: tc}]}>{text}</Text>
   )
 }
 
-const SemiLightFont = ({text}) => {
+const SemiLightFont = ({text, tc}) => {
   return (
-      <Text style={fontStyle.semiLightFont}>{text}</Text>
+      <Text style={[fontStyle.semiLightFont, {color: tc}]}>{text}</Text>
   )
 }
 

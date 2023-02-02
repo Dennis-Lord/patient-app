@@ -1,9 +1,10 @@
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { windowWidth } from '../templates/template'
+import { fontColor, windowWidth, downoadOption } from '../templates/template'
 import { LightFont, MediumFont } from './Font-components'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { iconColor } from '../templates/template';
+import { OptionsCard } from './Card-components';
 
 const FilterOption = ({filter}) => {
   return (
@@ -49,11 +50,26 @@ const FilterFileCard = ({nav, route, data}) => {
           <LightFont text={"since 20.04.2022"}/>
         </View>
       </View>
+      <View style={styles.optContainer}>
+        <MoreOptions />
+      </View>
     </TouchableOpacity>
   )
 }
 
-
+const MoreOptions = () => {
+  return(
+    <View style={styles.moreOptContainer}>
+      {
+        downoadOption.map((iconName, option) => {
+          <TouchableOpacity key={option}>
+            <OptionsCard iconName={iconName} option={option} s={24} o={'a'}/>
+          </TouchableOpacity>
+        })
+      }
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -98,7 +114,18 @@ const styles = StyleSheet.create({
       paddingLeft: 10,
       flexDirection: 'row',
       justifyContent: 'space-between',
+    },
+    moreOptContainer: {
+      width: 200,
+      height: 160,
+      borderRadius: 18,
+      backgroundColor: fontColor.w,
+    },
+    optContainer: {
+      position: 'absolute',
+      right: 18,
+      top: 32,
     }
 })
 
-export {FilterOption, FilterFileCard}
+export {FilterOption, FilterFileCard, MoreOptions}

@@ -3,24 +3,31 @@ import React from 'react'
 // component imports
 import { HeroFont, SemiFont } from '../../components/Font-components'
 import { OptionsCard } from '../../components/Card-components'
+import { wrapper } from '../../templates/template'
 
 // template imports
-import { optionsObject } from '../../templates/template'
+import { optionsObject, fontColor, iconColor } from '../../templates/template'
 
 const SettingsScreen = () => {
   return (
     <View style={styles.screenView}>
-      <HeroFont text={"Settings"}/>
-      <View style={styles.optionsContainer}>
-        {optionsObject.map(({iconName, option}) => 
-        <TouchableOpacity key={option} >
-          <OptionsCard iconName={iconName} option={option} s={24} o={'a'}/>
-        </TouchableOpacity>)}
+      <View style={[wrapper.heroPos, {marginLeft: 20}]}>
+        <HeroFont text={'Settings'} tc={fontColor.w}/>
       </View>
+      <View style={[styles.optionsContainer, wrapper.bw]}>
+        
+          {optionsObject.map(({iconName, option}) =>
+          <View style={{marginVertical: 10}}> 
+            <TouchableOpacity key={option} >
+              <OptionsCard iconName={iconName} option={option} s={24} o={'a'}/>
+            </TouchableOpacity>
+          </View>
+          )}
       <View style={styles.br}/>
       <TouchableOpacity>
-      <OptionsCard iconName={"logout"} option={"Log out"} s={24} o={'a'}/>
+        <OptionsCard iconName={"logout"} option={"Log out"} s={24} o={'a'}/>
       </TouchableOpacity>
+      </View>
     </View>
   )
 }
@@ -28,14 +35,14 @@ const SettingsScreen = () => {
 const styles = StyleSheet.create({
   screenView: {
     flex: 1,
-    marginTop: 40,
-    display: 'flex',
-    paddingHorizontal: 20,
+    paddingTop: 40,
+    backgroundColor: iconColor.gbgd
   },
   optionsContainer: {
-    height: 210,
-    justifyContent: 'space-between',
-    marginTop: 50,
+    flex: 1,
+    backgroundColor: fontColor.w,
+    paddingHorizontal: 20,
+    paddingVertical: 20,
   },
   br: {
     height: 60,

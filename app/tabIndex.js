@@ -7,6 +7,7 @@ import SettingsScreen from './screens/tab/Settings';
 
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import NavIndex from './screens/tab/navIndex';
+import { iconColor } from './templates/template';
 
 function MyTabBar({ state, descriptors, navigation }) {
   return (
@@ -54,7 +55,7 @@ function MyTabBar({ state, descriptors, navigation }) {
             onLongPress={onLongPress}
             style={{paddingHorizontal: 4}}
           >
-            <Text style={{ color: isFocused ? '#16a34a' : '#44403c', fontSize: 16, fontWeight: '600', }}>
+            <Text style={{ color: isFocused ? iconColor.gbgd : '#44403c', fontSize: 16, fontWeight: '600', }}>
               {label}
             </Text>
           </TouchableOpacity>
@@ -88,7 +89,8 @@ const tabStyles = StyleSheet.create({
         height: 50,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        backgroundColor: '#fff',
     },
 })
 

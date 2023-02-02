@@ -1,4 +1,5 @@
 import { Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -74,14 +75,27 @@ const optionsObject = [
     },
 ];
 
+const downoadOption = [
+    {
+        iconName: '',
+        option: 'Download'
+    },
+    {
+        iconName: '',
+        option: 'Share'
+    },
+]
+
 const iconColor = {
     bg: '#d4d4d4',
     bgd: '#a3a3a3',
     c: '#52525b',
     gbg: '#d9f99d',
+    gbgd: '#15803d',
     gc: '#16BC00',
     rc: '#F83434',
-    rbg: '#FCB4B4'
+    rbg: '#FCB4B4',
+    bgw: '#fff'
 }
 
 const fontColor = {
@@ -89,6 +103,20 @@ const fontColor = {
     s: '#404040',
     g: '#57F834',
     r: '#F84134',
+    w: '#fff'
 }
 
-export {windowWidth, profileObject, optionsObject, windowHeight, iconColor}
+const wrapper = StyleSheet.create({
+    bw: {
+        backgroundColor: '#fff',
+        borderTopRightRadius: 18,
+        borderTopLeftRadius: 18
+    },
+    heroPos: {
+        marginTop: 6,
+        marginBottom: 18,
+        
+      },
+})
+
+export {windowWidth, profileObject, optionsObject, windowHeight, iconColor, fontColor, wrapper, downoadOption}

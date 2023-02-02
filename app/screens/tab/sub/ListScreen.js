@@ -2,6 +2,7 @@ import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { HeroFont } from '../../../components/Font-components'
 import { FilterFileCard, FilterOption } from '../../../components/List-components'
+import { fontColor, iconColor, wrapper } from '../../../templates/template'
 
 const ListScreen = ({navigation, route}) => {
   // let keyHolder;
@@ -20,13 +21,17 @@ const ListScreen = ({navigation, route}) => {
   console.log(dataFiles)
   return (
     <View style={listStyles.screenView}>
-      <HeroFont text={h_title}/>
-      <View style={listStyles.filterContainer}>
-        <FilterOption filter={"Folders"}/>
-        <FilterOption filter={"Folders"}/>
+      <View style={[wrapper.heroPos, {marginLeft: 20,}]}>
+        <HeroFont text={'Medical history'} tc={fontColor.w}/>
       </View>
-      <View style={listStyles.listContainer}>
-        {dataFiles.map((d, i) => <FilterFileCard key={i} nav={navigation} route={sub_route} data={d}/>)}
+        <View style={listStyles.filterContainer}>
+          <FilterOption filter={"Folders"}/>
+          <FilterOption filter={"Folders"}/>
+        </View>
+      <View style={[wrapper.bw, listStyles.listWrapper]}>
+        <View style={listStyles.listContainer}>
+          {dataFiles.map((d, i) => <FilterFileCard key={i} nav={navigation} route={sub_route} data={d}/>)}
+        </View>
       </View>
     </View>
   )
@@ -35,18 +40,23 @@ const ListScreen = ({navigation, route}) => {
 const listStyles = StyleSheet.create({
     screenView: {
         flex: 1,
-        marginTop: 40,
+        paddingTop: 40,
         display: 'flex',
+        backgroundColor: iconColor.gbgd,
+      },
+        listWrapper: {
+        flex: 1,
         paddingHorizontal: 20,
+        marginTop: 10,
       },
       filterContainer: {
         width: "100%",
-        marginTop: 14,
         flexDirection: 'row',
         justifyContent: 'space-between',
+        paddingHorizontal: 20
       },
       listContainer: {
-        marginTop: 26,
+        marginTop: 20,
         flex: 1,
       }
 })

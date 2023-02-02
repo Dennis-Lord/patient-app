@@ -3,6 +3,7 @@ import React from 'react'
 import { MainCard, NavCard, NavCard_s } from '../../components/Card-components'
 import { HeroFont } from '../../components/Font-components'
 import h_db from '../../templates/dbTemplate'
+import { iconColor, fontColor, wrapper } from '../../templates/template'
 
 const MainScreen = ({navigation}) => {
   const {medical_files} = h_db.medical_folder;
@@ -44,13 +45,13 @@ const MainScreen = ({navigation}) => {
   }
   return (
     <View style={screenstyle.screenView}>
-      <View style={screenstyle.heroPos}>
-        <HeroFont text={'Meddocs'}/>
+      <View style={[wrapper.heroPos, {position: 'relative', right: '30%',}]}>
+        <HeroFont text={'Meddocs'} tc={fontColor.w}/>
       </View>
       <View>
       <MainCard />
       </View>
-      <View style={screenstyle.container}>
+      <View style={[screenstyle.container, wrapper.bw]}>
         <NavCard cardText={'Medical history'} nav={navigation} routeProps={routeprops}/>
         <NavCard cardText={'Analysis'} nav={navigation} routeProps={routeprops_a}/>
         <View style={screenstyle.flexContainer}>
@@ -65,24 +66,18 @@ const MainScreen = ({navigation}) => {
 const screenstyle = StyleSheet.create({
   screenView: {
     flex: 1,
-    marginTop: 40,
+    paddingTop: 40,
     display: 'flex',
     alignItems: 'center',
-  },
-  heroPos: {
-    marginTop: 6,
-    marginBottom: 18,
-    position: 'relative',
-    right: '30%',
+    backgroundColor: iconColor.gbgd
   },
   container: {
     width: '100%',
+    flex: 1,
     display: 'flex',
-    marginTop: 22,
-    padding: 18,
+    marginTop: 20,
+    padding: 20,
     flexDirection: 'column',
-    borderTopWidth: 1,
-    borderTopColor: '#707070',
   },
   flexContainer: {
     display: 'flex',

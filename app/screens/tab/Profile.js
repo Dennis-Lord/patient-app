@@ -2,30 +2,34 @@ import { StyleSheet, ScrollView, View } from 'react-native'
 import React from 'react'
 import { HeroFont, SemiFont, MediumFont, LightFont } from '../../components/Font-components'
 import { ProfileCard } from '../../components/Card-components'
-import { profileObject } from '../../templates/template'
+import { profileObject, fontColor, iconColor, wrapper } from '../../templates/template'
 
 const ProfileScreen = () => {
   return (
     <View style={styles.screenView}>
-      <HeroFont text={"Profile"}/>
-      <View style={styles.container}>
-        <View style={styles.img}/>
-        <View style={styles.subContainer}>
-          <MediumFont text={"Provider"}/>
-          <SemiFont text={"Fankyenebra Hospital"}/>
+      <View style={[wrapper.heroPos, {marginLeft: 20,}]}>
+        <HeroFont text={'Profile'} tc={fontColor.w}/>
+      </View>
+      <View style={[styles.cWrapper, wrapper.bw]}>
+        <View style={styles.container}>
+          <View style={styles.img}/>
+          <View style={styles.subContainer}>
+            <MediumFont text={"Provider"}/>
+            <SemiFont text={"Fankyenebra Hospital"}/>
+          </View>
         </View>
-      </View>
-      <View style={styles.dateContainer}>
-        <LightFont text={"Date generated"}/>
-        <View style={styles.br} />
-        <LightFont text={"02.04.2022"}/>
-      </View>
-      <View style={styles.profile}>
-        <ScrollView>
-        {
-          profileObject.map(({n,v, i}) => <ProfileCard key={n} name={n} value={v} icon={i}/>)
-        }
-        </ScrollView>
+        <View style={styles.dateContainer}>
+          <LightFont text={"Date generated"}/>
+          <View style={styles.br} />
+          <LightFont text={"02.04.2022"}/>
+        </View>
+        <View style={styles.profile}>
+          <ScrollView showsVerticalScrollIndicator={false}>
+          {
+            profileObject.map(({n,v, i}) => <ProfileCard key={n} name={n} value={v} icon={i}/>)
+          }
+          </ScrollView>
+        </View>
       </View>
     </View>
   )
@@ -34,8 +38,13 @@ const ProfileScreen = () => {
 const styles = StyleSheet.create({
   screenView: {
     flex: 1,
-    marginTop: 40,
+    paddingTop: 40,
     display: 'flex',
+    backgroundColor: iconColor.gbgd
+  },
+  cWrapper: {
+    backgroundColor: iconColor.bgw,
+    flex: 1,
     paddingHorizontal: 18,
   },
   container: {
@@ -44,6 +53,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     display: 'flex',
     flexDirection: 'row',
+    backgroundColor: iconColor.bgw
   },
   img: {
     width: '45%',

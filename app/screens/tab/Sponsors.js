@@ -2,20 +2,21 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { HeroFont, MediumFont} from '../../components/Font-components'
 import { SponsorCard, OptionsCard } from '../../components/Card-components';
+import { fontColor, iconColor, wrapper } from '../../templates/template';
 
 
 const SponsorsScreen = () => {
   return (
     <View style={styles.screenView}>
       <View style={styles.header}>
-        <HeroFont text={"Sponsors"}/>
+        <HeroFont text={"Sponsors"} tc={fontColor.w}/>
         <View style={styles.editButton}>
           <TouchableOpacity>
-          <OptionsCard iconName={"file-edit"} option={"Edit"} s={24}/>
+          <OptionsCard iconName={"file-edit"} option={"Edit"} s={24} o={'a'} tc={fontColor.w}/>
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.sponsorsContainer}>
+      <View style={[styles.sponsorsContainer, wrapper.bw]}>
         <View style={styles.sponsorName}>
           <MediumFont text={"National Health Insurance Scheme"}/>
           <MediumFont text={"NHIS card"}/>
@@ -29,9 +30,9 @@ const SponsorsScreen = () => {
 const styles = StyleSheet.create({
   screenView: {
     flex: 1,
-    marginTop: 40,
+    paddingTop: 40,
     display: 'flex',
-    paddingHorizontal: 20,
+    backgroundColor: iconColor.gbgd
   },
   header: {
     width: '100%',
@@ -39,11 +40,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
+    paddingHorizontal: 20,
   },
   sponsorsContainer: {
     flex: 1,
-    marginTop: 30,
-
+    marginTop: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 14,
   },
   sponsorName: {
     display: 'flex',
