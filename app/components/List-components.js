@@ -3,6 +3,7 @@ import React from 'react'
 import { windowWidth } from '../templates/template'
 import { LightFont, MediumFont } from './Font-components'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { iconColor } from '../templates/template';
 
 const FilterOption = ({filter}) => {
   return (
@@ -13,8 +14,14 @@ const FilterOption = ({filter}) => {
 }
 
 const FlagComponent = ({flag}) => {
+  let bg;
+  if (flag === 'in process') {
+    bg = iconColor.bg
+  } else {
+    bg = iconColor.gbg
+  }
   return (
-    <View style={styles.flagContainer}>
+    <View style={[styles.flagContainer, {backgroundColor: bg}]}>
       <LightFont text={flag}/>
     </View>
   )
@@ -34,7 +41,7 @@ const FilterFileCard = ({nav, route, data}) => {
         </View>
         <View style={styles.rc}>
           <View style={styles.uc}>
-            <FlagComponent flag={"in process"}/>
+            <FlagComponent flag={"completed"}/>
             <TouchableOpacity>
               <MaterialCommunityIcons name="dots-vertical" size={32} color="black" />
             </TouchableOpacity>
@@ -52,7 +59,7 @@ const styles = StyleSheet.create({
     container: {
         width: (windowWidth/4),
         height: 46,
-        backgroundColor: 'gray',
+        backgroundColor: iconColor.bg,
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
@@ -62,21 +69,18 @@ const styles = StyleSheet.create({
         height: 105,
         borderRadius: 10,
         borderWidth: 2,
-        borderColor: '#707070',
+        borderColor: iconColor.bgd,
         padding: 6,
         marginBottom: 12,
         flexDirection: 'row'
     },
     flagContainer: {
-      width: 100,
-      height: 30,
+      width: 102,
+      height: 32,
       borderRadius: 50,
-      borderWidth: 2,
-      borderColor: '#707070',
       alignItems: 'center',
       justifyContent: 'center',
       marginTop: 8,
-      backgroundColor: '#a8a29e'
     },
     lc: {
       width: '50%',

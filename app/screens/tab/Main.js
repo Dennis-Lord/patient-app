@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Image } from 'react-native'
 import React from 'react'
 import { MainCard, NavCard, NavCard_s } from '../../components/Card-components'
 import { HeroFont } from '../../components/Font-components'
@@ -8,6 +8,7 @@ const MainScreen = ({navigation}) => {
   const {medical_files} = h_db.medical_folder;
   const {analysis_files} = h_db.medical_folder;
   const {referrals} = h_db.medical_folder;
+  
 
   const routeprops = {
     route: 'ListScreen',
@@ -46,13 +47,15 @@ const MainScreen = ({navigation}) => {
       <View style={screenstyle.heroPos}>
         <HeroFont text={'Meddocs'}/>
       </View>
+      <View>
       <MainCard />
+      </View>
       <View style={screenstyle.container}>
         <NavCard cardText={'Medical history'} nav={navigation} routeProps={routeprops}/>
         <NavCard cardText={'Analysis'} nav={navigation} routeProps={routeprops_a}/>
         <View style={screenstyle.flexContainer}>
         <NavCard_s cardText={'Documents'} nav={navigation} routeProps={routeprops_c}/>
-        <NavCard_s cardText={'Referrals'} nav={navigation} routeProps={routeprops_b}/>
+        <NavCard_s cardText={'Referrals'} nav={navigation} routeProps={routeprops_b} />
         </View>
       </View>
     </View>

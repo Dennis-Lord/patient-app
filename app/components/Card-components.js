@@ -1,4 +1,4 @@
-import { StyleSheet, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, TouchableOpacity} from 'react-native'
 import React from 'react'
 import { LightFont, MediumFont, SemiBoldFont, SemiFont, SemiLightFont } from './Font-components'
 import { windowHeight, windowWidth } from '../templates/template'
@@ -178,10 +178,10 @@ const styles = StyleSheet.create({
     mainCard: {
         width: (windowWidth - 30),
         height: 149,
-        backgroundColor: '#E8E8E8',
-        borderRadius: 7,
+        backgroundColor: iconColor.bg,
+        borderRadius: 10,
         borderWidth: 2,
-        borderColor: '#707070',
+        borderColor: iconColor.bgd,
     },
     sponsorCard: {
         width: (windowWidth - 30),
@@ -195,22 +195,26 @@ const styles = StyleSheet.create({
     navCard: {
         width: '100%',
         height: 105,
-        borderRadius: 7,
-        borderWidth: 2,
-        borderColor: '#707070',
+        borderRadius: 10,
+        borderWidth: 3,
+        borderColor: iconColor.bgd,
         padding: 6,
         marginBottom: 12,
+        justifyContent: 'center',
     },
     navtextPos: {
         width: 160,
         height: 30,
+        position: 'absolute',
+        top: 6,
+        left: 6
     },
     navCard_s: {
         width: (windowWidth/2.3),
         height: 105,
-        borderRadius: 7,
+        borderRadius: 10,
         borderWidth: 2,
-        borderColor: '#707070',
+        borderColor: iconColor.bgd,
         padding: 6,
     },
     navtextPos_s: {
@@ -298,7 +302,7 @@ const styles = StyleSheet.create({
         width: '78%',
         height: '90%',
         borderRadius: 10,
-        backgroundColor: '#707070',
+        backgroundColor: iconColor.bg,
         justifyContent: 'space-between',
         padding: 12,
     },
@@ -323,7 +327,22 @@ const styles = StyleSheet.create({
     },
     i_c_r: {
         flex: 1,
-    }
+    },
+    img: {
+        width: 94,
+        height: 76,
+        position: 'absolute',
+        right: 2,
+    },
+    img_s: {
+        width: 80,
+        height: 80,
+        position: 'absolute',
+        right: 4,
+        zIndex: -1,
+        top: 6,
+    },
+
 })
 
 export {MainCard, NavCard, NavCard_s, ProfileCard, OptionsCard, SponsorCard, DownloadCard, DrugCard, VisitsCard, AnalysisDetailsCard, InvestigationCard}
