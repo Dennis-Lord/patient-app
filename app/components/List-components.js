@@ -1,6 +1,6 @@
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { fontColor, windowWidth, downoadOption } from '../templates/template'
+import { fontColor, windowWidth, downloadOption } from '../templates/template'
 import { LightFont, MediumFont } from './Font-components'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { iconColor } from '../templates/template';
@@ -33,7 +33,7 @@ const FlagComponent = ({flag}) => {
 const FilterFileCard = ({nav, route, data}) => {
   const dataFile = data;
   
-  return (
+  return (<>
     <TouchableOpacity onPress={() => nav.navigate(route)}>
       <View style={styles.cardContainer}>
         <View style={styles.lc}>
@@ -50,23 +50,23 @@ const FilterFileCard = ({nav, route, data}) => {
           <LightFont text={"since 20.04.2022"}/>
         </View>
       </View>
+    </TouchableOpacity>
       <View style={styles.optContainer}>
         <MoreOptions />
       </View>
-    </TouchableOpacity>
+      </>
   )
 }
 
 const MoreOptions = () => {
   return(
     <View style={styles.moreOptContainer}>
-      {
-        downoadOption.map((iconName, option) => {
-          <TouchableOpacity key={option}>
-            <OptionsCard iconName={iconName} option={option} s={24} o={'a'}/>
-          </TouchableOpacity>
-        })
-      }
+      <TouchableOpacity>  
+        <OptionsCard  iconName={'download'} option={'Download'} s={24} tc={fontColor.p}/>
+      </TouchableOpacity>
+      <TouchableOpacity>  
+        <OptionsCard  iconName={'share'} option={'Share'} s={24}  tc={fontColor.p}/>
+      </TouchableOpacity>
     </View>
   )
 }
@@ -116,15 +116,19 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
     },
     moreOptContainer: {
-      width: 200,
-      height: 160,
-      borderRadius: 18,
+      width: 160,
+      height: 80,
+      borderRadius: 14,
       backgroundColor: fontColor.w,
+      justifyContent: 'space-evenly',
+      alignItems: 'flex-start',
+      borderWidth: 2,
+      borderColor: iconColor.bg
     },
     optContainer: {
       position: 'absolute',
-      right: 18,
-      top: 32,
+      right: 30,
+      top: 10,
     }
 })
 

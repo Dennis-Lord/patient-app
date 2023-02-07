@@ -18,15 +18,15 @@ const ListScreen = ({navigation, route}) => {
   //   keyHolder = dataFiles.referring_hospital
   // }
 
-  console.log(dataFiles)
+  // console.log(dataFiles)
   return (
     <View style={listStyles.screenView}>
       <View style={[wrapper.heroPos, {marginLeft: 20,}]}>
         <HeroFont text={'Medical history'} tc={fontColor.w}/>
       </View>
         <View style={listStyles.filterContainer}>
-          <FilterOption filter={"Folders"}/>
-          <FilterOption filter={"Folders"}/>
+          <FilterOption filter={"Files"}/>
+          <FilterOption filter={"Filter"}/>
         </View>
       <View style={[wrapper.bw, listStyles.listWrapper]}>
         <View style={listStyles.listContainer}>

@@ -17,8 +17,8 @@ const SettingsScreen = () => {
       <View style={[styles.optionsContainer, wrapper.bw]}>
         
           {optionsObject.map(({iconName, option}) =>
-          <View style={{marginVertical: 10}}> 
-            <TouchableOpacity key={option} >
+          <View style={{marginVertical: 10}} key={option}> 
+            <TouchableOpacity>
               <OptionsCard iconName={iconName} option={option} s={24} o={'a'}/>
             </TouchableOpacity>
           </View>

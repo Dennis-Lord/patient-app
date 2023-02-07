@@ -75,14 +75,14 @@ const optionsObject = [
     },
 ];
 
-const downoadOption = [
+const downloadOption = [
     {
-        iconName: '',
-        option: 'Download'
+        iN: 'download',
+        o: 'Download'
     },
     {
-        iconName: '',
-        option: 'Share'
+        iN: 'share',
+        o: 'Share',
     },
 ]
 
@@ -119,4 +119,4 @@ const wrapper = StyleSheet.create({
       },
 })
 
-export {windowWidth, profileObject, optionsObject, windowHeight, iconColor, fontColor, wrapper, downoadOption}
+export {windowWidth, profileObject, optionsObject, windowHeight, iconColor, fontColor, wrapper, downloadOption}
