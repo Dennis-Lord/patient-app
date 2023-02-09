@@ -1,11 +1,15 @@
 import { View, StyleSheet, ScrollView} from 'react-native'
 import * as React from 'react';
 import { HeroFont, LightFont, MediumFont, SemiBoldFont, SemiFont, SemiLightFont } from '../../../components/Font-components'
+import { iconColor, wrapper, fontColor } from '../../../templates/template';
 
 const Referrals = ({navigation}) => {
     return (
       <View style={styles.screenView}>
-          <HeroFont text={'Fankyenbra Hospital'}/>
+        <View style={[wrapper.heroPos, {marginLeft: 20,}]}>
+          <HeroFont text={'Fankyenbra Hospital'} tc={fontColor.w}/>
+        </View>
+        <View style={[styles.wrapper, wrapper.bw]}>
           <View style={styles.subH}>
             <MediumFont text={'Referral form'}/>
           </View>
@@ -69,6 +73,7 @@ const Referrals = ({navigation}) => {
             <SemiLightFont text={'Signature & stamp'}/>
           </View>
           </ScrollView>
+          </View>
         </View>
     )
   }
@@ -76,7 +81,11 @@ const Referrals = ({navigation}) => {
   const styles = StyleSheet.create({
     screenView: {
       flex: 1,
-      marginTop: 40,
+      paddingTop: 40,
+      backgroundColor: iconColor.gbgd
+    },
+    wrapper: {
+      flex: 1,
       paddingHorizontal: 20,
     },
     subH: {

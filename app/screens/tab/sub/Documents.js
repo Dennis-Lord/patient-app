@@ -1,12 +1,16 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { HeroFont } from '../../../components/Font-components'
+import { wrapper, iconColor, fontColor } from '../../../templates/template'
 
 const Documents = ({route}) => {
   const h_title = route.params.dataObject.title
   return (
     <View style={styles.screenView}>
-      <HeroFont text={h_title}/>
+      <View style={[wrapper.heroPos, {marginLeft: 20,}]}>
+          <HeroFont text={'Documents'} tc={fontColor.w}/>
+        </View>
+        <View style={[styles.wrapper, wrapper.bw]}></View>
     </View>
   )
 }
@@ -16,7 +20,11 @@ export default Documents
 const styles = StyleSheet.create({
     screenView: {
         flex: 1,
-        marginTop: 40,
-        paddingHorizontal: 20,
+        paddingTop: 40,
+        backgroundColor: iconColor.gbgd
       },
+      wrapper: {
+        flex: 1,
+        paddingHorizontal: 20,
+      }
 })

@@ -1,5 +1,5 @@
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, {useState} from 'react'
 import { fontColor, windowWidth, downloadOption } from '../templates/template'
 import { LightFont, MediumFont } from './Font-components'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -31,7 +31,17 @@ const FlagComponent = ({flag}) => {
 
 
 const FilterFileCard = ({nav, route, data}) => {
+  const {press, setpress} = useState(0)
+
   const dataFile = data;
+
+  const handleOptionButton = () => {
+    if(press === 0) {
+      setpress = 1
+    }else {
+      setpress = 0
+    }
+  }
   
   return (<>
     <TouchableOpacity onPress={() => nav.navigate(route)}>
@@ -43,7 +53,7 @@ const FilterFileCard = ({nav, route, data}) => {
         <View style={styles.rc}>
           <View style={styles.uc}>
             <FlagComponent flag={"completed"}/>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleOptionButton()}>
               <MaterialCommunityIcons name="dots-vertical" size={32} color="black" />
             </TouchableOpacity>
           </View>
@@ -51,7 +61,7 @@ const FilterFileCard = ({nav, route, data}) => {
         </View>
       </View>
     </TouchableOpacity>
-      <View style={styles.optContainer}>
+      <View style={[styles.optContainer, {zIndex: press}]}>
         <MoreOptions />
       </View>
       </>
@@ -123,7 +133,7 @@ const styles = StyleSheet.create({
       justifyContent: 'space-evenly',
       alignItems: 'flex-start',
       borderWidth: 2,
-      borderColor: iconColor.bg
+      borderColor: iconColor.bg,
     },
     optContainer: {
       position: 'absolute',

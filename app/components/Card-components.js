@@ -63,7 +63,7 @@ const ProfileCard = ({name, value, icon}) => {
     )
 }
 
-const OptionsCard = ({iconName, option, o, s, tc}) => {
+const OptionsCard = ({iconName, option, o, s, tc, mic}) => {
     return(o === "a" ?
             <View style={styles.optionsContainer}>
             <MaterialCommunityIcons name={iconName} size={s} color={iconColor.c} />
@@ -79,7 +79,7 @@ const OptionsCard = ({iconName, option, o, s, tc}) => {
         </View>
         :
         <View style={styles.optionsContainer}>
-            <MaterialCommunityIcons name={iconName} size={s} color={iconColor.c} />
+            <MaterialCommunityIcons name={iconName} size={s} color={mic !== '' || mic !== null ? mic : iconColor.c} />
             <View style={styles.br}/>
             <SemiFont text={option} tc={tc}/>
         </View> 

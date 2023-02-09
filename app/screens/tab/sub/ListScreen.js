@@ -22,7 +22,7 @@ const ListScreen = ({navigation, route}) => {
   return (
     <View style={listStyles.screenView}>
       <View style={[wrapper.heroPos, {marginLeft: 20,}]}>
-        <HeroFont text={'Medical history'} tc={fontColor.w}/>
+        <HeroFont text={h_title} tc={fontColor.w}/>
       </View>
         <View style={listStyles.filterContainer}>
           <FilterOption filter={"Files"}/>

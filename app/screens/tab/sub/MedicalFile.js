@@ -1,8 +1,9 @@
-import { View, StyleSheet, Animated, TouchableOpacity, StatusBar} from 'react-native'
+import { View, StyleSheet, Animated, TouchableOpacity} from 'react-native'
 import * as React from 'react';
-import { HeroFont, LightFont } from '../../../components/Font-components'
+import { HeroFont, SemiLightFont } from '../../../components/Font-components'
 import { OptionsCard } from '../../../components/Card-components';
 import { TabView, SceneMap } from 'react-native-tab-view';
+import { fontColor, iconColor, wrapper } from '../../../templates/template';
 
 import FirstRoute from './tabView/First';
 import SecondRoute from './tabView/Second';
@@ -39,7 +40,7 @@ class TabViewExample extends React.Component {
               style={styles.tabItem}
               onPress={() => this.setState({ index: i })}>
               <Animated.View style={{ opacity }}>
-              <LightFont text={route.title}/>
+              <SemiLightFont text={route.title}/>
               </Animated.View>
             </TouchableOpacity>
           );
@@ -69,12 +70,16 @@ class TabViewExample extends React.Component {
 const MedicalFile = ({navigation}) => {
   return (
     <View style={styles.screenView}>
-        <HeroFont text={'Coronavirus'}/>
-        <View style={styles.dateContainer}>
-        <OptionsCard iconName={"calendar-month"} option={"20.03.2023"} s={34} o={''}/>
-        </View>
-        <View style={styles.tabViewContainer}>
-          <TabViewExample />
+      <View style={[wrapper.heroPos, {marginLeft: 20,}]}>
+        <HeroFont text={'Corana Virus'} tc={fontColor.w}/>
+      </View>
+          <View style={styles.dateContainer}>
+          <OptionsCard iconName={"calendar-month"} option={"20.03.2023"} s={34} o={''} tc={fontColor.w} mic={fontColor.w}/>
+          </View>
+        <View style={[styles.tabWrapper, wrapper.bw]}>
+          <View style={styles.tabViewContainer}>
+            <TabViewExample />
+          </View>
         </View>
     </View>
   )
@@ -83,17 +88,19 @@ const MedicalFile = ({navigation}) => {
 const styles = StyleSheet.create({
   screenView: {
     flex: 1,
-    marginTop: 40,
+    paddingTop: 40,
     display: 'flex',
-    paddingHorizontal: 20,
+    backgroundColor: iconColor.gbgd,
   },
   dateContainer: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-    marginVertical: 24,
+    marginBottom: 10,
+    paddingLeft: 10
   },
   tabViewContainer: {
     flex: 1,
+    backgroundColor: '#fff',
   },
   tabBar: {
     flexDirection: 'row',
@@ -107,6 +114,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
+  tabWrapper: {
+    backgroundColor: '#fff',
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+  }
 })
 
 export default MedicalFile
