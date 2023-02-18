@@ -86,6 +86,10 @@ const downloadOption = [
     },
 ]
 
+const inv_data = [
+    {n: [1, 2]}, {n: [1,3]},
+]
+
 const iconColor = {
     bg: '#d4d4d4',
     bgd: '#a3a3a3',
@@ -119,4 +123,4 @@ const wrapper = StyleSheet.create({
       },
 })
 
-export {windowWidth, profileObject, optionsObject, windowHeight, iconColor, fontColor, wrapper, downloadOption}
+export {windowWidth, profileObject, optionsObject, windowHeight, iconColor, fontColor, wrapper, downloadOption, inv_data}

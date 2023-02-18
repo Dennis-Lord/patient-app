@@ -1,6 +1,6 @@
 import { StyleSheet, View, TouchableOpacity} from 'react-native'
 import React from 'react'
-import { LightFont, MediumFont, SemiBoldFont, SemiFont, SemiLightFont } from './Font-components'
+import { LightFont, MediumFont, MiniFont, SemiBoldFont, SemiFont, SemiLightFont } from './Font-components'
 import { windowHeight, windowWidth } from '../templates/template'
 import { iconColor } from '../templates/template'
 
@@ -93,7 +93,7 @@ const DownloadCard = () => {
                 <MaterialCommunityIcons name={'download'} size={24} color={iconColor.c} />
             </View>
             <View style={styles.br} />
-            <MediumFont text={'lab_report.pdf'}/>
+            <SemiLightFont text={'lab_report.pdf'}/>
         </View>
      );
 }
@@ -106,11 +106,11 @@ const DrugCard = ({icon, name, dose, time, date}) => {
             </View>
             <View style={styles.d_c}>
                 <SemiLightFont text={name}/>
-                <LightFont text={dose}/>
+                <MiniFont text={dose}/>
             </View>
             <View style={styles.dd_c}>
-                <LightFont text={date}/>
-                <LightFont text={time}/>
+                <MiniFont text={date}/>
+                <MiniFont text={time}/>
             </View>
         </View>
      );
@@ -161,13 +161,14 @@ const InvestigationCard = ({test, resultObserved, flag, unit, refRange}) => {
     return ( 
         <View style={styles.i_c}>
             <View style={styles.i_c_l}>
-                <SemiFont text={'WBC'}/>
+                <SemiLightFont text={test}/>
                 <LightFont text={'Normal'}/>
             </View>
             <View style={styles.i_c_r}>
-                <SemiLightFont text={'10^9L'}/>
+                <LightFont text={'10^9L'} tc={'red'}/>
                 <LightFont text={'4.0-10.0'}/>
             </View>
+            <MaterialCommunityIcons name='arrow-up-circle' size={22} color={'red'}/>
         </View>
     );
 
