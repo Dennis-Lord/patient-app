@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
 import { MediumFont, LightFont, SemiLightFont, SemiFont } from '../../../../components/Font-components'
 import { DownloadCard, OptionsCard } from '../../../../components/Card-components'
+import { iconColor } from '../../../../templates/template'
 
 const FirstRoute = () => {
   return (
@@ -18,15 +19,15 @@ const FirstRoute = () => {
             <SemiLightFont text={"Doctor"}/>
         </View>
         <View>
-            <OptionsCard iconName={'hospital-building'} s={24} option={'Fankyenebra Hospital'} o={'b'}/>
-            <OptionsCard iconName={'phone'} s={24} option={'020 123 1234'} o={'b'}/>
+            <OptionsCard iconName={'hospital-building'} s={24} option={'Fankyenebra Hospital'} o={'b'} mic={iconColor.gbgd} />
+            <OptionsCard iconName={'phone'} s={24} option={'020 123 1234'} o={'b'} mic={iconColor.gbgd}/>
         </View>
       </View>
     </View>
 
     <View style={styles.downloadWrapper}>
-        <MediumFont text={"Download the report"} />
-        <DownloadCard />
+        <MediumFont text={"Nurses Notes"} />
+        <SemiLightFont text={'Notes taken by monitoring nurse '}/>
     </View>
     </ScrollView>
   )

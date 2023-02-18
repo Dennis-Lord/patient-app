@@ -106,8 +106,10 @@ const fontColor = {
     p: '#171717',
     s: '#404040',
     g: '#57F834',
+    gd: '#15803d',
     r: '#F84134',
-    w: '#fff'
+    w: '#fff',
+    b: '#164e63'
 }
 
 const wrapper = StyleSheet.create({
@@ -119,7 +121,6 @@ const wrapper = StyleSheet.create({
     heroPos: {
         marginTop: 6,
         marginBottom: 18,
-        
       },
 })
 

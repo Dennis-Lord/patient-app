@@ -1,7 +1,7 @@
 import { StyleSheet, View, TouchableOpacity} from 'react-native'
 import React from 'react'
 import { LightFont, MediumFont, MiniFont, SemiBoldFont, SemiFont, SemiLightFont } from './Font-components'
-import { windowHeight, windowWidth } from '../templates/template'
+import { fontColor, windowHeight, windowWidth } from '../templates/template'
 import { iconColor } from '../templates/template'
 
 // icon import
@@ -73,7 +73,7 @@ const OptionsCard = ({iconName, option, o, s, tc, mic}) => {
         : 
         o === "b" ?
         <View style={styles.optionsContainerB}>
-            <MaterialCommunityIcons name={iconName} size={s} color={iconColor.c} />
+            <MaterialCommunityIcons name={iconName} size={s} color={mic != null ? mic : iconColor.c} />
             <View style={styles.br}/>
             <SemiLightFont text={option} tc={tc}/>
         </View>
@@ -124,10 +124,10 @@ const VisitsCard = () => {
                 <SemiLightFont text={'2023'}/>
             </View>
             <View style={styles.v_card}>
-                <MediumFont text={'Fankyenebra Hospital'}/>
-                <LightFont text={'Completion of treatment'}/>
-                <MediumFont text={'Doctor'}/>
-                <LightFont text={'Edna Konadu Donkoh'}/>
+                <MediumFont text={'Fankyenebra Hospital'} tc={fontColor.w}/>
+                <LightFont text={'Completion of treatment'} tc={fontColor.w}/>
+                <MediumFont text={'Doctor'} tc={fontColor.w}/>
+                <LightFont text={'Edna Konadu Donkoh'} tc={fontColor.w}/>
             </View>
         </View>
     );
@@ -302,9 +302,10 @@ const styles = StyleSheet.create({
     },
     v_card: {
         width: '78%',
-        height: '90%',
+        minHeight: '80%',
+        maxHeight: '100%',
         borderRadius: 10,
-        backgroundColor: iconColor.bg,
+        backgroundColor: iconColor.gbgd,
         justifyContent: 'space-between',
         padding: 12,
     },

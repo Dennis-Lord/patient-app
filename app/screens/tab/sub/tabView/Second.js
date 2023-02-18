@@ -1,7 +1,7 @@
 import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { LightFont, SemiLightFont, MediumFont, MiniFont } from '../../../../components/Font-components'
-import { DrugCard, InvestigationCard } from '../../../../components/Card-components'
+import { DownloadCard, DrugCard, InvestigationCard } from '../../../../components/Card-components'
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { iconColor, inv_data } from '../../../../templates/template';
 import { Transition, Transitioning } from 'react-native-reanimated';
@@ -48,8 +48,7 @@ const SecondRoute = () => {
         <MediumFont text={"Infusions"}/>
         <DrugCard icon={'iv-bag'} name={'Johnson & Johnson'} date={'02.03.2023'} dose={'12ml, iv-bag'} time={'2:20pm'}/>
       </View>
-      <MediumFont text={"Medical analysis"}/>
-      <Transitioning.View 
+      {/* <Transitioning.View 
       ref={ref}
       transition={transition}
       style={styles.container}
@@ -57,7 +56,7 @@ const SecondRoute = () => {
         {
           inv_data.map(({n}, index) => {
             return (
-              <View style={styles.collapsible}>
+              <View style={styles.collapsible} key={index}>
                 <View style={styles.c_t}>
                   <View>
                     <SemiLightFont text={'Blood test'}/>
@@ -71,11 +70,18 @@ const SecondRoute = () => {
                   </TouchableOpacity>
                 </View>
                 {index === currentIndex && (n.map((n) => <InvestigationCard test={n}/>))}
+                
               </View>
             )
           })
         }
-      </Transitioning.View>
+      </Transitioning.View> */}
+      <View style={styles.diagnosisContainer}>
+        <MediumFont text={"Medical analysis"}/>
+        <DownloadCard />
+        <MiniFont text={'Download laboratory analysis file'} />
+      </View>
+      
     </ScrollView>
   )
 }

@@ -1,7 +1,7 @@
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import React, {useState} from 'react'
 import { fontColor, windowWidth, downloadOption } from '../templates/template'
-import { LightFont, MediumFont } from './Font-components'
+import { LightFont, MediumFont, SemiLightFont } from './Font-components'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { iconColor } from '../templates/template';
 import { OptionsCard } from './Card-components';
@@ -15,15 +15,15 @@ const FilterOption = ({filter}) => {
 }
 
 const FlagComponent = ({flag}) => {
-  let bg;
+  let tc;
   if (flag === 'in process') {
-    bg = iconColor.bg
+    tc = fontColor.b
   } else {
-    bg = iconColor.gbg
+    tc = fontColor.gd
   }
   return (
-    <View style={[styles.flagContainer, {backgroundColor: bg}]}>
-      <LightFont text={flag}/>
+    <View style={styles.flagContainer}>
+      <SemiLightFont text={flag} tc={tc}/>
     </View>
   )
 }
@@ -31,17 +31,15 @@ const FlagComponent = ({flag}) => {
 
 
 const FilterFileCard = ({nav, route, data}) => {
-  const [press, setpress] = useState('none')
+  const [press, setpress] = useState(null)
 
   const dataFile = data;
 
   const handleOptionButton = () => {
-    if(press === 'none') {
-      console.log(press)
-       setpress('block')
-       console.log(press)
+    if(press === null) {
+       setpress('show')
     }else{
-      setpress('none')
+      setpress(null)
     }
   }
   
@@ -54,7 +52,7 @@ const FilterFileCard = ({nav, route, data}) => {
         </View>
         <View style={styles.rc}>
           <View style={styles.uc}>
-            <FlagComponent flag={"completed"}/>
+            <FlagComponent flag={"in process"}/>
             <TouchableOpacity onPress={()=>handleOptionButton()}>
               <MaterialCommunityIcons name="dots-vertical" size={32} color="black" />
             </TouchableOpacity>
@@ -63,9 +61,11 @@ const FilterFileCard = ({nav, route, data}) => {
         </View>
       </View>
     </TouchableOpacity>
-      <View style={[styles.optContainer, {display: press}]}>
-        <MoreOptions />
-      </View>
+    {
+      press === 'show' ? <View style={styles.optContainer}>
+          <MoreOptions />
+        </View> : <></>
+    }
       </>
   )
 }
@@ -74,10 +74,10 @@ const MoreOptions = () => {
   return(
     <View style={styles.moreOptContainer}>
       <TouchableOpacity>  
-        <OptionsCard  iconName={'download'} option={'Download'} s={24} tc={fontColor.p}/>
+        <OptionsCard  iconName={'download'} option={'Download'} s={24} tc={fontColor.p} mic={iconColor.gbgd}/>
       </TouchableOpacity>
       <TouchableOpacity>  
-        <OptionsCard  iconName={'share'} option={'Share'} s={24}  tc={fontColor.p}/>
+        <OptionsCard  iconName={'share'} option={'Share'} s={24}  tc={fontColor.p} mic={iconColor.gbgd}/>
       </TouchableOpacity>
     </View>
   )
@@ -106,7 +106,6 @@ const styles = StyleSheet.create({
     flagContainer: {
       width: 102,
       height: 32,
-      borderRadius: 50,
       alignItems: 'center',
       justifyContent: 'center',
       marginTop: 8,
