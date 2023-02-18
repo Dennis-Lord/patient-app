@@ -31,15 +31,17 @@ const FlagComponent = ({flag}) => {
 
 
 const FilterFileCard = ({nav, route, data}) => {
-  const {press, setpress} = useState(0)
+  const [press, setpress] = useState('none')
 
   const dataFile = data;
 
   const handleOptionButton = () => {
-    if(press === 0) {
-      setpress = 1
-    }else {
-      setpress = 0
+    if(press === 'none') {
+      console.log(press)
+       setpress('block')
+       console.log(press)
+    }else{
+      setpress('none')
     }
   }
   
@@ -53,7 +55,7 @@ const FilterFileCard = ({nav, route, data}) => {
         <View style={styles.rc}>
           <View style={styles.uc}>
             <FlagComponent flag={"completed"}/>
-            <TouchableOpacity onPress={handleOptionButton()}>
+            <TouchableOpacity onPress={()=>handleOptionButton()}>
               <MaterialCommunityIcons name="dots-vertical" size={32} color="black" />
             </TouchableOpacity>
           </View>
@@ -61,7 +63,7 @@ const FilterFileCard = ({nav, route, data}) => {
         </View>
       </View>
     </TouchableOpacity>
-      <View style={[styles.optContainer, {zIndex: press}]}>
+      <View style={[styles.optContainer, {display: press}]}>
         <MoreOptions />
       </View>
       </>
@@ -98,7 +100,8 @@ const styles = StyleSheet.create({
         borderColor: iconColor.bgd,
         padding: 6,
         marginBottom: 12,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        backgroundColor: '#fff'
     },
     flagContainer: {
       width: 102,
