@@ -7,10 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import TabIndex from './tabIndex';
 // screen imports
-import SponsorsScreen from './screens/tab/Sponsors';
-import SettingsScreen from './screens/tab/Settings';
-import MainScreen from './screens/tab/Main';
-import ProfileScreen from './screens/tab/Profile';
+import Authentication from './screens/auth/Authentication';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,7 +15,7 @@ const Index = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions= {{headerShown: false}}>
-        <Stack.Screen name="Index" component={TabIndex} />
+        <Stack.Screen name="Index" component={Authentication} />
       </Stack.Navigator>
     </NavigationContainer>
   )

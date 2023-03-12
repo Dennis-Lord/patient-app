@@ -19,7 +19,7 @@ const ProfileScreen = () => {
           </View>
         </View>
         <View style={styles.dateContainer}>
-          <LightFont text={"Date generated"}/>
+          <LightFont text={"Date generated:"}/>
           <View style={styles.br} />
           <LightFont text={"02.04.2022"}/>
         </View>
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   },
   dateContainer: {
     width: '100%',
-    height: 20,
+    height: 24,
     flexDirection: 'row',
     justifyContent: 'flex-end',
     marginVertical: 8,

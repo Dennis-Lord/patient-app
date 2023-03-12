@@ -12,7 +12,7 @@ const SponsorsScreen = () => {
         <HeroFont text={"Sponsors"} tc={fontColor.w}/>
         <View style={styles.editButton}>
           <TouchableOpacity>
-          <OptionsCard iconName={"file-edit"} option={"Edit"} s={24} o={'a'} tc={fontColor.w}/>
+          <OptionsCard iconName={"file-edit"} option={"edit"} s={18} o={'b'} tc={fontColor.w} mic={fontColor.w}/>
           </TouchableOpacity>
         </View>
       </View>

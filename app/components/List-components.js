@@ -9,7 +9,7 @@ import { OptionsCard } from './Card-components';
 const FilterOption = ({filter}) => {
   return (
     <View style={styles.container}>
-      <MediumFont text={filter}/>
+      <LightFont text={filter}/>
     </View>
   )
 }
@@ -52,7 +52,7 @@ const FilterFileCard = ({nav, route, data}) => {
         </View>
         <View style={styles.rc}>
           <View style={styles.uc}>
-            <FlagComponent flag={"in process"}/>
+            <FlagComponent flag={"completed"}/>
             <TouchableOpacity onPress={()=>handleOptionButton()}>
               <MaterialCommunityIcons name="dots-vertical" size={32} color="black" />
             </TouchableOpacity>
@@ -86,9 +86,9 @@ const MoreOptions = () => {
 const styles = StyleSheet.create({
     container: {
         width: (windowWidth/4),
-        height: 46,
-        backgroundColor: iconColor.bg,
-        borderRadius: 10,
+        height: 36,
+        backgroundColor: iconColor.bgw,
+        borderRadius: 8,
         justifyContent: 'center',
         alignItems: 'center',
     },

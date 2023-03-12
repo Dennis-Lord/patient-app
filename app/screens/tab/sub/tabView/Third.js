@@ -1,12 +1,12 @@
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
+import { StyleSheet, ScrollView } from 'react-native'
 import React from 'react'
-import { MediumFont } from '../../../../components/Font-components'
+import { LFb } from '../../../../components/Font-components'
 import { VisitsCard } from '../../../../components/Card-components'
 
 const ThirdRoute = () => {
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>    
-      <MediumFont text={'Date'}/>
+      <LFb text={'Date'}/>
       <VisitsCard />
     </ScrollView>
   )

@@ -15,7 +15,7 @@ const FirstRoute = () => {
       <View style={styles.img}/>
       <View style={styles.rc}>
         <View style={{flexWrap: 'wrap', width: '100%'}}>
-            <SemiLightFont text={"Edna Konadu Donkoh"}/>
+            <LightFont text={"Edna Konadu Donkoh"}/>
             <SemiLightFont text={"Doctor"}/>
         </View>
         <View>
@@ -27,7 +27,7 @@ const FirstRoute = () => {
 
     <View style={styles.downloadWrapper}>
         <MediumFont text={"Nurses Notes"} />
-        <SemiLightFont text={'Notes taken by monitoring nurse '}/>
+        <LightFont text={'Notes taken by monitoring nurse '}/>
     </View>
     </ScrollView>
   )

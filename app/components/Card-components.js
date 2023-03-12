@@ -1,6 +1,6 @@
 import { StyleSheet, View, TouchableOpacity} from 'react-native'
 import React from 'react'
-import { LightFont, MediumFont, MiniFont, SemiBoldFont, SemiFont, SemiLightFont } from './Font-components'
+import { LightFont, MediumFont, MiniFont, SemiBoldFont, SemiFont, SemiLightFont, LFb } from './Font-components'
 import { fontColor, windowHeight, windowWidth } from '../templates/template'
 import { iconColor } from '../templates/template'
 
@@ -57,7 +57,7 @@ const ProfileCard = ({name, value, icon}) => {
             <View style={styles.br} />
             <MediumFont text={name}/>
             <View style={styles.textAlign}>
-                <SemiFont text={value}/>
+                <LFb text={value}/>
             </View>
         </View>
     )
@@ -93,7 +93,7 @@ const DownloadCard = () => {
                 <MaterialCommunityIcons name={'download'} size={24} color={iconColor.c} />
             </View>
             <View style={styles.br} />
-            <SemiLightFont text={'lab_report.pdf'}/>
+            <LFb text={'lab_report.pdf'}/>
         </View>
      );
 }
@@ -105,7 +105,7 @@ const DrugCard = ({icon, name, dose, time, date}) => {
                 <MaterialCommunityIcons name={icon} size={24} color={iconColor.c} />
             </View>
             <View style={styles.d_c}>
-                <SemiLightFont text={name}/>
+                <LightFont text={name}/>
                 <MiniFont text={dose}/>
             </View>
             <View style={styles.dd_c}>
@@ -124,9 +124,9 @@ const VisitsCard = () => {
                 <SemiLightFont text={'2023'}/>
             </View>
             <View style={styles.v_card}>
-                <MediumFont text={'Fankyenebra Hospital'} tc={fontColor.w}/>
+                <SemiLightFont text={'Fankyenebra Hospital'} tc={fontColor.w}/>
                 <LightFont text={'Completion of treatment'} tc={fontColor.w}/>
-                <MediumFont text={'Doctor'} tc={fontColor.w}/>
+                <SemiLightFont text={'Doctor'} tc={fontColor.w}/>
                 <LightFont text={'Edna Konadu Donkoh'} tc={fontColor.w}/>
             </View>
         </View>
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     },
     navCard_s: {
         width: (windowWidth/2.3),
-        height: 105,
+        height: '54%',
         borderRadius: 10,
         borderWidth: 2,
         borderColor: iconColor.bgd,
@@ -248,6 +248,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'flex-end',
         marginLeft: 10,
+        justifyContent: 'center'
     },
     optionsContainerB: {
         width: '70%',
@@ -257,7 +258,7 @@ const styles = StyleSheet.create({
     },
     downloadContainer: {
         width: '100%',
-        height: 58,
+        MaxHeight: 60,
         borderWidth: 2,
         borderColor: 'gray',
         borderRadius: 10,
@@ -285,7 +286,6 @@ const styles = StyleSheet.create({
     },
     dd_c: {
         alignItems: 'flex-end',
-        height: '100%',
         justifyContent: 'space-between'
     },
     d_c: {

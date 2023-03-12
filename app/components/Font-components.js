@@ -30,6 +30,11 @@ const LightFont = ({text, tc}) => {
       <Text style={[fontStyle.lightFont, {color: tc}]}>{text}</Text>
   )
 }
+const LFb = ({text, tc}) => {
+  return (
+      <Text style={[fontStyle.lightFontb, {color: tc}]}>{text}</Text>
+  )
+}
 const MiniFont = ({text, tc}) => {
   return (
       <Text style={[fontStyle.miniFont, {color: tc}]}>{text}</Text>
@@ -65,8 +70,12 @@ const fontStyle = StyleSheet.create({
     letterSpacing: -1,
   },
   lightFont: {
-    fontSize: 14, 
-    fontWeight: '600',
+    fontSize: 16, 
+    fontWeight: '500',
+  },
+  lightFontb: {
+    fontSize: 18, 
+    fontWeight: '500',
   },
   miniFont: {
     fontSize: 13, 
@@ -79,4 +88,4 @@ const fontStyle = StyleSheet.create({
   
 })
 
-export {HeroFont, MediumFont, SemiBoldFont, SemiFont, LightFont, SemiLightFont, MiniFont};
+export {HeroFont, MediumFont, SemiBoldFont, SemiFont, LightFont, SemiLightFont, MiniFont, LFb};

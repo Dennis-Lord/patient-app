@@ -1,6 +1,6 @@
 import { View, StyleSheet, Animated, TouchableOpacity} from 'react-native'
 import * as React from 'react';
-import { HeroFont, SemiLightFont } from '../../../components/Font-components'
+import { HeroFont, LFb, LightFont, SemiLightFont } from '../../../components/Font-components'
 import { OptionsCard } from '../../../components/Card-components';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import { fontColor, iconColor, wrapper } from '../../../templates/template';
@@ -40,7 +40,7 @@ class TabViewExample extends React.Component {
               style={styles.tabItem}
               onPress={() => this.setState({ index: i })}>
               <Animated.View style={{ opacity }}>
-              <SemiLightFont text={route.title}/>
+              <LightFont text={route.title}/>
               </Animated.View>
             </TouchableOpacity>
           );
@@ -74,7 +74,7 @@ const MedicalFile = ({navigation}) => {
         <HeroFont text={'Corana Virus'} tc={fontColor.w}/>
       </View>
           <View style={styles.dateContainer}>
-          <OptionsCard iconName={"calendar-month"} option={"20.03.2023"} s={34} o={''} tc={fontColor.w} mic={fontColor.w}/>
+          <OptionsCard iconName={"calendar-month"} option={"20.03.2023"} s={34} o={'b'} tc={fontColor.w} mic={fontColor.w}/>
           </View>
         <View style={[styles.tabWrapper, wrapper.bw]}>
           <View style={styles.tabViewContainer}>
