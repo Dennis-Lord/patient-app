@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { HeroFont, MediumFont} from '../../components/Font-components'
 import { SponsorCard, OptionsCard } from '../../components/Card-components';

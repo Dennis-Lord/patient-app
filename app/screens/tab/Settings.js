@@ -1,18 +1,24 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-// components & template imports
 import { HeroFont } from '../../components/Font-components'
 import { OptionsCard } from '../../components/Card-components'
 import { wrapper } from '../../templates/template'
-
-// template imports
 import { optionsObject, fontColor, iconColor } from '../../templates/template'
+import { getAuth, signOut } from "firebase/auth";
+
 
 const SettingsScreen = () => {
 
   // handle user's log out session
   const LogOut = () => {
-    console.log('logged out')
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      // Sign-out successful.
+      console.log('logged out')
+    }).catch((error) => {
+      // An error happened.
+      console.log(error)
+    });
   }
 
   return (

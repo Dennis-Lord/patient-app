@@ -1,12 +1,7 @@
 import React from 'react';
-
-// navigation imports
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-
 import TabIndex from './tabIndex';
-// screen imports
 import Authentication from './screens/auth/Authentication';
 
 const Stack = createNativeStackNavigator();

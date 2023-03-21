@@ -3,76 +3,113 @@ import React, { useState } from 'react'
 import { fontColor, iconColor } from '../../templates/template'
 import { MediumFont, MiniFont, SemiLightFont } from '../../components/Font-components'
 import { OptionsCard } from '../../components/Card-components'
-
-// firebase imports
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../../../firebaseConfig'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 
 
 
 export function Authentication () {
+    let emailValue = ''
+    let passValue = ''
+
+    const [val, setVal] = useState('')
+    const [keyVal, setKeyVal] = useState('')
+
+    const handleEmail = (e) => {
+        setVal(e)
+        emailValue = val.nativeEvent.text
+        console.log(emailValue)
+    }
+    
+    const handlePassword = (e) => {
+        setKeyVal(e)
+        passValue = keyVal.nativeEvent.text
+        console.log(passValue)
+    }
+
     const [change, setChange] = useState(false)
     const [mainHeader, setMainHeader] = useState('Create an account')
     const [btnText, setBtnText] = useState('Create account')
     const [question, setQuestion] = useState('Already have an account')
 
-    // function to switch between log in and auth states
-    const switchAuth = () => {
-         change === false ? setChange(true) : setChange(false)
-        if (change === true) {
-            setMainHeader('Welcome back')
-            setBtnText('Log in')
-            setQuestion('Don\'t have an account yet?')
-        }else {
+    // handle state values when change state alters
+    const handleStates = (c) => {
+        if (c === false) {
             setMainHeader('Create an account')
             setBtnText('Create account')
-            setQuestion('Already have an account?')
+            setChange(true)
+        }else {
+            setMainHeader('Welcome back')
+            setBtnText('Log in')
+            setQuestion('Don\'t have an account?')
+            setChange(false)
         }
     }
 
     // function to create user account
     const CreateAccount = () => {
-        const auth = getAuth()
-        createUserWithEmailAndPassword(auth, email, password).then((credentials) => {
+        // const auth = getAuth();
+        createUserWithEmailAndPassword(auth, emailValue, passValue).then((credentials) => {
             const user = credentials;
             console.log(user)
+            console.log('creation successful')
         }).catch((error) => {
             const errorCode = error.code
             const message = error.message
             console.log(error)
+            console.log(errorCode)
+            console.log(message)
         })
     }
 
     // handle user log in
     const LogInUser = () => {
         const auth = getAuth();
-        signInWithEmailAndPassword(auth, email, password)
+        signInWithEmailAndPassword(auth, emailValue, passValue)
         .then((cred) => {
             const user = cred;
             console.log(user)
+            console.log('log in successful')
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
+            console.log(errorCode, errorMessage)
         });
     }
   
+    // handle sign up / log in session
+    const handleAuth = () => {
+        if (change === false) {
+            CreateAccount()
+        } else {
+            LogInUser()
+        }
+    }
+
     return (
       <View style={screenstyle.screenView}>
         <MediumFont text={mainHeader} tc={fontColor.s}/>
         <View style={screenstyle.lb}/>
         <View style={screenstyle.inputWrapper}>
-            <TextInput keyboardType='email-address' placeholder='Email address' style={screenstyle.txtI}/>
+            <TextInput keyboardType='email-address' placeholder='Email address'
+            onChange={e => handleEmail(e)}
+            value={val}
+            style={screenstyle.txtI}/>
         </View>
         <View style={screenstyle.inputWrapper}>
-            <TextInput secureTextEntry={true} keyboardType='hidden-password' placeholder='Password' style={screenstyle.txtI}/>
+            <TextInput secureTextEntry={true} keyboardType='hidden-password'
+            onChange={e => handlePassword(e)}
+            value={keyVal}
+            placeholder='Password' style={screenstyle.txtI}/>
         </View>
-        <TouchableNativeFeedback>
+        <TouchableNativeFeedback onPress={() => handleAuth()}>
             <View style={screenstyle.accBtn}>
                 <SemiLightFont text={btnText} tc={fontColor.w}/>
             </View>
         </TouchableNativeFeedback>
-        <TouchableOpacity onPress={() => switchAuth()}>
+        <TouchableOpacity onPress={() => handleStates(change)}>
             <MiniFont text={question} tc={'gray'}/>
         </TouchableOpacity>
         <View style={screenstyle.lb}/>
