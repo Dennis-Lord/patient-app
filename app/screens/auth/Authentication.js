@@ -1,13 +1,62 @@
 import { Text, View, StyleSheet, TextInput, TouchableNativeFeedback, TouchableOpacity } from 'react-native'
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { fontColor, iconColor } from '../../templates/template'
-import { LFb, LightFont, MediumFont, MiniFont, SemiLightFont } from '../../components/Font-components'
+import { MediumFont, MiniFont, SemiLightFont } from '../../components/Font-components'
 import { OptionsCard } from '../../components/Card-components'
-export class Authentication extends Component {
-  render() {
+
+// firebase imports
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+
+
+
+
+export function Authentication () {
+    const [change, setChange] = useState(false)
+    const [mainHeader, setMainHeader] = useState('Create an account')
+    const [btnText, setBtnText] = useState('Create account')
+    const [question, setQuestion] = useState('Already have an account')
+
+    const switchAuth = () => {
+         change === false ? setChange(true) : setChange(false)
+        if (change === true) {
+            setMainHeader('Welcome back')
+            setBtnText('Log in')
+            setQuestion('Don\'t have an account yet?')
+        }else {
+            setMainHeader('Create an account')
+            setBtnText('Create account')
+            setQuestion('Already have an account?')
+        }
+    }
+
+    const CreateAccount = () => {
+        const auth = getAuth()
+        createUserWithEmailAndPassword(auth, email, password).then((credentials) => {
+            const user = credentials;
+            console.log(user)
+        }).catch((error) => {
+            const errorCode = error.code
+            const message = error.message
+            console.log(error)
+        })
+    }
+
+    const LogInUser = () => {
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth, email, password)
+        .then((cred) => {
+            const user = cred;
+            console.log(user)
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+        });
+    }
+  
     return (
       <View style={screenstyle.screenView}>
-        <MediumFont text={'Create an account'} tc={fontColor.s}/>
+        <MediumFont text={mainHeader} tc={fontColor.s}/>
         <View style={screenstyle.lb}/>
         <View style={screenstyle.inputWrapper}>
             <TextInput keyboardType='email-address' placeholder='Email address' style={screenstyle.txtI}/>
@@ -17,11 +66,11 @@ export class Authentication extends Component {
         </View>
         <TouchableNativeFeedback>
             <View style={screenstyle.accBtn}>
-                <SemiLightFont text={'Create account'} tc={fontColor.w}/>
+                <SemiLightFont text={btnText} tc={fontColor.w}/>
             </View>
         </TouchableNativeFeedback>
-        <TouchableOpacity>
-            <MiniFont text={'Already have an account?'} tc={'gray'}/>
+        <TouchableOpacity onPress={() => switchAuth()}>
+            <MiniFont text={question} tc={'gray'}/>
         </TouchableOpacity>
         <View style={screenstyle.lb}/>
         <TouchableNativeFeedback>
@@ -31,7 +80,6 @@ export class Authentication extends Component {
         </TouchableNativeFeedback>
       </View>
     )
-  }
 }
 
 const screenstyle = StyleSheet.create({
