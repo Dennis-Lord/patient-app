@@ -10,6 +10,7 @@ import SecondRoute from './tabView/Second';
 import ThirdRoute from './tabView/Third';
 
 class TabViewExample extends React.Component {
+  // tab bar sections and titles
   state = {
     index: 0,
     routes: [
@@ -67,7 +68,7 @@ class TabViewExample extends React.Component {
   }
 }
 
-const MedicalFile = ({navigation}) => {
+const MedicalFile = () => {
   return (
     <View style={styles.screenView}>
       <View style={[wrapper.heroPos, {marginLeft: 20,}]}>

@@ -5,6 +5,8 @@ import { HeroFont } from '../../components/Font-components'
 import h_db from '../../templates/dbTemplate'
 import { iconColor, fontColor, wrapper } from '../../templates/template'
 
+
+// main screen of the application
 const MainScreen = ({navigation}) => {
   const {medical_files} = h_db.medical_folder;
   const {analysis_files} = h_db.medical_folder;

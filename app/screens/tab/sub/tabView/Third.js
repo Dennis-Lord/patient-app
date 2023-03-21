@@ -3,6 +3,7 @@ import React from 'react'
 import { LFb } from '../../../../components/Font-components'
 import { VisitsCard } from '../../../../components/Card-components'
 
+// displays the date you visited the hospital
 const ThirdRoute = () => {
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>    

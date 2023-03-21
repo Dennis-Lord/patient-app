@@ -16,6 +16,7 @@ export function Authentication () {
     const [btnText, setBtnText] = useState('Create account')
     const [question, setQuestion] = useState('Already have an account')
 
+    // function to switch between log in and auth states
     const switchAuth = () => {
          change === false ? setChange(true) : setChange(false)
         if (change === true) {
@@ -29,6 +30,7 @@ export function Authentication () {
         }
     }
 
+    // function to create user account
     const CreateAccount = () => {
         const auth = getAuth()
         createUserWithEmailAndPassword(auth, email, password).then((credentials) => {
@@ -41,6 +43,7 @@ export function Authentication () {
         })
     }
 
+    // handle user log in
     const LogInUser = () => {
         const auth = getAuth();
         signInWithEmailAndPassword(auth, email, password)

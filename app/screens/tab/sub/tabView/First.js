@@ -1,12 +1,13 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
-import { MediumFont, LightFont, SemiLightFont, SemiFont } from '../../../../components/Font-components'
-import { DownloadCard, OptionsCard } from '../../../../components/Card-components'
+import { MediumFont, LightFont, SemiLightFont } from '../../../../components/Font-components'
+import { OptionsCard } from '../../../../components/Card-components'
 import { iconColor } from '../../../../templates/template'
 
 const FirstRoute = () => {
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>    
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>  
+      {/* Diagnosis header */}
     <View style={styles.diagnosisContainer}>
       <MediumFont text={"Diagnosis"}/>
       <LightFont text={"Corona virus infection"}/>
@@ -14,6 +15,7 @@ const FirstRoute = () => {
     <View style={styles.attendantContainer}>
       <View style={styles.img}/>
       <View style={styles.rc}>
+        {/* Attending physisian profile */}
         <View style={{flexWrap: 'wrap', width: '100%'}}>
             <LightFont text={"Edna Konadu Donkoh"}/>
             <SemiLightFont text={"Doctor"}/>
@@ -24,7 +26,7 @@ const FirstRoute = () => {
         </View>
       </View>
     </View>
-
+    {/* Nurses notes */}
     <View style={styles.downloadWrapper}>
         <MediumFont text={"Nurses Notes"} />
         <LightFont text={'Notes taken by monitoring nurse '}/>

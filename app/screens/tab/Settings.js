@@ -1,7 +1,7 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-// component imports
-import { HeroFont, SemiFont } from '../../components/Font-components'
+// components & template imports
+import { HeroFont } from '../../components/Font-components'
 import { OptionsCard } from '../../components/Card-components'
 import { wrapper } from '../../templates/template'
 
@@ -9,6 +9,12 @@ import { wrapper } from '../../templates/template'
 import { optionsObject, fontColor, iconColor } from '../../templates/template'
 
 const SettingsScreen = () => {
+
+  // handle user's log out session
+  const LogOut = () => {
+    console.log('logged out')
+  }
+
   return (
     <View style={styles.screenView}>
       <View style={[wrapper.heroPos, {marginLeft: 20}]}>
@@ -24,7 +30,7 @@ const SettingsScreen = () => {
           </View>
           )}
       <View style={styles.br}/>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => LogOut()}>
         <OptionsCard iconName={"logout"} option={"Log out"} s={24} o={'a'}/>
       </TouchableOpacity>
       </View>

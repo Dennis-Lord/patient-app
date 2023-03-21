@@ -23,6 +23,7 @@ const ProfileScreen = () => {
           <View style={styles.br} />
           <LightFont text={"02.04.2022"}/>
         </View>
+        {/* Display user profile data */}
         <View style={styles.profile}>
           <ScrollView showsVerticalScrollIndicator={false}>
           {

@@ -12,6 +12,8 @@ import Authentication from './screens/auth/Authentication';
 const Stack = createNativeStackNavigator();
 
 const Index = () => {
+  // track user log in session
+
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions= {{headerShown: false}}>
@@ -19,6 +21,13 @@ const Index = () => {
       </Stack.Navigator>
     </NavigationContainer>
   )
+  // return (
+  //   <NavigationContainer>
+  //     <Stack.Navigator screenOptions= {{headerShown: false}}>
+  //       <Stack.Screen name="TabIndex" component={TabIndex} />
+  //     </Stack.Navigator>
+  //   </NavigationContainer>
+  // )
 };
 
 export default Index;

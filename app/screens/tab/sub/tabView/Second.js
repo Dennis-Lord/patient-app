@@ -1,22 +1,22 @@
-import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, ScrollView } from 'react-native'
 import React from 'react'
 import { LightFont, SemiLightFont, MediumFont, MiniFont } from '../../../../components/Font-components'
 import { DownloadCard, DrugCard, InvestigationCard } from '../../../../components/Card-components'
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+// import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { iconColor, inv_data } from '../../../../templates/template';
-import { Transition, Transitioning } from 'react-native-reanimated';
+// import { Transition, Transitioning } from 'react-native-reanimated';
 
-const transition = (
-  <Transition.Together>
-    <Transition.In type='fade' durationMs={200} />
-    <Transition.Change />
-    <Transition.Out type='fade' durationMs={200} />
-  </Transition.Together>
-);
+// const transition = (
+//   <Transition.Together>
+//     <Transition.In type='fade' durationMs={200} />
+//     <Transition.Change />
+//     <Transition.Out type='fade' durationMs={200} />
+//   </Transition.Together>
+// );
 
 const SecondRoute = () => {
-  const [currentIndex, setCurrentIndex] = React.useState(null);
-  const ref = React.useRef();
+//   const [currentIndex, setCurrentIndex] = React.useState(null);
+//   const ref = React.useRef();
 
 
   return (

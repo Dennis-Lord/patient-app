@@ -1,9 +1,9 @@
 import { View, StyleSheet, ScrollView} from 'react-native'
 import * as React from 'react';
-import { HeroFont, LightFont, MediumFont, SemiBoldFont, SemiFont, SemiLightFont } from '../../../components/Font-components'
+import { HeroFont, MediumFont, SemiFont, SemiLightFont } from '../../../components/Font-components'
 import { iconColor, wrapper, fontColor } from '../../../templates/template';
 
-const Referrals = ({navigation}) => {
+const Referrals = () => {
     return (
       <View style={styles.screenView}>
         <View style={[wrapper.heroPos, {marginLeft: 20,}]}>

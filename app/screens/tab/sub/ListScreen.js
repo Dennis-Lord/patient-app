@@ -1,7 +1,7 @@
 import { StyleSheet, View, TextInput } from 'react-native'
 import React from 'react'
 import { HeroFont } from '../../../components/Font-components'
-import { FilterFileCard, FilterOption } from '../../../components/List-components'
+import { FilterFileCard } from '../../../components/List-components'
 import { fontColor, iconColor, wrapper } from '../../../templates/template'
 
 const ListScreen = ({navigation, route}) => {

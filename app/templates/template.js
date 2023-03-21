@@ -112,6 +112,7 @@ const fontColor = {
     b: '#164e63'
 }
 
+// styles to wrap hero text and position all headers equally
 const wrapper = StyleSheet.create({
     bw: {
         backgroundColor: '#fff',

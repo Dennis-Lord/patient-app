@@ -13,7 +13,7 @@ import Documents from './sub/Documents';
 
 const Stack = createNativeStackNavigator();
 
-
+// navigation stack
 const NavIndex = () => {
   return (
       <Stack.Navigator screenOptions= {{headerShown: false}}>
