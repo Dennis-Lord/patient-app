@@ -248,7 +248,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'flex-end',
         marginLeft: 10,
-        justifyContent: 'center'
     },
     optionsContainerB: {
         width: '70%',

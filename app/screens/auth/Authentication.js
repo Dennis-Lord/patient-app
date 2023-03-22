@@ -1,76 +1,100 @@
 import { Text, View, StyleSheet, TextInput, TouchableNativeFeedback, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { fontColor, iconColor } from '../../templates/template'
 import { MediumFont, MiniFont, SemiLightFont } from '../../components/Font-components'
 import { OptionsCard } from '../../components/Card-components'
-import { auth } from '../../../firebaseConfig'
+import { auth, db } from '../../../firebaseConfig'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 
 
 
-export function Authentication () {
-    let emailValue = ''
-    let passValue = ''
-
+export function Authentication ({navigation}) {
+    
     const [val, setVal] = useState('')
     const [keyVal, setKeyVal] = useState('')
+    
+    let emailValue = val
+    let passValue = keyVal
 
+    // set emailValue to equal email entered
     const handleEmail = (e) => {
         setVal(e)
-        emailValue = val.nativeEvent.text
-        console.log(emailValue)
+        try {
+            emailValue = val
+            console.log(emailValue)
+        } catch (error) {
+            console.log(error)
+        }
     }
     
+    // set passValue to equal password entered
     const handlePassword = (e) => {
         setKeyVal(e)
-        passValue = keyVal.nativeEvent.text
-        console.log(passValue)
+        try {
+            passValue = keyVal.nativeEvent.text
+            console.log(passValue)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const [change, setChange] = useState(false)
     const [mainHeader, setMainHeader] = useState('Create an account')
     const [btnText, setBtnText] = useState('Create account')
-    const [question, setQuestion] = useState('Already have an account')
+    const [question, setQuestion] = useState('Already have an account?')
 
     // handle state values when change state alters
     const handleStates = (c) => {
         if (c === false) {
-            setMainHeader('Create an account')
-            setBtnText('Create account')
             setChange(true)
-        }else {
             setMainHeader('Welcome back')
+            setVal('')
+            setKeyVal('')
             setBtnText('Log in')
             setQuestion('Don\'t have an account?')
+        }else {
             setChange(false)
+            setMainHeader('Create an account')
+            setBtnText('Create account')
+            setQuestion('Already have an account?')
         }
     }
 
-    // function to create user account
+    //  create account with email & password
     const CreateAccount = () => {
-        // const auth = getAuth();
-        createUserWithEmailAndPassword(auth, emailValue, passValue).then((credentials) => {
+        createUserWithEmailAndPassword(auth, emailValue, passValue)
+        .then((credentials) => {
             const user = credentials;
-            console.log(user)
-            console.log('creation successful')
-        }).catch((error) => {
+
+            // create user doc with user id as document id
+            return db.collection('users').doc(user.id).set({
+                test: 'success'
+            }).then(() => {
+                console.log(user)
+                setVal('')
+                setKeyVal('')
+                console.log('creation successful')
+                navigation.navigate('TabIndex')
+            })
+
+            
+
+        }),then().catch((error) => {
             const errorCode = error.code
             const message = error.message
             console.log(error)
-            console.log(errorCode)
-            console.log(message)
         })
     }
 
     // handle user log in
     const LogInUser = () => {
-        const auth = getAuth();
         signInWithEmailAndPassword(auth, emailValue, passValue)
         .then((cred) => {
             const user = cred;
             console.log(user)
             console.log('log in successful')
+            navigation.navigate('TabIndex')
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -94,7 +118,9 @@ export function Authentication () {
         <View style={screenstyle.lb}/>
         <View style={screenstyle.inputWrapper}>
             <TextInput keyboardType='email-address' placeholder='Email address'
-            onChange={e => handleEmail(e)}
+            onChangeText={value => handleEmail(value)}
+            focusable={true}
+            maxLength={150}
             value={val}
             style={screenstyle.txtI}/>
         </View>
@@ -102,6 +128,7 @@ export function Authentication () {
             <TextInput secureTextEntry={true} keyboardType='hidden-password'
             onChange={e => handlePassword(e)}
             value={keyVal}
+            maxLength={150}
             placeholder='Password' style={screenstyle.txtI}/>
         </View>
         <TouchableNativeFeedback onPress={() => handleAuth()}>

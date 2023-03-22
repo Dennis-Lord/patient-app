@@ -4,17 +4,17 @@ import { HeroFont } from '../../components/Font-components'
 import { OptionsCard } from '../../components/Card-components'
 import { wrapper } from '../../templates/template'
 import { optionsObject, fontColor, iconColor } from '../../templates/template'
-import { getAuth, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
+import { auth } from '../../../firebaseConfig'
 
-
-const SettingsScreen = () => {
+const SettingsScreen = ({navigation}) => {
 
   // handle user's log out session
   const LogOut = () => {
-    const auth = getAuth();
     signOut(auth).then(() => {
       // Sign-out successful.
       console.log('logged out')
+
     }).catch((error) => {
       // An error happened.
       console.log(error)
@@ -27,7 +27,6 @@ const SettingsScreen = () => {
         <HeroFont text={'Settings'} tc={fontColor.w}/>
       </View>
       <View style={[styles.optionsContainer, wrapper.bw]}>
-        
           {optionsObject.map(({iconName, option}) =>
           <View style={{marginVertical: 10}} key={option}> 
             <TouchableOpacity>
