@@ -1,13 +1,31 @@
-import { StyleSheet, View, Image } from 'react-native'
-import React from 'react'
+import { StyleSheet, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { MainCard, NavCard, NavCard_s } from '../../components/Card-components'
 import { HeroFont } from '../../components/Font-components'
 import h_db from '../../templates/dbTemplate'
 import { iconColor, fontColor, wrapper } from '../../templates/template'
+import { loggedin } from '../StatusEffect'
+import { db } from '../../../firebaseConfig'
 
+const [userDoc, setUserDoc] = useState({})
 
 // main screen of the application
 const MainScreen = ({navigation}) => {
+  let document = userDoc;
+
+  // get user document from firestore if logged in
+  if (loggedin) {
+    useEffect(async () => {
+      const query = await db.collection('users').doc('id')
+      query.get().then((result) => {
+        const d = result
+        console.log(d)
+        return setUserDoc(result)
+      })
+    })
+  }
+
+
   const {medical_files} = h_db.medical_folder;
   const {analysis_files} = h_db.medical_folder;
   const {referrals} = h_db.medical_folder;

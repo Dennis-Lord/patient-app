@@ -5,6 +5,9 @@ import { SemiBoldFont } from '../components/Font-components'
 import { auth } from '../firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 
+// global
+export const [loggedin, setLoggedin] = useState(false)
+
 const StatusEffect = ({navigation}) => {
   const [txt, setTxt] = useState('Please wait...')
 
@@ -12,9 +15,10 @@ const StatusEffect = ({navigation}) => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if(user) {
-        return navigation.navigate('main')
+        setLoggedin(true);
+        return navigation.navigate('main');
       } else {
-        return navigation.navigate('auth')
+        return navigation.navigate('auth');
       }
     }, (err) => {
       console.log(err)
