@@ -1,34 +1,37 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { fontColor } from '../templates/template'
 import { SemiBoldFont } from '../components/Font-components'
-import { auth } from '../firebaseConfig';
+import { auth } from '../../firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
-
-// global
-export const [loggedin, setLoggedin] = useState(false)
 
 const StatusEffect = ({navigation}) => {
   const [txt, setTxt] = useState('Please wait...')
 
-  // 
-  useEffect(() => {
+  const observeAuthState = () => {
     onAuthStateChanged(auth, (user) => {
       if(user) {
-        setLoggedin(true);
-        return navigation.navigate('main');
+        // setLoggedin(true);
+        return navigation.navigate('signIn');
       } else {
         return navigation.navigate('auth');
-      }
+      } 
     }, (err) => {
       console.log(err)
       setTxt('No internet connection')
     })
+  }
+
+  // 
+  useEffect(() => {
+    observeAuthState()
   })
 
   return (
     <View style={styles.screenView}>
+      <TouchableOpacity onPress={() => observeAuthState()}>
       <SemiBoldFont text={txt} tc={fontColor.s}/>
+      </TouchableOpacity>
     </View>
   )
 }

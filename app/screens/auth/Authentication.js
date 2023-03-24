@@ -1,12 +1,11 @@
-import { Text, View, StyleSheet, TextInput, TouchableNativeFeedback, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { View, StyleSheet, TextInput, TouchableNativeFeedback, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
 import { fontColor, iconColor } from '../../templates/template'
 import { MediumFont, MiniFont, SemiLightFont } from '../../components/Font-components'
 import { OptionsCard } from '../../components/Card-components'
 import { auth, db } from '../../../firebaseConfig'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-
-
+import { doc, setDoc } from 'firebase/firestore'
 
 
 export function Authentication ({navigation}) {
@@ -63,28 +62,17 @@ export function Authentication ({navigation}) {
 
     //  create account with email & password
     const CreateAccount = () => {
-        createUserWithEmailAndPassword(auth, emailValue, passValue)
-        .then((credentials) => {
-            const user = credentials;
-
-            // create user doc with user id as document id
-            return db.collection('users').doc(user.id).set({
+        createUserWithEmailAndPassword(auth, emailValue, passValue).then((cred) => {
+            setVal('')
+            setKeyVal('')
+            return setDoc(doc(db, "users", `${cred.user.uid}`), {
                 test: 'success'
-            }).then(() => {
-                console.log(user)
-                setVal('')
-                setKeyVal('')
-                console.log('creation successful')
-                navigation.navigate('TabIndex')
             })
-
-            
-
-        }),then().catch((error) => {
-            const errorCode = error.code
-            const message = error.message
-            console.log(error)
-        })
+        }).then(() => {
+            setVal('')
+            setKeyVal('')
+            navigation.navigate('TabIndex')
+        }).catch((err) => console.log(err))
     }
 
     // handle user log in

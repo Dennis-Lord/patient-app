@@ -6,6 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { iconColor } from '../templates/template';
 import { OptionsCard } from './Card-components';
 
+
 const FilterOption = ({filter}) => {
   return (
     <View style={styles.container}>
@@ -38,6 +39,7 @@ const FilterFileCard = ({nav, route, data}) => {
   const handleOptionButton = () => {
     if(press === null) {
        setpress('show')
+       console.log(dataFile)
     }else{
       setpress(null)
     }

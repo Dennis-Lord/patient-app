@@ -3,8 +3,7 @@ import React from 'react'
 import { HeroFont } from '../../../components/Font-components'
 import { wrapper, iconColor, fontColor } from '../../../templates/template'
 
-const Documents = ({route}) => {
-  const h_title = route.params.dataObject.title
+const Documents = ({navigation}) => {
   return (
     <View style={styles.screenView}>
       <View style={[wrapper.heroPos, {marginLeft: 20,}]}>

@@ -1,68 +1,37 @@
 import { StyleSheet, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { MainCard, NavCard, NavCard_s } from '../../components/Card-components'
 import { HeroFont } from '../../components/Font-components'
-import h_db from '../../templates/dbTemplate'
 import { iconColor, fontColor, wrapper } from '../../templates/template'
-import { loggedin } from '../StatusEffect'
-import { db } from '../../../firebaseConfig'
 
-const [userDoc, setUserDoc] = useState({})
+
+// test@gmail.com Test123
 
 // main screen of the application
 const MainScreen = ({navigation}) => {
-  let document = userDoc;
 
-  // get user document from firestore if logged in
-  if (loggedin) {
-    useEffect(async () => {
-      const query = await db.collection('users').doc('id')
-      query.get().then((result) => {
-        const d = result
-        console.log(d)
-        return setUserDoc(result)
-      })
-    })
-  }
-
-
-  const {medical_files} = h_db.medical_folder;
-  const {analysis_files} = h_db.medical_folder;
-  const {referrals} = h_db.medical_folder;
-  
-
-  const routeprops = {
-    route: 'ListScreen',
-    r_props: {
+  let propObject = {
+    folder: {
+      route: 'ListScreen',
       title: 'Medical history',
-      sub_route: 'MedicalFile',
-      data: medical_files,
+      subRoute: 'MedicalFile',
     },
-  }
-  const routeprops_a = {
-    route: 'ListScreen',
-    r_props: {
+    analysis: {
+      route: 'ListScreen',
       title: 'Analysis',
-      sub_route: 'Analysis',
-      data: analysis_files,
+      subRoute: 'Analysis',
     },
-  }
-  const routeprops_b = {
-    route: 'ListScreen',
-    r_props: {
+    referrals: {
+      route: 'ListScreen',
       title: 'Referrals',
-      sub_route: 'Referrals',
-      data: referrals,
+      subRoute: 'Referrals',
     },
-  }
-  const routeprops_c = {
-    route: 'Documents',
-    r_props: {
+    documents: {
+      route: 'Documents',
       title: 'Documents',
-      sub_route: 'Documents',
-      data: ['a', 'b', 'c'],
-    },
+    }
   }
+
   return (
     <View style={screenstyle.screenView}>
       <View style={[wrapper.heroPos, {position: 'relative', right: '30%',}]}>
@@ -72,11 +41,11 @@ const MainScreen = ({navigation}) => {
       <MainCard />
       </View>
       <View style={[screenstyle.container, wrapper.bw]}>
-        <NavCard cardText={'Medical history'} nav={navigation} routeProps={routeprops}/>
-        <NavCard cardText={'Analysis'} nav={navigation} routeProps={routeprops_a}/>
+        <NavCard cardText={'Medical history'} nav={navigation} routeProps={propObject.folder}/>
+        <NavCard cardText={'Analysis'} nav={navigation} routeProps={propObject.analysis}/>
         <View style={screenstyle.flexContainer}>
-        <NavCard_s cardText={'Documents'} nav={navigation} routeProps={routeprops_c}/>
-        <NavCard_s cardText={'Referrals'} nav={navigation} routeProps={routeprops_b} />
+        <NavCard_s cardText={'Documents'} nav={navigation} routeProps={propObject.documents}/>
+        <NavCard_s cardText={'Referrals'} nav={navigation} routeProps={propObject.referrals} />
         </View>
       </View>
     </View>

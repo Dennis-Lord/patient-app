@@ -3,7 +3,7 @@ import * as React from 'react';
 import { HeroFont, MediumFont, SemiFont, SemiLightFont } from '../../../components/Font-components'
 import { iconColor, wrapper, fontColor } from '../../../templates/template';
 
-const Referrals = () => {
+const Referrals = ({navigation}) => {
     return (
       <View style={styles.screenView}>
         <View style={[wrapper.heroPos, {marginLeft: 20,}]}>

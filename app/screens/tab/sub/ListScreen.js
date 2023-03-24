@@ -1,28 +1,43 @@
-import { StyleSheet, View, TextInput } from 'react-native'
-import React from 'react'
-import { HeroFont } from '../../../components/Font-components'
+import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native'
+import React, {useEffect, useState} from 'react'
+import { HeroFont, LightFont } from '../../../components/Font-components'
 import { FilterFileCard } from '../../../components/List-components'
 import { fontColor, iconColor, wrapper } from '../../../templates/template'
+import { auth, db } from '../../../../firebaseConfig'
+import { doc, getDoc } from 'firebase/firestore'
+import { onAuthStateChanged } from 'firebase/auth'
 
 const ListScreen = ({navigation, route}) => {
-  // let keyHolder;
-  const h_title = route.params.dataObject.title
-  const dataFiles = route.params.dataObject.data
-  const {sub_route} = route.params.dataObject
+  let [userDoc, setUserDoc] = useState('');
 
-  // if(sub_route === 'MedicalFile') {
-  //   keyHolder = dataFiles.disease_name
-  // }else if (sub_route === 'Analysis') {
-  //   keyHolder = dataFiles.analysis_name
-  // }else {
-  //   keyHolder = dataFiles.referring_hospital
-  // }
+  // get user document by user's id
+  const getUserDoc = () => {
+      return onAuthStateChanged(auth, async (cred) => {
+        if (auth.currentUser) {
+          const docRef = doc(db, "users", `${cred.uid}`)
+          const docSnap = await getDoc(docRef);
+  
+          if(docSnap.exists()) {
+            setUserDoc(docSnap.data());
+          }else{
+            console.log('no doc snap')
+          }
+        }else {
+          return console.log('err')
+        }
+      }, (error) => {
+        console.log(error)
+      })
+    }
+    getUserDoc();
 
-  // console.log(dataFiles)
+  const {title} = route.params.routeProps
+  const {subRoute} = route.params.routeProps
+
   return (
     <View style={listStyles.screenView}>
       <View style={[wrapper.heroPos, {marginLeft: 20,}]}>
-        <HeroFont text={h_title} tc={fontColor.w}/>
+        <HeroFont text={title} tc={fontColor.w}/>
         <View style={listStyles.searchBar}>
           <TextInput style={listStyles.txti} placeholder='search' underlineColorAndroid={'#fff'}/>
         </View>
@@ -33,7 +48,12 @@ const ListScreen = ({navigation, route}) => {
         </View> */}
       <View style={[wrapper.bw, listStyles.listWrapper]}>
         <View style={listStyles.listContainer}>
-          {dataFiles.map((d, i) => <FilterFileCard key={i} nav={navigation} route={sub_route} data={d}/>)}
+          {
+            userDoc === '' ?
+            <></>
+            :
+            <FilterFileCard nav={navigation} route={subRoute} data={userDoc}/>
+          }
         </View>
       </View>
     </View>

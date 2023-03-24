@@ -71,10 +71,11 @@ const Tab = createBottomTabNavigator();
 const TabIndex = () => {
     return (
         <Tab.Navigator
+        initialRouteName='Main'
         screenOptions={
             {headerShown: false}
         }
-        tabBar={props => <MyTabBar {...props} />}>
+        tabBar={props => <MyTabBar {...props}/>}>
             <Tab.Screen name="Main" component={NavIndex} />
             <Tab.Screen name="Profile" component={ProfileScreen} />
             <Tab.Screen name="Sponsors" component={SponsorsScreen} />
