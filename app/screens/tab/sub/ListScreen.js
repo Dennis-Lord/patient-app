@@ -1,5 +1,5 @@
 import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native'
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import { HeroFont, LightFont } from '../../../components/Font-components'
 import { FilterFileCard } from '../../../components/List-components'
 import { fontColor, iconColor, wrapper } from '../../../templates/template'
@@ -8,7 +8,7 @@ import { doc, getDoc } from 'firebase/firestore'
 import { onAuthStateChanged } from 'firebase/auth'
 
 const ListScreen = ({navigation, route}) => {
-  let [userDoc, setUserDoc] = useState('');
+  let [userDoc, setUserDoc] = useState(route.params.docs);
 
   // get user document by user's id
   const getUserDoc = () => {
@@ -29,7 +29,6 @@ const ListScreen = ({navigation, route}) => {
         console.log(error)
       })
     }
-    getUserDoc();
 
   const {title} = route.params.routeProps
   const {subRoute} = route.params.routeProps
@@ -49,8 +48,8 @@ const ListScreen = ({navigation, route}) => {
       <View style={[wrapper.bw, listStyles.listWrapper]}>
         <View style={listStyles.listContainer}>
           {
-            userDoc === '' ?
-            <></>
+            userDoc === null ?
+            <LightFont text={'No records available to display'}/>
             :
             <FilterFileCard nav={navigation} route={subRoute} data={userDoc}/>
           }

@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { MainCard, NavCard, NavCard_s } from '../../components/Card-components'
 import { HeroFont } from '../../components/Font-components'
 import { iconColor, fontColor, wrapper } from '../../templates/template'
@@ -9,22 +9,48 @@ import { iconColor, fontColor, wrapper } from '../../templates/template'
 
 // main screen of the application
 const MainScreen = ({navigation}) => {
+  const [document, setDocument] = useState(null)
+
+  // get user's medical records
+  const getUserDoc = () => {
+    return onAuthStateChanged(auth, async (cred) => {
+      if (auth.currentUser) {
+        const docRef = doc(db, "users", `${cred.uid}`)
+        const docSnap = await getDoc(docRef);
+
+        if(docSnap.exists()) {
+          setDocument(docSnap.data());
+        }else{
+          console.log('no doc snap')
+        }
+      }else {
+        return console.log('err')
+      }
+    }, (error) => {
+      console.log(error)
+    })
+  }
+
+  getUserDoc();
 
   let propObject = {
     folder: {
       route: 'ListScreen',
       title: 'Medical history',
       subRoute: 'MedicalFile',
+      docs: document
     },
     analysis: {
       route: 'ListScreen',
       title: 'Analysis',
       subRoute: 'Analysis',
+      docs: document
     },
     referrals: {
       route: 'ListScreen',
       title: 'Referrals',
       subRoute: 'Referrals',
+      docs: document
     },
     documents: {
       route: 'Documents',

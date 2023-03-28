@@ -7,11 +7,14 @@ import { auth, db } from '../../../firebaseConfig'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from 'firebase/firestore'
 
-
 export function Authentication ({navigation}) {
     
     const [val, setVal] = useState('')
     const [keyVal, setKeyVal] = useState('')
+    const [change, setChange] = useState(false)
+    const [mainHeader, setMainHeader] = useState('Create an account')
+    const [btnText, setBtnText] = useState('Create account')
+    const [question, setQuestion] = useState('Already have an account?')
     
     let emailValue = val
     let passValue = keyVal
@@ -38,10 +41,7 @@ export function Authentication ({navigation}) {
         }
     }
 
-    const [change, setChange] = useState(false)
-    const [mainHeader, setMainHeader] = useState('Create an account')
-    const [btnText, setBtnText] = useState('Create account')
-    const [question, setQuestion] = useState('Already have an account?')
+    
 
     // handle state values when change state alters
     const handleStates = (c) => {
@@ -62,16 +62,13 @@ export function Authentication ({navigation}) {
 
     //  create account with email & password
     const CreateAccount = () => {
-        createUserWithEmailAndPassword(auth, emailValue, passValue).then((cred) => {
+        createUserWithEmailAndPassword(auth, emailValue, passValue)
+        .then((cred) => {
             setVal('')
             setKeyVal('')
             return setDoc(doc(db, "users", `${cred.user.uid}`), {
                 test: 'success'
             })
-        }).then(() => {
-            setVal('')
-            setKeyVal('')
-            navigation.navigate('TabIndex')
         }).catch((err) => console.log(err))
     }
 
@@ -80,9 +77,6 @@ export function Authentication ({navigation}) {
         signInWithEmailAndPassword(auth, emailValue, passValue)
         .then((cred) => {
             const user = cred;
-            console.log(user)
-            console.log('log in successful')
-            navigation.navigate('TabIndex')
         })
         .catch((error) => {
             const errorCode = error.code;
