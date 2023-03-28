@@ -15,6 +15,7 @@ export function Authentication ({navigation}) {
     const [mainHeader, setMainHeader] = useState('Create an account')
     const [btnText, setBtnText] = useState('Create account')
     const [question, setQuestion] = useState('Already have an account?')
+    const [authError, setAuthError] = useState({e: false, message: ''})
     
     let emailValue = val
     let passValue = keyVal
@@ -69,19 +70,36 @@ export function Authentication ({navigation}) {
             return setDoc(doc(db, "users", `${cred.user.uid}`), {
                 test: 'success'
             })
-        }).catch((err) => console.log(err))
+        }).catch((err) => {
+            const error = err;
+            console.log(error)
+            if(error === '') {
+                return setAuthError({e: true, message: 'Invalid email'})
+            }else if (error === '') {
+                return setAuthError({e: true, message: 'Invalid password'})
+            }else if (error === '') {
+                return setAuthError({e: true, message: 'No internet Connection'})
+            }
+        })
     }
 
     // handle user log in
     const LogInUser = () => {
         signInWithEmailAndPassword(auth, emailValue, passValue)
         .then((cred) => {
-            const user = cred;
+            return
         })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage)
+        .catch((err) => {
+            const error = err;
+            console.log(error)
+            if(error === '') {
+                return setAuthError({e: true, message: 'Invalid email'})
+            }else if (error === '') {
+                return setAuthError({e: true, message: 'Invalid password'})
+            }else if (error === '') {
+                return setAuthError({e: true, message: 'No internet Connection'})
+            }
+
         });
     }
   
@@ -97,6 +115,15 @@ export function Authentication ({navigation}) {
     return (
       <View style={screenstyle.screenView}>
         <MediumFont text={mainHeader} tc={fontColor.s}/>
+        {
+            authError ? 
+            setTimeout(() => {
+            return <SemiLightFont tc={fontColor.r} text={authError.message}/>
+         
+            }, 5000).then(() => setAuthError({e: false, message: ''}))
+            :
+            <></>
+        }
         <View style={screenstyle.lb}/>
         <View style={screenstyle.inputWrapper}>
             <TextInput keyboardType='email-address' placeholder='Email address'
@@ -122,6 +149,9 @@ export function Authentication ({navigation}) {
             <MiniFont text={question} tc={'gray'}/>
         </TouchableOpacity>
         <View style={screenstyle.lb}/>
+        <TouchableOpacity onPress={() => console.log('pressed')}>
+            <MiniFont text={'Forgot password?'} tc={fontColor.p}/>
+        </TouchableOpacity>
         <TouchableNativeFeedback>
             <View style={screenstyle.btn}>
                 <OptionsCard mic={fontColor.w} option={'Continue with Google'} iconName={'google'} s={22} o={'b'} tc={'white'}/>
