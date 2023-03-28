@@ -24,8 +24,7 @@ export function Authentication ({navigation}) {
     const handleEmail = (e) => {
         setVal(e)
         try {
-            emailValue = val
-            console.log(emailValue)
+            emailValue = val;
         } catch (error) {
             console.log(error)
         }
@@ -149,7 +148,7 @@ export function Authentication ({navigation}) {
             <MiniFont text={question} tc={'gray'}/>
         </TouchableOpacity>
         <View style={screenstyle.lb}/>
-        <TouchableOpacity onPress={() => console.log('pressed')}>
+        <TouchableOpacity onPress={() => navigation.navigate('forgotPass', {emailValue})}>
             <MiniFont text={'Forgot password?'} tc={fontColor.p}/>
         </TouchableOpacity>
         <TouchableNativeFeedback>

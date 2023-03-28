@@ -6,6 +6,7 @@ import Authentication from './screens/auth/Authentication';
 import StatusEffect from './screens/StatusEffect';
 import { auth } from '../firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
+import ForgotPassword from './screens/auth/ForgotPassword';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,8 +35,11 @@ const Index = () => {
           user ? 
           <Stack.Screen name='home' component={TabIndex} />
           :
-          <Stack.Screen name='auth' component={Authentication}
-          options={{ animationTypeForReplace: user ? 'pop' : 'push' }} />
+          <>
+            <Stack.Screen name='auth' component={Authentication}
+            options={{ animationTypeForReplace: user ? 'pop' : 'push' }} />
+            <Stack.Screen name='forgotPass' component={ForgotPassword} />
+          </>
     
         }
       </Stack.Navigator>
