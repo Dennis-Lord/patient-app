@@ -55,23 +55,28 @@ const profileObject = [
 const optionsObject = [
     {
         iconName: "account",
-        option: "Account"
+        option: "Account",
+        r: "account"
     },
     {
         iconName: "shield-key",
-        option: "Privacy policy"
+        option: "Privacy policy",
+        r: "details"
     },
     {
         iconName: "information",
-        option: "About us"
+        option: "About us",
+        r: "details"
     },
     {
         iconName: "help-rhombus",
-        option: "Help"
+        option: "Help",
+        r: "details"
     },
     {
         iconName: "frequently-asked-questions",
-        option: "FAQ"
+        option: "FAQ",
+        r: "details"
     },
 ];
 

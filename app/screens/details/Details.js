@@ -1,15 +1,25 @@
 import { wrapper } from "../../templates/template"
 
 const DetailsScreen = ({route}) => {
-    const {title} = route.params.routeProps
+    const {option} = route.params.routeProps
   
     return (
       <View style={styles.screenView}>
         <View style={[wrapper.heroPos, {marginLeft: 20,}]}>
-          <HeroFont text={title} tc={fontColor.w}/>
+          <HeroFont text={option} tc={fontColor.w}/>
         </View>
         <View style={[wrapper.bw, styles.wrapper]}>
           <View style={styles.container}>
+            {
+              option === 'Privacy policy' ?
+              <></>
+              : option === 'About us'?
+              <></>
+              : option === 'Help' ?
+              <></>
+              : 
+              <></>
+            }
           </View>
         </View>
       </View>

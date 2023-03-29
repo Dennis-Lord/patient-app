@@ -1,34 +1,11 @@
-import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, TextInput } from 'react-native'
 import React, {useState} from 'react'
 import { HeroFont, LightFont } from '../../../components/Font-components'
 import { FilterFileCard } from '../../../components/List-components'
 import { fontColor, iconColor, wrapper } from '../../../templates/template'
-import { auth, db } from '../../../../firebaseConfig'
-import { doc, getDoc } from 'firebase/firestore'
-import { onAuthStateChanged } from 'firebase/auth'
 
 const ListScreen = ({navigation, route}) => {
   let [userDoc, setUserDoc] = useState(route.params.docs);
-
-  // get user document by user's id
-  const getUserDoc = () => {
-      return onAuthStateChanged(auth, async (cred) => {
-        if (auth.currentUser) {
-          const docRef = doc(db, "users", `${cred.uid}`)
-          const docSnap = await getDoc(docRef);
-  
-          if(docSnap.exists()) {
-            setUserDoc(docSnap.data());
-          }else{
-            console.log('no doc snap')
-          }
-        }else {
-          return console.log('err')
-        }
-      }, (error) => {
-        console.log(error)
-      })
-    }
 
   const {title} = route.params.routeProps
   const {subRoute} = route.params.routeProps
@@ -49,7 +26,10 @@ const ListScreen = ({navigation, route}) => {
         <View style={listStyles.listContainer}>
           {
             userDoc === null ?
-            <LightFont text={'No records available to display'}/>
+            <LightFont text={'Error getting records'}/>
+            :
+            userDoc === [] ?
+            <LightFont text={'No records available'}/>
             :
             <FilterFileCard nav={navigation} route={subRoute} data={userDoc}/>
           }

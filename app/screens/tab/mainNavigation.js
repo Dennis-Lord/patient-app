@@ -14,7 +14,7 @@ import Documents from './sub/Documents';
 const Stack = createNativeStackNavigator();
 
 // navigation stack
-const NavIndex = () => {
+const MainNavigation = () => {
   return (
       <Stack.Navigator screenOptions= {{headerShown: false}}>
         <Stack.Screen name="Index" component={MainScreen} />
@@ -27,4 +27,4 @@ const NavIndex = () => {
   )
 };
 
-export default NavIndex;
+export default MainNavigation;

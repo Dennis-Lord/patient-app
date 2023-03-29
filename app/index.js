@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext, useReducer } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import TabIndex from './tabIndex';
+import TabNavigation from './tabNavigation';
 import Authentication from './screens/auth/Authentication';
 import StatusEffect from './screens/StatusEffect';
 import { auth } from '../firebaseConfig';
@@ -33,7 +33,7 @@ const Index = () => {
           <Stack.Screen name='splash' component={StatusEffect}/>
           :
           user ? 
-          <Stack.Screen name='home' component={TabIndex} />
+          <Stack.Screen name='home' component={TabNavigation} />
           :
           <>
             <Stack.Screen name='auth' component={Authentication}

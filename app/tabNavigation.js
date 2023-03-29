@@ -3,10 +3,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MainScreen from './screens/tab/Main';
 import ProfileScreen from './screens/tab/Profile';
 import SponsorsScreen from './screens/tab/Sponsors';
-import SettingsScreen from './screens/tab/Settings';
+import SettingsNavigation from './settingsNavigation';
 
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import NavIndex from './screens/tab/navIndex';
+import MainNavigation from './screens/tab/mainNavigation';
 import { iconColor } from './templates/template';
 
 function MyTabBar({ state, descriptors, navigation }) {
@@ -68,7 +68,7 @@ function MyTabBar({ state, descriptors, navigation }) {
 
 const Tab = createBottomTabNavigator();
 
-const TabIndex = () => {
+const TabNavigation = () => {
     return (
         <Tab.Navigator
         initialRouteName='Main'
@@ -76,10 +76,10 @@ const TabIndex = () => {
             {headerShown: false}
         }
         tabBar={props => <MyTabBar {...props}/>}>
-            <Tab.Screen name="Main" component={NavIndex} />
+            <Tab.Screen name="Main" component={MainNavigation} />
             <Tab.Screen name="Profile" component={ProfileScreen} />
             <Tab.Screen name="Sponsors" component={SponsorsScreen} />
-            <Tab.Screen name="Settings" component={SettingsScreen} />
+            <Tab.Screen name="SettingsNav" component={SettingsNavigation} />
         </Tab.Navigator>
     )
 }
@@ -95,4 +95,4 @@ const tabStyles = StyleSheet.create({
     },
 })
 
-export default TabIndex
+export default TabNavigation

@@ -27,9 +27,9 @@ const SettingsScreen = ({navigation}) => {
         <HeroFont text={'Settings'} tc={fontColor.w}/>
       </View>
       <View style={[styles.optionsContainer, wrapper.bw]}>
-          {optionsObject.map(({iconName, option}) =>
+          {optionsObject.map(({iconName, option, r}) =>
           <View style={{marginVertical: 10}} key={option}> 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate(r, {option})}>
               <OptionsCard iconName={iconName} option={option} s={24} o={'a'}/>
             </TouchableOpacity>
           </View>
