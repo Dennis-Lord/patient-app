@@ -1,11 +1,15 @@
 import { StyleSheet, View, TextInput, TouchableNativeFeedback } from 'react-native'
 import React, { useState } from 'react'
 import { wrapper } from '../../templates/template'
-import { HeroFont, fontColor } from '../../components/Font-components'
+import { HeroFont, LightFont } from '../../components/Font-components'
+import { fontColor } from '../../templates/template'
+import { auth, sendPasswordResetEmail } from '../../../firebaseConfig'
 
 const ForgotPassword = ({route}) => {
     const [email, setEmail] = useState(route.params.emailValue)
-
+    const [resetError, setResetError] = useState({isError: false, errorMessage: ''})
+    const [resetState, setResetState] = useState({state: false, message: ''})
+    
     let emailValue = email
 
     // set emailValue to equal email entered
@@ -20,6 +24,15 @@ const ForgotPassword = ({route}) => {
 
     const ForgotPass = (email) => {
         // handle forgot password
+        sendPasswordResetEmail(auth, email)
+        .then(() => {
+            setResetState({state: true, message: 'Email sent'})
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            setResetError({isError: true, errorMessage: errorMessage})
+        });
         console.log(email)
     }
 
@@ -27,6 +40,19 @@ const ForgotPassword = ({route}) => {
     <View style={styles.screenView}>
       <View style={[wrapper.heroPos, {position: 'relative', right: '30%',}]}>
         <HeroFont text={'Forgot Password'} tc={fontColor.w}/>
+        {
+            resetState.state ? 
+            setTimeout(() => {
+                <LightFont text={resetState.message} tc={fontColor.p}/>
+            }, 3000)
+            :
+            resetError.isError ?
+            setTimeout(() => {
+                <LightFont text={resetError.errorMessage} tc={fontColor.r} />
+            }, 3000)
+            :
+            <></>
+        }
       </View>
       <View style={styles.inputWrapper}>
             <TextInput keyboardType='email-address' placeholder='Enter email'
