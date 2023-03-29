@@ -8,29 +8,29 @@ import { onAuthStateChanged } from 'firebase/auth';
 const StatusEffect = ({navigation}) => {
   const [txt, setTxt] = useState('Please wait...')
 
-  const observeAuthState = () => {
-    onAuthStateChanged(auth, (user) => {
-      if(user) {
-        // setLoggedin(true);
-        return navigation.navigate('signIn');
-      } else {
-        return navigation.navigate('auth');
-      } 
-    }, (err) => {
-      console.log(err)
-      setTxt('No internet connection')
-    })
-  }
+  // const observeAuthState = () => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     if(user) {
+  //       // setLoggedin(true);
+  //       return navigation.navigate('signIn');
+  //     } else {
+  //       return navigation.navigate('auth');
+  //     } 
+  //   }, (err) => {
+  //     console.log(err)
+  //     setTxt('No internet connection')
+  //   })
+  // }
 
-  // 
-  useEffect(() => {
-    observeAuthState()
-  })
+  // // 
+  // useEffect(() => {
+  //   observeAuthState()
+  // })
 
   return (
     <View style={styles.screenView}>
       <TouchableOpacity onPress={() => observeAuthState()}>
-      <SemiBoldFont text={txt} tc={fontColor.s}/>
+        <SemiBoldFont text={txt} tc={fontColor.s}/>
       </TouchableOpacity>
     </View>
   )

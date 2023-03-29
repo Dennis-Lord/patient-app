@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, setTimeout } from 'react'
 import { MainCard, NavCard, NavCard_s } from '../../components/Card-components'
 import { HeroFont, LightFont } from '../../components/Font-components'
 import { iconColor, fontColor, wrapper } from '../../templates/template'

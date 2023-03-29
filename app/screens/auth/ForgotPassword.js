@@ -1,9 +1,10 @@
 import { StyleSheet, View, TextInput, TouchableNativeFeedback } from 'react-native'
 import React, { useState } from 'react'
 import { wrapper } from '../../templates/template'
-import { HeroFont, LightFont } from '../../components/Font-components'
-import { fontColor } from '../../templates/template'
-import { auth, sendPasswordResetEmail } from '../../../firebaseConfig'
+import { HeroFont, LightFont, SemiLightFont } from '../../components/Font-components'
+import { fontColor, iconColor } from '../../templates/template'
+import { auth } from '../../../firebaseConfig'
+import { sendPasswordResetEmail } from 'firebase/auth'
 
 const ForgotPassword = ({route}) => {
     const [email, setEmail] = useState(route.params.emailValue)
@@ -27,29 +28,27 @@ const ForgotPassword = ({route}) => {
         sendPasswordResetEmail(auth, email)
         .then(() => {
             setResetState({state: true, message: 'Email sent'})
+            setEmail('')
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
             setResetError({isError: true, errorMessage: errorMessage})
         });
-        console.log(email)
     }
+
+    
 
   return (
     <View style={styles.screenView}>
-      <View style={[wrapper.heroPos, {position: 'relative', right: '30%',}]}>
-        <HeroFont text={'Forgot Password'} tc={fontColor.w}/>
+        <HeroFont text={'Forgot Password'} tc={fontColor.p}/>
+      <View style={styles.errorView}>
         {
             resetState.state ? 
-            setTimeout(() => {
-                <LightFont text={resetState.message} tc={fontColor.p}/>
-            }, 3000)
+            <LightFont text={resetState.message} tc={fontColor.p}/>
             :
             resetError.isError ?
-            setTimeout(() => {
-                <LightFont text={resetError.errorMessage} tc={fontColor.r} />
-            }, 3000)
+            <LightFont text={resetError.errorMessage} tc={fontColor.r} />
             :
             <></>
         }
@@ -59,12 +58,12 @@ const ForgotPassword = ({route}) => {
             onChangeText={value => handleEmail(value)}
             focusable={true}
             maxLength={150}
-            value={val}
+            value={emailValue}
             style={styles.txtI}/>
         </View>
         <TouchableNativeFeedback onPress={() => ForgotPass(email)}>
             <View style={styles.accBtn}>
-                <SemiLightFont text={btnText} tc={fontColor.w}/>
+                <SemiLightFont text={'Submit'} tc={fontColor.w}/>
             </View>
         </TouchableNativeFeedback>
     </View>
@@ -76,10 +75,9 @@ export default ForgotPassword
 const styles = StyleSheet.create({
     screenView: {
         flex: 1,
-        paddingTop: 40,
+        paddingTop: 48,
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
         backgroundColor: fontColor.w
       },
       inputWrapper: {
@@ -105,5 +103,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginVertical: 14
+    },
+    errorView: {
+        width: '90%',
+        height: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 3
     }
 })

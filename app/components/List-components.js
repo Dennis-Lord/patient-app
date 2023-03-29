@@ -1,6 +1,6 @@
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import React, {useState} from 'react'
-import { fontColor, windowWidth, downloadOption } from '../templates/template'
+import { fontColor, windowWidth } from '../templates/template'
 import { LightFont, MediumFont, SemiLightFont } from './Font-components'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { iconColor } from '../templates/template';
@@ -137,4 +137,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export {FilterOption, FilterFileCard, MoreOptions}
+export { FilterFileCard, MoreOptions}

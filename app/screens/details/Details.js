@@ -1,4 +1,7 @@
-import { wrapper } from "../../templates/template"
+import React from "react"
+import { StyleSheet, View } from 'react-native'
+import { wrapper, iconColor, fontColor } from "../../templates/template"
+import { HeroFont } from "../../components/Font-components"
 
 const DetailsScreen = ({route}) => {
     const {option} = route.params.routeProps
