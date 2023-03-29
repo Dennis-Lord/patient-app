@@ -18,10 +18,6 @@ const ListScreen = ({navigation, route}) => {
           <TextInput style={listStyles.txti} placeholder='search' underlineColorAndroid={'#fff'}/>
         </View>
       </View>
-        {/* <View style={listStyles.filterContainer}>
-          <FilterOption filter={"Files"}/>
-          <FilterOption filter={"Filter"}/>
-        </View> */}
       <View style={[wrapper.bw, listStyles.listWrapper]}>
         <View style={listStyles.listContainer}>
           {

@@ -6,15 +6,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { iconColor } from '../templates/template';
 import { OptionsCard } from './Card-components';
 
-
-const FilterOption = ({filter}) => {
-  return (
-    <View style={styles.container}>
-      <LightFont text={filter}/>
-    </View>
-  )
-}
-
 const FlagComponent = ({flag}) => {
   let tc;
   if (flag === 'in process') {
