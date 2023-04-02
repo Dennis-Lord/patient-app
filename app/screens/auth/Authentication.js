@@ -1,20 +1,24 @@
 import { View, StyleSheet, TextInput, TouchableNativeFeedback, TouchableOpacity } from 'react-native'
-import React, { useState, setTimeout } from 'react'
+import React, { useState } from 'react'
 import { fontColor, iconColor } from '../../templates/template'
-import { HeroFont, MediumFont, MiniFont, SemiBoldFont, SemiLightFont } from '../../components/Font-components'
+import { HeroFont, MediumFont, MiniFont, SemiLightFont } from '../../components/Font-components'
 import { OptionsCard } from '../../components/Card-components'
 import { auth, db } from '../../../firebaseConfig'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from 'firebase/firestore'
 
-export function Authentication ({navigation}) {
+ function Authentication ({navigation}) {
     
     const [val, setVal] = useState('')
     const [keyVal, setKeyVal] = useState('')
-    const [change, setChange] = useState(false)
-    const [mainHeader, setMainHeader] = useState('Create an account')
-    const [btnText, setBtnText] = useState('Create account')
-    const [question, setQuestion] = useState('Already have an account?')
+    const [change, setChange] = useState(
+        {
+            state: false,
+            header: 'Create an account',
+            buttonText: 'Create account',
+            question: 'Already have an account'
+        }
+    )
     const [authError, setAuthError] = useState({e: false, message: ''})
     
     let emailValue = val
@@ -46,31 +50,169 @@ export function Authentication ({navigation}) {
     // handle state values when change state alters
     const handleStates = (c) => {
         if (c === false) {
-            setChange(true)
-            setMainHeader('Welcome back')
+            setChange({
+                state: true,
+                header: 'Welcome back',
+                buttonText: 'Log in',
+                question: 'Don\'t have an account?'
+            })
             setVal('')
             setKeyVal('')
-            setBtnText('Log in')
-            setQuestion('Don\'t have an account?')
             setAuthError({e: false, message: ''})
         }else {
-            setChange(false)
-            setMainHeader('Create an account')
-            setBtnText('Create account')
-            setQuestion('Already have an account?')
+            setChange({    
+                state: false,
+                header: 'Create an account',
+                buttonText: 'Create account',
+                question: 'Already have an account'
+            })
             setAuthError({e: false, message: ''})
         }
     }
 
     //  create account with email & password
     const CreateAccount = () => {
+        const tempData = {
+            "hName": "Fankyenebra Hospital",
+            "hLocation": {
+                "country": "Ghana",
+                "postal": "P.O.BOX KS 7162",
+                "street": "Near Fankyenebra Basic School"
+            },
+            "hContact": ["0559120703", "0249744563"],
+            "hEmail": "fankyenebrapower.hospital@yahoo.com",
+            "hWebsite": "fankyenebrahospital.com",
+            "patientProfile": {
+                "dateGenerated": "02.02.2022",
+                "name": "Anonymous User",
+                "gender": "Male",
+                "title": "Mr",
+                "age": 25,
+                "bloodType": "O",
+                "sponsor": {
+                    "name": "National Health Insurance Scheme",
+                    "acronym": "NHIS",
+                    "id": 76756567,
+                    "verification": "verified",
+                    "expiration": "05.06.2025"
+                },
+                "bodymeasurements": {
+                    "weight": {
+                        "dateRecorded": "22.04.2022",
+                        "measure": 22,
+                        "unit": "kg"
+                    },
+                    "height": {
+                        "dateRecorded": "22.04.2022",
+                        "measure": 164,
+                        "unit": "cm"
+                    }
+                },
+                "allergy": "Beans"
+            },
+            "medicalFolder": {
+                "files": [
+                    {
+                        "disease": "",
+                        "diagnosisDate": "",
+                        "treatementStarted": "",
+                        "treatementEnded": "",
+                        "flag": "",
+                        "practisioner": {
+                            "name": "",
+                            "title": "",
+                            "notes": {
+                                "notesDate": "",
+                                "time": "",
+                                "notes": ""
+                            }
+                        },
+                        "diagnosis": "",
+                        "complaints": "",
+                        "examinations": {
+                            "bodypart": "", 
+                            "result": ""
+                            },
+                        "recommendations": [""],
+                        "drugsAdministered": {
+                            "startDoses": {
+                                "date": "",
+                                "time": "",
+                                "drugName": "",
+                                "route": "",
+                                "dosage": ""
+                            },
+                            "infusions": {
+                                "date": "", 
+                                "time": "", 
+                                "drugName": ""
+                            },
+                            "drugs": {
+                                "drug": "",
+                                "ofType": "",
+                                "route": "",
+                                "dose": ""
+                            }
+                        },
+                        "fourHourChart": {
+                            "date": "",
+                            "temperature": {
+                                "unit": "",
+                                "measure": [
+                                    {
+                                        "time": "",
+                                        "value": 0.0
+                                    }
+                                ]
+                            },
+                            "pulserate": {
+                                "unit": "",
+                                "measure": [
+                                    {
+                                        "time": "",
+                                        "value": 0.0
+                                    }
+                                ]
+                            },
+                            "respirations": {
+                                "measure": [
+                                    {
+                                        "time": "",
+                                        "value": 0.0
+                                    }
+                                ]
+                            }
+                        },
+                        "referrals": [
+                            {
+                                "referredFrom": "",
+                                "referredTo": "",
+                                "nameOfDoctor": "",
+                                "summary": "",
+                                "diagnosis": "",
+                                "investigationsAndManagement": "",
+                                "durationOfManagement": "",
+                                "reason": "",
+                                "signatureAndStamp": ""
+                            }
+                        ]
+                    }
+                ],
+                "analysisFiles": []
+            }
+        }
         createUserWithEmailAndPassword(auth, emailValue, passValue)
         .then((cred) => {
             setVal('')
             setKeyVal('')
             return setDoc(doc(db, "records", `${cred.user.uid}`), {
-                medical_folders: [],
-                preset_settings: {}
+                account: {
+                    name: `${cred.user.displayName}`,
+                    email: `${cred.user.email}`,
+                },
+                medical_folders: [tempData],
+                analysis_files: [],
+                user_settings: {}
             })
         }).catch((err) => {
             const error = err;
@@ -92,7 +234,7 @@ export function Authentication ({navigation}) {
   
     // handle sign up / log in session
     const handleAuth = () => {
-        if (change === false) {
+        if (change.state === false) {
             CreateAccount()
         } else {
             LogInUser()
@@ -101,7 +243,7 @@ export function Authentication ({navigation}) {
 
     return (
       <View style={screenstyle.screenView}>
-        <HeroFont text={mainHeader} tc={fontColor.s}/>
+        <HeroFont text={change.header} tc={fontColor.s}/>
         <View style={screenstyle.errorView}>
         {
             authError.e ? 
@@ -128,11 +270,11 @@ export function Authentication ({navigation}) {
         </View>
         <TouchableNativeFeedback onPress={() => handleAuth()}>
             <View style={screenstyle.accBtn}>
-                <SemiLightFont text={btnText} tc={fontColor.w}/>
+                <SemiLightFont text={change.buttonText} tc={fontColor.w}/>
             </View>
         </TouchableNativeFeedback>
         <TouchableOpacity onPress={() => handleStates(change)}>
-            <MiniFont text={question} tc={fontColor.s}/>
+            <MiniFont text={change.question} tc={fontColor.s}/>
         </TouchableOpacity>
         <View style={{height: 8}}/>
         <TouchableOpacity onPress={() => navigation.navigate('forgotPass', {emailValue})}>

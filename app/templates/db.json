@@ -1,0 +1,129 @@
+{
+    "hName": "Fankyenebra Hospital",
+    "hLocation": {
+        "country": "Ghana",
+        "postal": "P.O.BOX KS 7162",
+        "street": "Near Fankyenebra Basic School"
+    },
+    "hContact": ["0559120703", "0249744563"],
+    "hEmail": "fankyenebrapower.hospital@yahoo.com",
+    "hWebsite": "fankyenebrahospital.com",
+    "patientProfile": {
+        "dateGenerated": "02.02.2022",
+        "name": "Anonymous User",
+        "gender": "Male",
+        "title": "Mr",
+        "age": 25,
+        "bloodType": "O",
+        "sponsor": {
+            "name": "National Health Insurance Scheme",
+            "acronym": "NHIS",
+            "id": 76756567,
+            "verification": "verified",
+            "expiration": "05.06.2025"
+        },
+        "bodymeasurements": {
+            "weight": {
+                "dateRecorded": "22.04.2022",
+                "measure": 22,
+                "unit": "kg"
+            },
+            "height": {
+                "dateRecorded": "22.04.2022",
+                "measure": 164,
+                "unit": "cm"
+            }
+        },
+        "allergy": "Beans"
+    },
+    "medicalFolder": {
+        "files": [
+            {
+                "disease": "",
+                "diagnosisDate": "",
+                "treatementStarted": "",
+                "treatementEnded": "",
+                "flag": "",
+                "practisioner": {
+                    "name": "",
+                    "title": "",
+                    "notes": {
+                        "notesDate": "",
+                        "time": "",
+                        "notes": ""
+                    }
+                },
+                "diagnosis": "",
+                "complaints": "",
+                "examinations": {
+                    "bodypart": "", 
+                    "result": ""
+                    },
+                "recommendations": [""],
+                "drugsAdministered": {
+                    "startDoses": {
+                        "date": "",
+                        "time": "",
+                        "drugName": "",
+                        "route": "",
+                        "dosage": ""
+                    },
+                    "infusions": {
+                        "date": "", 
+                        "time": "", 
+                        "drugName": ""
+                    },
+                    "drugs": {
+                        "drug": "",
+                        "ofType": "",
+                        "route": "",
+                        "dose": ""
+                    }
+                },
+                "fourHourChart": {
+                    "date": "",
+                    "temperature": {
+                        "unit": "",
+                        "measure": [
+                            {
+                                "time": "",
+                                "value": 0.0
+                            }
+                        ]
+                    },
+                    "pulserate": {
+                        "unit": "",
+                        "measure": [
+                            {
+                                "time": "",
+                                "value": 0.0
+                            }
+                        ]
+                    },
+                    "respirations": {
+                        "measure": [
+                            {
+                                "time": "",
+                                "value": 0.0
+                            }
+                        ]
+                    }
+                },
+                "referrals": [
+                    {
+                        "referredFrom": "",
+                        "referredTo": "",
+                        "nameOfDoctor": "",
+                        "summary": "",
+                        "diagnosis": "",
+                        "investigationsAndManagement": "",
+                        "durationOfManagement": "",
+                        "reason": "",
+                        "signatureAndStamp": ""
+                    }
+                ]
+            }
+        ],
+        "analysisFiles": []
+    }
+}

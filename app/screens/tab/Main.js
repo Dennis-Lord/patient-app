@@ -3,7 +3,9 @@ import React, { useState, setTimeout } from 'react'
 import { MainCard, NavCard, NavCard_s } from '../../components/Card-components'
 import { HeroFont, LightFont } from '../../components/Font-components'
 import { iconColor, fontColor, wrapper } from '../../templates/template'
-
+import { onAuthStateChanged } from 'firebase/auth'
+import { db, auth } from '../../../firebaseConfig'
+import { doc, getDoc } from 'firebase/firestore'
 
 // test@gmail.com Test123
 
@@ -20,6 +22,7 @@ const MainScreen = ({navigation}) => {
         const docSnap = await getDoc(docRef);
 
         if(docSnap.exists()) {
+          console.log(docSnap.data())
           return setDocument(docSnap.data());
         }else{
           setDocument([])
@@ -38,19 +41,19 @@ const MainScreen = ({navigation}) => {
       route: 'ListScreen',
       title: 'Medical history',
       subRoute: 'MedicalFile',
-      docs: document
+      docs: document != null ? document : {} // document.medical_folders
     },
     analysis: {
       route: 'ListScreen',
       title: 'Analysis',
       subRoute: 'Analysis',
-      docs: document
+      docs: document != null ? document : {} // document.analysis_files
     },
     referrals: {
       route: 'ListScreen',
       title: 'Referrals',
       subRoute: 'Referrals',
-      docs: document
+      docs: document != null ? document : {} // document.medical_files.[0].referrals
     },
     documents: {
       route: 'Documents',
