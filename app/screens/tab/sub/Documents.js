@@ -3,13 +3,15 @@ import React from 'react'
 import { HeroFont } from '../../../components/Font-components'
 import { wrapper, iconColor, fontColor } from '../../../templates/template'
 
-const Documents = ({navigation}) => {
+const Documents = () => {
   return (
     <View style={styles.screenView}>
       <View style={[wrapper.heroPos, {marginLeft: 20,}]}>
           <HeroFont text={'Documents'} tc={fontColor.w}/>
         </View>
-        <View style={[styles.wrapper, wrapper.bw]}></View>
+        <View style={[styles.wrapper, wrapper.bw]}>
+          
+        </View>
     </View>
   )
 }

@@ -1,46 +1,35 @@
 import { StyleSheet, ScrollView, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { HeroFont, SemiFont, MediumFont, LightFont } from '../../components/Font-components'
 import { ProfileCard } from '../../components/Card-components'
 import { fontColor, iconColor, wrapper } from '../../templates/template'
-import { getAuth } from 'firebase/auth'
 import { auth, db } from '../../../firebaseConfig'
-import { doc, getDoc, getDocFromCache } from 'firebase/firestore'
+import { onAuthStateChanged } from 'firebase/auth'
+import { doc, getDoc } from 'firebase/firestore'
 
 const ProfileScreen = () => {
   const user = auth.currentUser;
 
-  const [cacheState, setCacheState] = useState({s:null, error: null});
+  const [hospitalProfile, setHospitalProfile] = useState({})
   const [profileData, setProfileData] = useState({})
   const [loading, setLoading] = useState({s: true ,m: 'loading profile...'})
 
   // get data from firestore
-  const requestDocument = () => {
-    const snappedDoc = getDoc(docRef);
-    if(snappedDoc.exists()) {
-        setLoading({e: false, m: ''})
-      return setProfileData(snappedDoc.data());
-    }else {
-      setLoading({e: true, m: 'could not get profile'})
-    }
-  }
-
-  // get data from cache
-  
-  if (user !== null) {
-    const docRef = doc(db, "records", `${user.uid}`)
-
-    try{
-      const docSnap = getDocFromCache(docRef);
-      return setProfileData(docSnap.data())
-    }catch(e) {
-      setCacheState({s: false, error: e})
-    }
-    
-    if (cacheState.s == true) {
-      return requestDocument()
-    } 
-  }
+  useEffect(() => {
+    onAuthStateChanged(auth, async (cred) => {
+      const docRef = doc(db, 'records',  `${cred.uid}`);
+      const docSnap = await getDoc(docRef);
+      if(docSnap.exists()) {
+        const userDoc = docSnap.data()
+        setHospitalProfile(userDoc.medical_folders[0])
+        setProfileData(userDoc.medical_folders[0].patientProfile);
+        console.log(profileData)
+        setLoading({s: false, m: ''})
+      }
+    }, (error) => {
+      setLoading({e: true, m: 'error loading profile'})
+    })
+  }, [])
 
 
   return (
@@ -50,9 +39,9 @@ const ProfileScreen = () => {
       </View>
       <View style={[styles.cWrapper, wrapper.bw]}>
         {
-          loading.e ?
+          loading.s ?
           <View style={styles.loadStyle}>
-            <MediumFont text={ loading.m} tc={fontColor.w}/>
+            <MediumFont text={loading.m} tc={fontColor.p}/>
           </View>
           :
           <>
@@ -60,7 +49,7 @@ const ProfileScreen = () => {
               <View style={styles.img}/>
               <View style={styles.subContainer}>
                 <MediumFont text={"Provider"}/>
-                <SemiFont text={"Fankyenebra Hospital"}/>
+                <SemiFont text={hospitalProfile.hName}/>
               </View>
             </View>
             <View style={styles.dateContainer}>
@@ -71,15 +60,15 @@ const ProfileScreen = () => {
             {/* Display user profile data */}
             <View style={styles.profile}>
               <ScrollView showsVerticalScrollIndicator={false}>
-                <ProfileCard name={'Name'} value={''} icon={'human-greeting-proximity'}/>
-                <ProfileCard name={'Gender'} value={''} icon={'gender-male'}/>
-                <ProfileCard name={'Title'} value={''} icon={'label-variant'}/>
-                <ProfileCard name={'Age'} value={''} icon={'select-group'}/>
-                <ProfileCard name={'Type'} value={''} icon={'blood-bag'}/>
-                <ProfileCard name={'Height'} value={''} icon={'human-male-height'}/>
-                <ProfileCard name={'Weight'} value={''} icon={'weight'}/>
-                <ProfileCard name={'Allergies'} value={''} icon={'allergy'}/>
-                <ProfileCard name={'Sponsor(s)'} value={''} icon={'help-network'}/>
+                <ProfileCard name={'Name'} value={profileData.name} icon={'human-greeting-proximity'}/>
+                <ProfileCard name={'Gender'} value={profileData.gender} icon={'gender-male'}/>
+                <ProfileCard name={'Title'} value={profileData.title} icon={'label-variant'}/>
+                <ProfileCard name={'Age'} value={profileData.age} icon={'select-group'}/>
+                <ProfileCard name={'Type'} value={profileData.bloodType} icon={'blood-bag'}/>
+                <ProfileCard name={'Height'} value={`${profileData.bodymeasurements.height.measure} ${profileData.bodymeasurements.height.unit}`} icon={'human-male-height'}/>
+                <ProfileCard name={'Weight'} value={`${profileData.bodymeasurements.weight.measure} ${profileData.bodymeasurements.weight.unit}`} icon={'weight'}/>
+                <ProfileCard name={'Allergies'} value={profileData.allergy} icon={'allergy'}/>
+                <ProfileCard name={'Sponsor(s)'} value={profileData.sponsor.acronym} icon={'help-network'}/>
               </ScrollView>
             </View>
           </>
@@ -133,11 +122,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   loadStyle: {
-    backgroundColor: fontColor.p,
-    opacity: 0.6,
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'absolute',
+    position: 'relative',
     zIndex: 2,
     height: '100%',
     width: '100%'

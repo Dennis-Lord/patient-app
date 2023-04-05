@@ -1,22 +1,22 @@
-import { StyleSheet, View, ScrollView } from 'react-native'
+import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { LightFont, SemiLightFont, MediumFont, MiniFont } from '../../../../components/Font-components'
 import { DownloadCard, DrugCard, InvestigationCard } from '../../../../components/Card-components'
-// import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { iconColor, inv_data } from '../../../../templates/template';
-// import { Transition, Transitioning } from 'react-native-reanimated';
+import { Transition, Transitioning } from 'react-native-reanimated';
 
-// const transition = (
-//   <Transition.Together>
-//     <Transition.In type='fade' durationMs={200} />
-//     <Transition.Change />
-//     <Transition.Out type='fade' durationMs={200} />
-//   </Transition.Together>
-// );
+const transition = (
+  <Transition.Together>
+    <Transition.In type='fade' durationMs={200} />
+    <Transition.Change />
+    <Transition.Out type='fade' durationMs={200} />
+  </Transition.Together>
+);
 
-const SecondRoute = () => {
-//   const [currentIndex, setCurrentIndex] = React.useState(null);
-//   const ref = React.useRef();
+const SecondRoute = ({fileData}) => {
+  const [currentIndex, setCurrentIndex] = React.useState(null);
+  const ref = React.useRef();
 
 
   return (
@@ -24,17 +24,20 @@ const SecondRoute = () => {
       <View style={styles.dateFrameContainer}>
         <View style={styles.downloadWrapper}>
           <LightFont text={'begun'}/>
-          <SemiLightFont text={'02.04.2022'}/>
+          <SemiLightFont text={fileData.treatementStarted}/>
         </View>
         <View style={styles.downloadWrapper}>
           <LightFont text={'ended'}/>
-          <SemiLightFont text={'02.04.2022'}/>
+          <SemiLightFont text={fileData.treatementEnded}/>
         </View>
       </View>  
       <View style={styles.diagnosisContainer}>
         <MediumFont text={"Recommendations"}/>
-        <LightFont text={"Isolation"}/>
-        <LightFont text={"Bed rest"}/>
+        {
+          fileData.recommendations.map((r, i) => 
+          <LightFont key={i} text={r}/>
+          )
+        }
       </View>
       <View style={styles.diagnosisContainer}>
         <MediumFont text={"Medications"}/>
@@ -48,7 +51,7 @@ const SecondRoute = () => {
         <MediumFont text={"Infusions"}/>
         <DrugCard icon={'iv-bag'} name={'Johnson & Johnson'} date={'02.03.2023'} dose={'12ml, iv-bag'} time={'2:20pm'}/>
       </View>
-      {/* <Transitioning.View 
+      <Transitioning.View 
       ref={ref}
       transition={transition}
       style={styles.container}
@@ -58,7 +61,7 @@ const SecondRoute = () => {
             return (
               <View style={styles.collapsible} key={index}>
                 <View style={styles.c_t}>
-                  <View>
+                  <View key={index}>
                     <SemiLightFont text={'Blood test'}/>
                     <MiniFont text={'23.04.2021'}/>
                   </View>
@@ -69,13 +72,13 @@ const SecondRoute = () => {
                     <MaterialCommunityIcons name={index === currentIndex ? 'chevron-up-circle' : 'chevron-down-circle'} size={28} color={iconColor.bgd}/>
                   </TouchableOpacity>
                 </View>
-                {index === currentIndex && (n.map((n) => <InvestigationCard test={n}/>))}
+                {index === currentIndex && (n.map((n, i) => <InvestigationCard key={i} test={n}/>))}
                 
               </View>
             )
           })
         }
-      </Transitioning.View> */}
+      </Transitioning.View>
       <View style={styles.diagnosisContainer}>
         <MediumFont text={"Medical analysis"}/>
         <DownloadCard />

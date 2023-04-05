@@ -79,7 +79,7 @@ const TabNavigation = () => {
             <Tab.Screen name="Main" component={MainNavigation} />
             <Tab.Screen name="Profile" component={ProfileScreen} />
             <Tab.Screen name="Sponsors" component={SponsorsScreen} />
-            <Tab.Screen name="SettingsNav" component={SettingsNavigation} />
+            <Tab.Screen name="Settings" component={SettingsNavigation} />
         </Tab.Navigator>
     )
 }

@@ -1,24 +1,24 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
-import { MediumFont, LightFont, SemiLightFont } from '../../../../components/Font-components'
+import { MediumFont, LightFont, SemiLightFont, LFb } from '../../../../components/Font-components'
 import { OptionsCard } from '../../../../components/Card-components'
 import { iconColor } from '../../../../templates/template'
 
-const FirstRoute = () => {
+const FirstRoute = ({fileData}) => {
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>  
       {/* Diagnosis header */}
     <View style={styles.diagnosisContainer}>
       <MediumFont text={"Diagnosis"}/>
-      <LightFont text={"Corona virus infection"}/>
+      <LightFont text={fileData.diagnosis}/>
     </View>
     <View style={styles.attendantContainer}>
       <View style={styles.img}/>
       <View style={styles.rc}>
         {/* Attending physisian profile */}
         <View style={{flexWrap: 'wrap', width: '100%'}}>
-            <LightFont text={"Edna Konadu Donkoh"}/>
-            <SemiLightFont text={"Doctor"}/>
+            <LightFont text={fileData.practisioner.name}/>
+            <SemiLightFont text={fileData.practisioner.title}/>
         </View>
         <View>
             <OptionsCard iconName={'hospital-building'} s={24} option={'Fankyenebra Hospital'} o={'b'} mic={iconColor.gbgd} />
@@ -26,10 +26,21 @@ const FirstRoute = () => {
         </View>
       </View>
     </View>
+    <View style={styles.diagnosisContainer}>
+      <MediumFont text={"Complaints"}/>
+      <LightFont text={fileData.complaints}/>
+    </View>
+    <View style={styles.diagnosisContainer}>
+      <MediumFont text={"Examinations"}/>
+      <LightFont text={fileData.examinations.bodypart}/>
+      <LightFont text={fileData.examinations.result}/>
+    </View>
     {/* Nurses notes */}
     <View style={styles.downloadWrapper}>
         <MediumFont text={"Nurses Notes"} />
-        <LightFont text={'Notes taken by monitoring nurse '}/>
+        <LightFont text={fileData.practisioner.notes.notes}/>
+        <LFb text={fileData.practisioner.notes.notesDate}/>
+        <LFb text={fileData.practisioner.notes.time}/>
     </View>
     </ScrollView>
   )

@@ -183,22 +183,37 @@ import { doc, setDoc } from 'firebase/firestore'
                                 ]
                             }
                         },
-                        "referrals": [
-                            {
-                                "referredFrom": "",
-                                "referredTo": "",
-                                "nameOfDoctor": "",
-                                "summary": "",
-                                "diagnosis": "",
-                                "investigationsAndManagement": "",
-                                "durationOfManagement": "",
-                                "reason": "",
-                                "signatureAndStamp": ""
-                            }
-                        ]
                     }
                 ],
-                "analysisFiles": []
+                "analysisFiles": [
+                    {
+                        "analysisName": "",
+                        "date": "",
+                        "result": "Normal",
+                        "lab": {
+                            "name": "",
+                            "street": ""
+                        }
+                    }
+                ],
+                "referrals": [
+                    {
+                        "referredFrom": "Fankyenebra Hospital",
+                        "referredTo": "Komfo Anokye Teaching Hopital",
+                        "patient": {
+                            "name": "",
+                            "age": "",
+                            "sex": ""
+                        },
+                        "nameOfDoctor": "",
+                        "summary": "",
+                        "diagnosis": "",
+                        "investigationsAndManagement": "",
+                        "durationOfManagement": "",
+                        "reason": "",
+                        "signatureAndStamp": ""
+                    }
+                ]
             }
         }
         createUserWithEmailAndPassword(auth, emailValue, passValue)
@@ -216,7 +231,7 @@ import { doc, setDoc } from 'firebase/firestore'
             })
         }).catch((err) => {
             const error = err;
-            setAuthError({e: true, message: error.message})
+            setAuthError({e: true, message: error.message.slice(9)})
         })
     }
 
@@ -228,7 +243,7 @@ import { doc, setDoc } from 'firebase/firestore'
         })
         .catch((err) => {
             const error = err;
-            setAuthError({e: true, message: error.message})
+            setAuthError({e: true, message: error.message.slice(9)})
         });
     }
   
@@ -259,6 +274,7 @@ import { doc, setDoc } from 'firebase/firestore'
             focusable={true}
             maxLength={150}
             value={val}
+            autoCapitalize='none'
             style={screenstyle.txtI}/>
         </View>
         <View style={screenstyle.inputWrapper}>

@@ -21,6 +21,7 @@ const Index = () => {
         setUser(true)
       }else {
         setLoading(false)
+        setUser(false)
       }
     })
   })

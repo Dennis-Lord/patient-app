@@ -114,7 +114,7 @@ const DrugCard = ({icon, name, dose, time, date}) => {
      );
 }
 
-const VisitsCard = () => {
+const VisitsCard = ({data}) => {
     return(
         <View style={styles.visitContainer}>
             <View style={styles.vd_container}>
@@ -122,10 +122,10 @@ const VisitsCard = () => {
                 <SemiLightFont text={'2023'}/>
             </View>
             <View style={styles.v_card}>
-                <SemiLightFont text={'Fankyenebra Hospital'} tc={fontColor.w}/>
+                {/* <SemiLightFont text={'Fankyenebra Hospital'} tc={fontColor.w}/> */}
                 <LightFont text={'Completion of treatment'} tc={fontColor.w}/>
-                <SemiLightFont text={'Doctor'} tc={fontColor.w}/>
-                <LightFont text={'Edna Konadu Donkoh'} tc={fontColor.w}/>
+                <SemiLightFont text={data.practitioner.title} tc={fontColor.w}/>
+                <LightFont text={data.practitioner.name} tc={fontColor.w}/>
             </View>
         </View>
     );
@@ -170,6 +170,18 @@ const InvestigationCard = ({test, resultObserved, flag, unit, refRange}) => {
         </View>
     );
 
+}
+
+const FourHourChart = ({chart}) => {
+    const {temperature} = chart
+    const {pulserate} = chart
+    const {respirations} = chart
+
+    return (
+        <View>
+
+        </View>
+    )
 }
 
 
@@ -345,4 +357,4 @@ const styles = StyleSheet.create({
 
 })
 
-export {MainCard, NavCard, NavCard_s, ProfileCard, OptionsCard, SponsorCard, DownloadCard, DrugCard, VisitsCard, AnalysisDetailsCard, InvestigationCard}
+export {MainCard, NavCard, NavCard_s, ProfileCard, OptionsCard, SponsorCard, DownloadCard, DrugCard, VisitsCard, AnalysisDetailsCard, InvestigationCard, FourHourChart}

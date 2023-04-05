@@ -30,14 +30,13 @@ const FilterFileCard = ({nav, route, data}) => {
   const handleOptionButton = () => {
     if(press === null) {
        setpress('show')
-       console.log(dataFile)
     }else{
       setpress(null)
     }
   }
   
   return (<>
-    <TouchableOpacity onPress={() => nav.navigate(route)}>
+    <TouchableOpacity onPress={() => nav.navigate(route, {dataFile})}>
       <View style={styles.cardContainer}>
         <View style={styles.lc}>
           <LightFont text={"Edna Konadu Donkoh"}/>

@@ -1,11 +1,31 @@
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { HeroFont, MediumFont} from '../../components/Font-components'
 import { SponsorCard, OptionsCard } from '../../components/Card-components';
 import { fontColor, iconColor, wrapper } from '../../templates/template';
-
+import { db, auth } from '../../../firebaseConfig';
+import { onAuthStateChanged } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
 
 const SponsorsScreen = () => {
+  const [sponsor, setSponsor] = useState({})
+  const [loading, setLoading] = useState({s: true ,m: 'loading sponsors...'})
+
+  // get data from firestore
+  useEffect(() => {
+    onAuthStateChanged(auth, async (cred) => {
+      const docRef = doc(db, 'records',  `${cred.uid}`);
+      const docSnap = await getDoc(docRef);
+      if(docSnap.exists()) {
+        const userDoc = docSnap.data()
+        setSponsor(userDoc.medical_folders[0].patientProfile.sponsor);
+        setLoading({s: false, m: ''})
+      }
+    }, (error) => {
+      setLoading({e: true, m: 'error loading profile' + error})
+    })
+  }, [])
+
   return (
     <View style={styles.screenView}>
       <View style={styles.header}>
@@ -17,11 +37,18 @@ const SponsorsScreen = () => {
         </View>
       </View>
       <View style={[styles.sponsorsContainer, wrapper.bw]}>
-        <View style={styles.sponsorName}>
-          <MediumFont text={"National Health Insurance Scheme"}/>
-          <MediumFont text={"NHIS card"}/>
-        </View>
-        <SponsorCard />
+        {
+          loading.e ? 
+          <></>
+          : 
+          <>
+            <View style={styles.sponsorName}>
+              <MediumFont text={sponsor.name}/>
+              <MediumFont text={sponsor.acronym}/>
+            </View>
+            <SponsorCard />
+          </>
+        }
       </View>
     </View>
   )

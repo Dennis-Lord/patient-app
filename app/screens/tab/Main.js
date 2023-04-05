@@ -1,11 +1,11 @@
 import { StyleSheet, View } from 'react-native'
-import React, { useState, setTimeout } from 'react'
+import React, { useState, setTimeout, useEffect } from 'react'
 import { MainCard, NavCard, NavCard_s } from '../../components/Card-components'
 import { HeroFont, LightFont } from '../../components/Font-components'
 import { iconColor, fontColor, wrapper } from '../../templates/template'
 import { onAuthStateChanged } from 'firebase/auth'
 import { db, auth } from '../../../firebaseConfig'
-import { doc, getDoc } from 'firebase/firestore'
+import { doc, getDoc, collection } from 'firebase/firestore'
 
 // test@gmail.com Test123
 
@@ -14,52 +14,49 @@ const MainScreen = ({navigation}) => {
   const [document, setDocument] = useState(null)
   const [docError, setDocError] = useState({isError: false, errorMessage: ''})
 
-  // get user's medical records
-  const getUserDoc = () => {
-    onAuthStateChanged(auth, async (cred) => {
-      if (auth.currentUser) {
-        const docRef = doc(db, "records", `${cred.uid}`)
-        const docSnap = await getDoc(docRef);
-
-        if(docSnap.exists()) {
-          console.log(docSnap.data())
-          return setDocument(docSnap.data());
-        }else{
-          setDocument([])
-          return setDocError({docError: true, errorMessage: 'No records available...'})
-        }
-      }
-    }, (error) => {
-      return setDocError({docError: true, errorMessage: error})
-    })
-  }
-
-  getUserDoc();
-
-  let propObject = {
+  const propObject = {
     folder: {
       route: 'ListScreen',
       title: 'Medical history',
       subRoute: 'MedicalFile',
-      docs: document != null ? document : {} // document.medical_folders
+      docs: document != null ? document.medical_folders : {} // document.medical_folders
     },
     analysis: {
       route: 'ListScreen',
       title: 'Analysis',
       subRoute: 'Analysis',
-      docs: document != null ? document : {} // document.analysis_files
+      docs: document != null ? document.analysis_files : {} // document.analysis_files
     },
     referrals: {
       route: 'ListScreen',
       title: 'Referrals',
       subRoute: 'Referrals',
-      docs: document != null ? document : {} // document.medical_files.[0].referrals
+      docs: document != null ? document.medical_folders : {} // document.medical_files.[0].referrals
     },
     documents: {
       route: 'Documents',
       title: 'Documents',
     }
   }
+
+  // get user's medical records
+  useEffect(() => {
+    onAuthStateChanged(auth, async (cred) => {
+      const docRef = doc(db, 'records',  `${cred.uid}`);
+      const docSnap = await getDoc(docRef);
+      if(docSnap.exists()) {
+          const userDoc = docSnap.data()
+          setDocument(userDoc);
+          console.log('got data')
+        }
+        else{
+          setDocument([])
+          setDocError({docError: true, errorMessage: 'No records available...'})
+        }
+    }, (error) => {
+      setDocError({docError: true, errorMessage: error})
+    })
+  }, [])
 
   return (
     <View style={screenstyle.screenView}>

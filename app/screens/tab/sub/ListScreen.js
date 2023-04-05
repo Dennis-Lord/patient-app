@@ -1,14 +1,25 @@
 import { StyleSheet, View, TextInput } from 'react-native'
-import React, {useState} from 'react'
+import React, {useDebugValue, useState} from 'react'
 import { HeroFont, LightFont } from '../../../components/Font-components'
 import { FilterFileCard } from '../../../components/List-components'
 import { fontColor, iconColor, wrapper } from '../../../templates/template'
 
 const ListScreen = ({navigation, route}) => {
-  let [userDoc, setUserDoc] = useState(route.params.docs);
-
+  const userDoc = route.params.routeProps.docs;
+  const [opt, setOpt] = useState('folders')
   const {title} = route.params.routeProps
   const {subRoute} = route.params.routeProps
+  let mFolders, mFiles, aFiles, referrals;
+  
+  if(title == 'Medical history' && userDoc!= {}) {
+    // mFolders = userDoc
+    mFiles = userDoc[0].medicalFolder.files;
+  }else if(title == 'Analysis') {
+    aFiles = userDoc;
+  }else {
+    let refDoc = userDoc[0].medicalFolder.referrals;
+    referrals = refDoc;
+  }
 
   return (
     <View style={listStyles.screenView}>
@@ -18,16 +29,28 @@ const ListScreen = ({navigation, route}) => {
           <TextInput style={listStyles.txti} placeholder='search' underlineColorAndroid={'#fff'}/>
         </View>
       </View>
+      {/* button to toggle folder & files states */}
       <View style={[wrapper.bw, listStyles.listWrapper]}>
         <View style={listStyles.listContainer}>
           {
-            userDoc === null ?
+            userDoc == undefined ?
             <LightFont text={'Error getting records'}/>
             :
-            userDoc === [] ?
+            userDoc == {} ?
             <LightFont text={'No records available'}/>
             :
-            <FilterFileCard nav={navigation} route={subRoute} data={userDoc}/>
+            title == 'Medical history' ?
+            mFiles.map((files, i) => 
+              <FilterFileCard key={i} nav={navigation} route={subRoute} data={files}/>
+            ):
+            title == 'Analysis' ?
+            aFiles.map((files, i) => 
+              <FilterFileCard key={i} nav={navigation} route={subRoute} data={files}/>
+            )
+            :
+            referrals.map((referral, i) => 
+              <FilterFileCard key={i} nav={navigation} route={subRoute} data={referral}/>
+            )
           }
         </View>
       </View>

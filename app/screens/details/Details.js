@@ -1,10 +1,10 @@
 import React from "react"
 import { StyleSheet, View } from 'react-native'
 import { wrapper, iconColor, fontColor } from "../../templates/template"
-import { HeroFont } from "../../components/Font-components"
+import { HeroFont, MiniFont } from "../../components/Font-components"
 
 const DetailsScreen = ({route}) => {
-    const {option} = route.params.routeProps
+    const {option} = route.params
   
     return (
       <View style={styles.screenView}>
@@ -15,13 +15,13 @@ const DetailsScreen = ({route}) => {
           <View style={styles.container}>
             {
               option === 'Privacy policy' ?
-              <></>
+              <MiniFont text={'the policy'} />
               : option === 'About us'?
-              <></>
+              <MiniFont text={'the about'} />
               : option === 'Help' ?
-              <></>
+              <MiniFont text={'the help'} />
               : 
-              <></>
+              <MiniFont text={'the faq'} />
             }
           </View>
         </View>

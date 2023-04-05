@@ -56,11 +56,26 @@ class TabViewExample extends React.Component {
     third: ThirdRoute,
   });
 
+   renderScene = ({ route }) => {
+    switch (route.key) {
+      case 'first':
+        return <FirstRoute fileData={this.props.data}/>;
+      case 'second':
+        return <SecondRoute fileData={this.props.data}/>;
+      case 'third':
+        return <ThirdRoute fileData={this.props.data}/>;
+      default:
+        return null;
+    }
+  };
+
   render() {
+    const {data} = this.props
+    console.log(data)
     return (
       <TabView
         navigationState={this.state}
-        renderScene={this._renderScene}
+        renderScene={this.renderScene}
         renderTabBar={this._renderTabBar}
         onIndexChange={this._handleIndexChange}
       />
@@ -68,18 +83,20 @@ class TabViewExample extends React.Component {
   }
 }
 
-const MedicalFile = () => {
+const MedicalFile = ({route}) => {
+  const fileDoc = route.params.dataFile;
+
   return (
     <View style={styles.screenView}>
       <View style={[wrapper.heroPos, {marginLeft: 20,}]}>
-        <HeroFont text={'Corana Virus'} tc={fontColor.w}/>
+        <HeroFont text={fileDoc.disease} tc={fontColor.w}/>
       </View>
           <View style={styles.dateContainer}>
-          <OptionsCard iconName={"calendar-month"} option={"20.03.2023"} s={34} o={'b'} tc={fontColor.w} mic={fontColor.w}/>
+          <OptionsCard iconName={"calendar-month"} option={fileDoc.diseaseDate} s={34} o={'b'} tc={fontColor.w} mic={fontColor.w}/>
           </View>
         <View style={[styles.tabWrapper, wrapper.bw]}>
           <View style={styles.tabViewContainer}>
-            <TabViewExample />
+            <TabViewExample data={fileDoc}/>
           </View>
         </View>
     </View>

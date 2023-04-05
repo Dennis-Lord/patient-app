@@ -5,24 +5,26 @@ import { AnalysisDetailsCard, InvestigationCard } from '../../../components/Card
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { iconColor, wrapper, fontColor } from '../../../templates/template';
 
-const Analysis = () => {
+const Analysis = ({route}) => {
+  const analysis = route.params.dataFile;
+
   return (
     <View style={styles.screenView}>
       <View style={[wrapper.heroPos, {marginLeft: 20,}]}>
-        <HeroFont text={'FBC / CBC'} tc={fontColor.w}/>
+        <HeroFont text={analysis.analysisName} tc={fontColor.w}/>
       </View>
         <View style={[styles.divWrapper, wrapper.bw]}>
           <View style={styles.headerContainer}>
               <MediumFont text={'Blood test'}/>
               <View style={styles.cardContainer}>
-                  <AnalysisDetailsCard label={'Date'} value={'23.09.2022'} icon={'calendar'} option={'a'}/>
-                  <AnalysisDetailsCard label={'Result'} value={'Normal'} icon={'check-circle'} option={'a'}/>
+                  <AnalysisDetailsCard label={'Date'} value={analysis.date} icon={'calendar'} option={'a'}/>
+                  <AnalysisDetailsCard label={'Result'} value={analysis.result} icon={'check-circle'} option={'a'}/>
               </View>
           </View>
           <View style={styles.headerContainer}>
               <MediumFont text={'Clinic / Laboratory'}/>
               <View style={styles.cardContainer}>
-                  <AnalysisDetailsCard label={'Fankyenebra Hospital'} value={'Santasi, next to Fankyenebra school'} icon={'google-maps'} option={''}/>
+                  <AnalysisDetailsCard label={analysis.lab.name} value={analysis.lab.street} icon={'google-maps'} option={''}/>
               </View>
           </View>
           <View style={styles.wrapper}>

@@ -108,22 +108,32 @@
                             }
                         ]
                     }
-                },
-                "referrals": [
-                    {
-                        "referredFrom": "",
-                        "referredTo": "",
-                        "nameOfDoctor": "",
-                        "summary": "",
-                        "diagnosis": "",
-                        "investigationsAndManagement": "",
-                        "durationOfManagement": "",
-                        "reason": "",
-                        "signatureAndStamp": ""
-                    }
-                ]
+                }
             }
         ],
-        "analysisFiles": []
+        "analysisFiles": [
+            {
+                "analysisName": "",
+                "date": "",
+                "result": "",
+                "lab": {
+                    "name": "",
+                    "street": ""
+                }
+            }
+        ],
+        "referrals": [
+            {
+                "referredFrom": "",
+                "referredTo": "",
+                "nameOfDoctor": "",
+                "summary": "",
+                "diagnosis": "",
+                "investigationsAndManagement": "",
+                "durationOfManagement": "",
+                "reason": "",
+                "signatureAndStamp": ""
+            }
+        ]
     }
 }

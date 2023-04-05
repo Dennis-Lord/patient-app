@@ -14,10 +14,11 @@ const SettingsScreen = ({navigation}) => {
     signOut(auth).then(() => {
       // Sign-out successful.
       console.log('logged out')
-
+      return
     }).catch((error) => {
       // An error happened.
       console.log(error)
+      return
     });
   }
 
