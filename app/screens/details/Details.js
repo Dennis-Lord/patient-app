@@ -7,6 +7,7 @@ const DetailsScreen = ({route}) => {
     const {option} = route.params
   
     return (
+      
       <View style={styles.screenView}>
         <View style={[wrapper.heroPos, {marginLeft: 20,}]}>
           <HeroFont text={option} tc={fontColor.w}/>

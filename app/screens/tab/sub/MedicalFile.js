@@ -85,7 +85,6 @@ class TabViewExample extends React.Component {
 
 const MedicalFile = ({route}) => {
   const fileDoc = route.params.dataFile;
-
   return (
     <View style={styles.screenView}>
       <View style={[wrapper.heroPos, {marginLeft: 20,}]}>

@@ -1,22 +1,21 @@
-import { StyleSheet, View, TextInput } from 'react-native'
+import { StyleSheet, View, TextInput, Text } from 'react-native'
 import React, {useDebugValue, useState} from 'react'
 import { HeroFont, LightFont } from '../../../components/Font-components'
 import { FilterFileCard } from '../../../components/List-components'
 import { fontColor, iconColor, wrapper } from '../../../templates/template'
 
 const ListScreen = ({navigation, route}) => {
-  const userDoc = route.params.routeProps.docs;
-  const [opt, setOpt] = useState('folders')
-  const {title} = route.params.routeProps
-  const {subRoute} = route.params.routeProps
-  let mFolders, mFiles, aFiles, referrals;
+  let userDoc = route.params.routeProps.docs == undefined ? undefined : route.params.routeProps.docs;
+  const title = route.params.routeProps.title
+  const subRoute = route.params.routeProps.subRoute
+  let mFiles, aFiles, referrals;
   
-  if(title == 'Medical history' && userDoc!= {}) {
+  if(title == 'Medical history' && userDoc != undefined && userDoc != {}) {
     // mFolders = userDoc
     mFiles = userDoc[0].medicalFolder.files;
-  }else if(title == 'Analysis') {
+  }else if(title == 'Analysis' && userDoc != undefined && userDoc != {}) {
     aFiles = userDoc;
-  }else {
+  }else if(title == 'Referrals' && userDoc != undefined && userDoc != {}) {
     let refDoc = userDoc[0].medicalFolder.referrals;
     referrals = refDoc;
   }
@@ -33,24 +32,27 @@ const ListScreen = ({navigation, route}) => {
       <View style={[wrapper.bw, listStyles.listWrapper]}>
         <View style={listStyles.listContainer}>
           {
-            userDoc == undefined ?
+            userDoc === {} || userDoc === null ?
             <LightFont text={'Error getting records'}/>
             :
-            userDoc == {} ?
+            userDoc === undefined ?
             <LightFont text={'No records available'}/>
             :
-            title == 'Medical history' ?
+            title == 'Medical history' && userDoc !== undefined?
             mFiles.map((files, i) => 
               <FilterFileCard key={i} nav={navigation} route={subRoute} data={files}/>
             ):
-            title == 'Analysis' ?
+            title == 'Analysis' && userDoc !== undefined?
             aFiles.map((files, i) => 
               <FilterFileCard key={i} nav={navigation} route={subRoute} data={files}/>
             )
             :
+            title == 'Referrals' && userDoc != undefined ?
             referrals.map((referral, i) => 
               <FilterFileCard key={i} nav={navigation} route={subRoute} data={referral}/>
             )
+            :
+            <LightFont text={'Error'}/>
           }
         </View>
       </View>

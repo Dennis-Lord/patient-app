@@ -6,17 +6,17 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { iconColor, inv_data } from '../../../../templates/template';
 import { Transition, Transitioning } from 'react-native-reanimated';
 
-const transition = (
-  <Transition.Together>
-    <Transition.In type='fade' durationMs={200} />
-    <Transition.Change />
-    <Transition.Out type='fade' durationMs={200} />
-  </Transition.Together>
-);
+// const transition = (
+//   <Transition.Together>
+//     <Transition.In type='fade' durationMs={200} />
+//     <Transition.Change />
+//     <Transition.Out type='fade' durationMs={200} />
+//   </Transition.Together>
+// );
 
 const SecondRoute = ({fileData}) => {
-  const [currentIndex, setCurrentIndex] = React.useState(null);
-  const ref = React.useRef();
+  // const [currentIndex, setCurrentIndex] = React.useState(null);
+  // const ref = React.useRef();
 
 
   return (
@@ -51,7 +51,7 @@ const SecondRoute = ({fileData}) => {
         <MediumFont text={"Infusions"}/>
         <DrugCard icon={'iv-bag'} name={'Johnson & Johnson'} date={'02.03.2023'} dose={'12ml, iv-bag'} time={'2:20pm'}/>
       </View>
-      <Transitioning.View 
+      {/* <Transitioning.View 
       ref={ref}
       transition={transition}
       style={styles.container}
@@ -62,8 +62,6 @@ const SecondRoute = ({fileData}) => {
               <View style={styles.collapsible} key={index}>
                 <View style={styles.c_t}>
                   <View key={index}>
-                    <SemiLightFont text={'Blood test'}/>
-                    <MiniFont text={'23.04.2021'}/>
                   </View>
                   <TouchableOpacity onPress={() => {
                     ref.current.animateNextTransition();
@@ -72,13 +70,15 @@ const SecondRoute = ({fileData}) => {
                     <MaterialCommunityIcons name={index === currentIndex ? 'chevron-up-circle' : 'chevron-down-circle'} size={28} color={iconColor.bgd}/>
                   </TouchableOpacity>
                 </View>
-                {index === currentIndex && (n.map((n, i) => <InvestigationCard key={i} test={n}/>))}
+                {index === currentIndex && 
+                  <DrugCard icon={'iv-bag'} name={'Johnson & Johnson'} date={'02.03.2023'} dose={'12ml, iv-bag'} time={'2:20pm'}/>
+                }
                 
               </View>
             )
           })
         }
-      </Transitioning.View>
+      </Transitioning.View> */}
       <View style={styles.diagnosisContainer}>
         <MediumFont text={"Medical analysis"}/>
         <DownloadCard />
@@ -107,13 +107,10 @@ diagnosisContainer: {
 collapsible: {
   width: '100%',
   padding: 8,
-  borderRadius: 10,
-  borderWidth: 2,
-  borderColor: iconColor.c,
   marginVertical: 10,
 },
 c_t: {
-  borderBottomWidth: 2,
+  borderBottomWidth: 1,
   borderColor: iconColor.c,
   paddingBottom: 8,
   flexDirection: 'row',

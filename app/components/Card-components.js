@@ -100,7 +100,7 @@ const DrugCard = ({icon, name, dose, time, date}) => {
     return ( 
         <View style={styles.downloadContainer}>
             <View style={styles.di_container}>
-                <MaterialCommunityIcons name={icon} size={24} color={iconColor.c} />
+                <MaterialCommunityIcons name={icon} size={22} color={iconColor.c} />
             </View>
             <View style={styles.d_c}>
                 <LightFont text={name}/>
@@ -123,9 +123,9 @@ const VisitsCard = ({data}) => {
             </View>
             <View style={styles.v_card}>
                 {/* <SemiLightFont text={'Fankyenebra Hospital'} tc={fontColor.w}/> */}
-                <LightFont text={'Completion of treatment'} tc={fontColor.w}/>
-                <SemiLightFont text={data.practitioner.title} tc={fontColor.w}/>
-                <LightFont text={data.practitioner.name} tc={fontColor.w}/>
+                <MediumFont text={'Completion of treatment'} tc={fontColor.w}/>
+                <MiniFont text={data.practisioner.title} tc={fontColor.w}/>
+                <LightFont text={data.practisioner.name} tc={fontColor.w}/>
             </View>
         </View>
     );
@@ -267,13 +267,11 @@ const styles = StyleSheet.create({
     },
     downloadContainer: {
         width: '100%',
-        MaxHeight: 60,
-        borderWidth: 2,
-        borderColor: 'gray',
+        MaxHeight: 58,
         borderRadius: 10,
         padding: 8,
         flexDirection: 'row',
-        marginVertical: 8,
+        marginVertical: 4,
         alignItems: 'center'
     },
     ad_Container: {
@@ -286,8 +284,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     di_container: {
-        width: 42,
-        height: 42,
+        width: 40,
+        height: 40,
         borderRadius: 8,
         backgroundColor: iconColor.bg,
         justifyContent: 'center',
@@ -305,7 +303,7 @@ const styles = StyleSheet.create({
     },
     visitContainer: {
         width: '100%',
-        height: 160,
+        height: 120,
         flexDirection:'row',
         alignItems: 'center',
     },

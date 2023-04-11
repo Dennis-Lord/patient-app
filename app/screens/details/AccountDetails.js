@@ -3,10 +3,10 @@ import React, { useState } from 'react'
 import { fontColor } from '../../templates/template'
 import { auth } from '../../../firebaseConfig'
 import { deleteUser } from 'firebase/auth'
-import { LightFont, MediumFont, MiniFont } from '../../components/Font-components'
+import { LightFont, MiniFont } from '../../components/Font-components'
 import MaterialCommunityIcons from '@expo/vector-icons'
 
-const AccountDetails = () => {
+const Account = () => {
   const [loading, setLoading] = useState({s: true, m: ''})
   const [error, setError] = useState({e: false, m: ''})
   const user = auth.currentUser;
@@ -52,8 +52,6 @@ const AccountDetails = () => {
   )
 }
 
-export default AccountDetails
-
 const styles = StyleSheet.create({
   screen: {
     width: '100%',
@@ -88,3 +86,5 @@ const styles = StyleSheet.create({
     height: 6
   }
 })
+
+export default Account;

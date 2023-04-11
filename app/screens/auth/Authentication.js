@@ -49,7 +49,7 @@ import { doc, setDoc } from 'firebase/firestore'
 
     // handle state values when change state alters
     const handleStates = (c) => {
-        if (c === false) {
+        if (c.state === false) {
             setChange({
                 state: true,
                 header: 'Welcome back',
@@ -193,7 +193,8 @@ import { doc, setDoc } from 'firebase/firestore'
                         "lab": {
                             "name": "",
                             "street": ""
-                        }
+                        },
+                        "ref": ""
                     }
                 ],
                 "referrals": [

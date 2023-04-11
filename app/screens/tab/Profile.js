@@ -18,16 +18,17 @@ const ProfileScreen = () => {
   useEffect(() => {
     onAuthStateChanged(auth, async (cred) => {
       const docRef = doc(db, 'records',  `${cred.uid}`);
-      const docSnap = await getDoc(docRef);
-      if(docSnap.exists()) {
-        const userDoc = docSnap.data()
-        setHospitalProfile(userDoc.medical_folders[0])
-        setProfileData(userDoc.medical_folders[0].patientProfile);
-        console.log(profileData)
-        setLoading({s: false, m: ''})
-      }
-    }, (error) => {
-      setLoading({e: true, m: 'error loading profile'})
+      return await getDoc(docRef).then(snapshot => {
+        if(snapshot.exists()) {
+          const userDoc = snapshot.data()
+          setHospitalProfile(userDoc.medical_folders[0])
+          setProfileData(userDoc.medical_folders[0].patientProfile);
+          setLoading({s: false, m: ''})
+        }
+      }).catch(e => {
+        setLoading({s: true, m:e.message})
+      })
+      
     })
   }, [])
 

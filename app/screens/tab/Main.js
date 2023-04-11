@@ -1,17 +1,18 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import React, { useState, setTimeout, useEffect } from 'react'
 import { MainCard, NavCard, NavCard_s } from '../../components/Card-components'
 import { HeroFont, LightFont } from '../../components/Font-components'
 import { iconColor, fontColor, wrapper } from '../../templates/template'
 import { onAuthStateChanged } from 'firebase/auth'
 import { db, auth } from '../../../firebaseConfig'
-import { doc, getDoc, collection } from 'firebase/firestore'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { doc, getDoc } from 'firebase/firestore'
 
 // test@gmail.com Test123
 
 // main screen of the application
 const MainScreen = ({navigation}) => {
-  const [document, setDocument] = useState(null)
+  const [document, setDocument] = useState({})
   const [docError, setDocError] = useState({isError: false, errorMessage: ''})
 
   const propObject = {
@@ -19,19 +20,19 @@ const MainScreen = ({navigation}) => {
       route: 'ListScreen',
       title: 'Medical history',
       subRoute: 'MedicalFile',
-      docs: document != null ? document.medical_folders : {} // document.medical_folders
+      docs: document != {} ? document.medical_folders : document // document.medical_folders
     },
     analysis: {
       route: 'ListScreen',
       title: 'Analysis',
       subRoute: 'Analysis',
-      docs: document != null ? document.analysis_files : {} // document.analysis_files
+      docs: document != {} ? document.analysis_files : document // document.analysis_files
     },
     referrals: {
       route: 'ListScreen',
       title: 'Referrals',
       subRoute: 'Referrals',
-      docs: document != null ? document.medical_folders : {} // document.medical_files.[0].referrals
+      docs: document != {} ? document.medical_folders : document // document.medical_files.[0].referrals
     },
     documents: {
       route: 'Documents',
@@ -40,34 +41,57 @@ const MainScreen = ({navigation}) => {
   }
 
   // get user's medical records
-  useEffect(() => {
-    onAuthStateChanged(auth, async (cred) => {
-      const docRef = doc(db, 'records',  `${cred.uid}`);
-      const docSnap = await getDoc(docRef);
-      if(docSnap.exists()) {
-          const userDoc = docSnap.data()
+  const getUserDoc = async () => {
+    const docRef = doc(db, 'records',  `${cred.uid}`);
+    return await getDoc(docRef).then(snapshot => {
+      if(snapshot.exists()) {
+          const userDoc = snapshot.data()
           setDocument(userDoc);
           console.log('got data')
         }
         else{
-          setDocument([])
-          setDocError({docError: true, errorMessage: 'No records available...'})
+          setDocument(undefined)
+          setDocError({isError: true, errorMessage: 'No records available...'})
         }
-    }, (error) => {
-      setDocError({docError: true, errorMessage: error})
+    }).catch(e => {
+        setDocument({})
+        setDocError({isError: true, errorMessage: 'No internet connection'})
     })
-  }, [])
+  }
+
+  useEffect(() => {
+      onAuthStateChanged(auth, async (cred) => {
+        const docRef = doc(db, 'records',  `${cred.uid}`);
+        return await getDoc(docRef).then(snapshot => {
+          if(snapshot.exists()) {
+              const userDoc = snapshot.data()
+              setDocument(userDoc);
+              console.log('got data')
+            }
+            else{
+              setDocument(undefined)
+              setDocError({isError: true, errorMessage: 'No records available...'})
+            }
+        }).catch(e => {
+          console.log(e)
+            setDocument({})
+            setDocError({isError: true, errorMessage: 'No internet connection'})
+        })})
+      }, [])
 
   return (
     <View style={screenstyle.screenView}>
-      <View style={[wrapper.heroPos, {position: 'relative', right: '30%',}]}>
+      <View style={[wrapper.heroPos, {position: 'relative',  flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '90%'}]}>
         <HeroFont text={'Meddocs'} tc={fontColor.w}/>
-        {
-          docError.isError ? 
-            setTimeout(() => {
-              return <LightFont text={docError.errorMessage} tc={fontColor.p}/>
-            }, 3000).then(() => setDocError({isError: false, errorMessage: ''}))
+        { 
+          document === {} || document === null || document === undefined ?
+          <TouchableOpacity>
+            <MaterialCommunityIcons name='reload' size={24} color={fontColor.w}/>
+          </TouchableOpacity>
           :
+          docError.isError && docError.errorMessage == 'No internet connection'?
+          <LightFont tc={fontColor.w} text={'No internet connection'}/>
+          : 
           <></>
         }
       </View>

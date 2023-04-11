@@ -6,6 +6,9 @@ import { iconColor, wrapper, fontColor } from '../../../templates/template';
 const Referrals = ({route}) => {
   const referral = route.params.dataFile
     return (
+      referral == [] || undefined ?
+      <></>
+      :
       <View style={styles.screenView}>
         <View style={[wrapper.heroPos, {marginLeft: 20,}]}>
           <HeroFont text={referral.referredFrom} tc={fontColor.w}/>

@@ -31,7 +31,7 @@ const Analysis = ({route}) => {
               <MediumFont text={'Analysis Results'}/>
               <TouchableOpacity>
                   <View style={styles.di_container}>
-                      <MaterialCommunityIcons name={'download-circle'} size={24} color="#404040" />
+                      <MaterialCommunityIcons name={'download-circle'} size={24} color={fontColor.g} />
                   </View>
               </TouchableOpacity>
           </View>

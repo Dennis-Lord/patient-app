@@ -119,13 +119,19 @@
                 "lab": {
                     "name": "",
                     "street": ""
-                }
+                },
+                "ref": ""
             }
         ],
         "referrals": [
             {
                 "referredFrom": "",
                 "referredTo": "",
+                "patient": {
+                    "name": "",
+                    "age": "",
+                    "sex": ""
+                },
                 "nameOfDoctor": "",
                 "summary": "",
                 "diagnosis": "",
