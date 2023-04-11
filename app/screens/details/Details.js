@@ -2,6 +2,7 @@ import React from "react"
 import { StyleSheet, View } from 'react-native'
 import { wrapper, iconColor, fontColor } from "../../templates/template"
 import { HeroFont, MiniFont } from "../../components/Font-components"
+import Account from "./AccountDetails"
 
 const DetailsScreen = ({route}) => {
     const {option} = route.params
@@ -21,7 +22,9 @@ const DetailsScreen = ({route}) => {
               <MiniFont text={'the about'} />
               : option === 'Help' ?
               <MiniFont text={'the help'} />
-              : 
+              : option === 'Account' ?
+              <Account />
+              :
               <MiniFont text={'the faq'} />
             }
           </View>

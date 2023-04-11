@@ -23,19 +23,9 @@ const FlagComponent = ({flag}) => {
 
 
 const FilterFileCard = ({nav, route, data}) => {
-  const [press, setpress] = useState(null)
-
   const dataFile = data;
-
-  const handleOptionButton = () => {
-    if(press === null) {
-       setpress('show')
-    }else{
-      setpress(null)
-    }
-  }
   
-  return (<>
+  return (
     <TouchableOpacity onPress={() => nav.navigate(route, {dataFile})}>
       <View style={styles.cardContainer}>
         <View style={styles.lc}>
@@ -45,33 +35,14 @@ const FilterFileCard = ({nav, route, data}) => {
         <View style={styles.rc}>
           <View style={styles.uc}>
             <FlagComponent flag={"completed"}/>
-            <TouchableOpacity onPress={()=>handleOptionButton()}>
+            {/* <TouchableOpacity onPress={()=>handleOptionButton()}>
               <MaterialCommunityIcons name="dots-vertical" size={32} color="black" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <LightFont text={"since 20.04.2022"}/>
         </View>
       </View>
     </TouchableOpacity>
-    {
-      press === 'show' ? <View style={styles.optContainer}>
-          <MoreOptions />
-        </View> : <></>
-    }
-      </>
-  )
-}
-
-const MoreOptions = () => {
-  return(
-    <View style={styles.moreOptContainer}>
-      <TouchableOpacity>  
-        <OptionsCard  iconName={'download'} option={'Download'} s={24} tc={fontColor.p} mic={iconColor.gbgd}/>
-      </TouchableOpacity>
-      <TouchableOpacity>  
-        <OptionsCard  iconName={'share'} option={'Share'} s={24}  tc={fontColor.p} mic={iconColor.gbgd}/>
-      </TouchableOpacity>
-    </View>
   )
 }
 
@@ -118,16 +89,6 @@ const styles = StyleSheet.create({
       paddingLeft: 10,
       flexDirection: 'row',
       justifyContent: 'space-between',
-    },
-    moreOptContainer: {
-      width: 160,
-      height: 80,
-      borderRadius: 14,
-      backgroundColor: fontColor.w,
-      justifyContent: 'space-evenly',
-      alignItems: 'flex-start',
-      borderWidth: 2,
-      borderColor: iconColor.bg,
     },
     optContainer: {
       position: 'absolute',

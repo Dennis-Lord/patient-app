@@ -10,7 +10,6 @@ const Stack = createNativeStackNavigator();
 const SettingsNavigation = () => {
   return (
       <Stack.Navigator initialRouteName='settings' screenOptions= {{headerShown: false}}>
-        <Stack.Screen name="account" component={Account} />
         <Stack.Screen name="settings" component={SettingsScreen} />
         <Stack.Screen name="details" component={DetailsScreen} />
       </Stack.Navigator>
