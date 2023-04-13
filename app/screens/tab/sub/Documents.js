@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { HeroFont, LightFont, MediumFont, MiniFont } from '../../../components/Font-components'
 import { wrapper, iconColor, fontColor } from '../../../templates/template'
 import { MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
-
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 import * as DocumentPicker from 'expo-document-picker';
 
 const Documents = () => {
@@ -11,15 +11,26 @@ const Documents = () => {
   const [err, setErr] = useState(false)
 
   const documentPicker = async () => {
-    const result = await DocumentPicker.getDocumentAsync({multiple: true});
+    const result = await DocumentPicker.getDocumentAsync({});
     console.log(result)
-    // if (result.mimeType != "application/pdf" && result != undefined) {
-    //   setErr(true)
-    // }else{
-    //   setErr(false)
-    // }
-    // setDocument(result)
+    if (result.mimeType == "application/pdf") {
+      setErr(false)
+    }else if (result.mimeType == "application/msword"){
+      setErr(false)
+    }else if (result.mimeType == "application/vnd.openxmlformats-officedocument.wordprocessingml.document"){
+      setErr(false)
+    }else {
+      setErr(true)
+    }
+    setDocument(result)
   }
+
+  // Get a reference to the storage service, which is used to create references in your storage bucket
+  const storage = getStorage();
+  // Create a storage reference from our storage service
+  const storageRef = ref(storage);
+
+
 
   return (
     <View style={styles.screenView}>
@@ -40,24 +51,28 @@ const Documents = () => {
               <LightFont text={document.name.slice(0,20)}/>
               {
                 document.size <= 999999 ?
-                <MiniFont text={ document.size.toString().slice(0,2) + 'kB'}/>
+                <MiniFont text={ `${document.size.toString().slice(0,2)}` + 'kB'}/>
                 :
                 <MiniFont text={document.size.toString().slice(0,2) + 'Mb'}/>
               }
             </View>
             :
-            err ?
+            err == true ?
             <MediumFont text={'File should have the prefix .doc/.pdf'} tc={fontColor.r}/>
             :
             <></>
           }
-          <View style={styles.addBtn}>
-            <MediumFont text={'Upload file'} tc={fontColor.p}/>
-            <TouchableOpacity style={{width: 32, height: 32, borderRadius: 10, backgroundColor: iconColor.bg, alignItems: 'center', justifyContent: 'center', marginHorizontal: 4}}>
-              <AntDesign name="upload" size={24} color={fontColor.p} />
+            <View style={styles.addBtn}>
+              <MediumFont text={'Upload file'} tc={fontColor.p}/>
+              <TouchableOpacity style={{width: 32, height: 32, borderRadius: 10, backgroundColor: iconColor.bg, alignItems: 'center', justifyContent: 'center', marginHorizontal: 4}}>
+                <AntDesign name="upload" size={24} color={fontColor.p} />
             </TouchableOpacity>
           </View>
 
+          {/* files loaded from cloud storage */}
+          <View style={styles.filesWrapper}>
+
+          </View>
         </View>
     </View>
   )
@@ -96,5 +111,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: fontColor.p,
     marginBottom: 6
+  },
+  filesWrapper: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center'
   }
 })

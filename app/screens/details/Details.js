@@ -1,8 +1,10 @@
 import React, {useState} from "react"
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import { wrapper, iconColor, fontColor } from "../../templates/template"
-import { HeroFont, MiniFont } from "../../components/Font-components"
-import Account from "./AccountDetails"
+import { HeroFont, MiniFont, MediumFont, LightFont } from "../../components/Font-components"
+import { MaterialIcons } from '@expo/vector-icons';
+import {auth} from '../../../firebaseConfig'
+import { deleteUser } from 'firebase/auth'
 
 const DetailsScreen = ({route}) => {
   const [loading, setLoading] = useState({s: true, m: ''})
@@ -54,13 +56,13 @@ const DetailsScreen = ({route}) => {
                   <View style={styles.h} />
                   <MiniFont text={'Email'}/>
                 <View style={styles.emailWrapper}>
-                  <MaterialCommunityIcons name={'verified'} size={24} color={fontColor.g} />
+                  <MaterialIcons name={'verified'} size={24} color={fontColor.g} />
                   <View style={styles.w}/>
                   <LightFont text={userProfile.email}/>
                 </View>
-                <TouchableOpacity onPress={() => DeleteAccount()}>
+                <TouchableOpacity style={{width: 180, height: 38, borderRadius: 10, marginTop: 40}}>
                   <View style={styles.deleteBtn}>
-                    <LightFont text={'Delete account'} tc={fontColor.w}/>
+                    <MediumFont text={'Delete account'} tc={fontColor.w}/>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -93,33 +95,36 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     backgroundColor: fontColor.w,
-    paddingTop: 50
+    paddingTop: 10,
+    alignItems: 'center',
   },
   profile: {
-    width: 60,
-    height: 60,
-    borderRadius: 50,
+    width: 140,
+    height: 140,
+    borderRadius: 70,
     backgroundColor: 'gray',
-    marginVertical: 14,
+    marginBottom: 14,
   },
   deleteBtn: {
-    width: 60,
-    height: 30,
+    flexGrow: 1,
     backgroundColor: fontColor.r,
-    borderRadius: 10
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   emailWrapper: {
     width: '90%',
-    height: 20,
+    height: 28,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20
+    marginVertical: 20,
+    flexDirection: 'row'
   },
   w: {
-    width: 6
+    width: 14
   },
   h: {
-    height: 6
+    height: 10
   }
 })
 
