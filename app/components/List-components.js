@@ -2,9 +2,7 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import React, {useState} from 'react'
 import { fontColor, windowWidth } from '../templates/template'
 import { LightFont, MediumFont, SemiLightFont } from './Font-components'
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { iconColor } from '../templates/template';
-import { OptionsCard } from './Card-components';
 
 const FlagComponent = ({flag}) => {
   let tc;
@@ -97,4 +95,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export { FilterFileCard, MoreOptions}
+export { FilterFileCard }

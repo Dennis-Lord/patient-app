@@ -8,7 +8,7 @@ const optionsObject = [
     {
         iconName: "account",
         option: "Account",
-        r: "account"
+        r: "details"
     },
     {
         iconName: "shield-key",

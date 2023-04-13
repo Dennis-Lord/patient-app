@@ -25,7 +25,7 @@ const NavCard = ({cardText, nav, routeProps}) => {
     const r = routeProps.route
 
     return (
-        <TouchableOpacity onPress={() => nav.navigate(r, {routeProps})}>
+        <TouchableOpacity style={{height: '30%'}} onPress={() => nav.navigate(r, {routeProps})}>
             <View style={styles.navCard}>
                 <View style={styles.navtextPos}>
                     <MediumFont text={cardText}/>
@@ -38,7 +38,7 @@ const NavCard = ({cardText, nav, routeProps}) => {
 const NavCard_s = ({cardText, nav, routeProps}) => {
     const r = routeProps.route
     return (
-        <TouchableOpacity onPress={() => nav.navigate(r, {routeProps})}>
+        <TouchableOpacity style={{flexGrow: 1, height: '100%'}} onPress={() => nav.navigate(r, {routeProps})}>
             <View style={styles.navCard_s}>
                 <View style={styles.navtextPos_s}>
                     <MediumFont text={cardText}/>
@@ -204,8 +204,7 @@ const styles = StyleSheet.create({
         borderColor: '#707070',
     },
     navCard: {
-        width: '100%',
-        height: 105,
+        flexGrow: 1,
         borderRadius: 10,
         borderWidth: 2,
         borderColor: iconColor.bgd,
@@ -222,12 +221,12 @@ const styles = StyleSheet.create({
     },
     navCard_s: {
         width: (windowWidth/2.3),
-        height: '54%',
+        height: '55%',
         borderRadius: 10,
         borderWidth: 2,
         borderColor: iconColor.bgd,
         padding: 6,
-        marginTop: 2,
+        marginTop: 6,
     },
     navtextPos_s: {
         position: 'absolute',

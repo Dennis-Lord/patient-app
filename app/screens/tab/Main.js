@@ -59,25 +59,25 @@ const MainScreen = ({navigation}) => {
     })
   }
 
-  useEffect(() => {
-      onAuthStateChanged(auth, async (cred) => {
-        const docRef = doc(db, 'records',  `${cred.uid}`);
-        return await getDoc(docRef).then(snapshot => {
-          if(snapshot.exists()) {
-              const userDoc = snapshot.data()
-              setDocument(userDoc);
-              console.log('got data')
-            }
-            else{
-              setDocument(undefined)
-              setDocError({isError: true, errorMessage: 'No records available...'})
-            }
-        }).catch(e => {
-          console.log(e)
-            setDocument({})
-            setDocError({isError: true, errorMessage: 'No internet connection'})
-        })})
-      }, [])
+  // useEffect(() => {
+  //     // onAuthStateChanged(auth, async (cred) => {
+  //     //   const docRef = doc(db, 'records',  `${cred.uid}`);
+  //     //   return await getDoc(docRef).then(snapshot => {
+  //     //     if(snapshot.exists()) {
+  //     //         const userDoc = snapshot.data()
+  //     //         setDocument(userDoc);
+  //     //         console.log('got data')
+  //     //       }
+  //     //       else{
+  //     //         setDocument(undefined)
+  //     //         setDocError({isError: true, errorMessage: 'No records available...'})
+  //     //       }
+  //     //   }).catch(e => {
+  //     //     console.log(e)
+  //     //       setDocument({})
+  //     //       setDocError({isError: true, errorMessage: 'No internet connection'})
+  //     //   })})
+  //     }, [])
 
   return (
     <View style={screenstyle.screenView}>

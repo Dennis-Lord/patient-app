@@ -313,11 +313,11 @@ const screenstyle = StyleSheet.create({
       paddingTop: 70,
       display: 'flex',
       alignItems: 'center',
-      backgroundColor: iconColor.bgw
+      backgroundColor: fontColor.w
     },
     lb: {
         width: '86%',
-        height: 1,
+        height: 2,
         borderRadius: 10,
         backgroundColor: '#000',
         marginVertical: 20,
