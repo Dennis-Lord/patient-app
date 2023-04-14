@@ -3,8 +3,10 @@ import React, { useState } from 'react'
 import { HeroFont, LightFont, MediumFont, MiniFont } from '../../../components/Font-components'
 import { wrapper, iconColor, fontColor } from '../../../templates/template'
 import { MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
-import { getStorage, ref, uploadBytes } from "firebase/storage";
 import * as DocumentPicker from 'expo-document-picker';
+import { uploadBytes } from 'firebase/storage';
+import { storage } from '../../../../firebaseConfig';
+import {ref} from 'firebase/storage'
 
 const Documents = () => {
   const [document, setDocument] = useState(null)
@@ -25,12 +27,16 @@ const Documents = () => {
     setDocument(result)
   }
 
-  // Get a reference to the storage service, which is used to create references in your storage bucket
-  const storage = getStorage();
-  // Create a storage reference from our storage service
-  const storageRef = ref(storage);
-
-
+  const uploadFile = async () => {
+    const res = await fetch(document.uri);
+    const f = await res.blob()
+    const fileRef = ref(storage, 'docs/' + document.name)
+    uploadBytes(fileRef, f).then(() => {
+      console.log('done')
+    }, (err) => {
+      console.log(err)
+    })
+  }
 
   return (
     <View style={styles.screenView}>
@@ -51,9 +57,9 @@ const Documents = () => {
               <LightFont text={document.name.slice(0,20)}/>
               {
                 document.size <= 999999 ?
-                <MiniFont text={ `${document.size.toString().slice(0,2)}` + 'kB'}/>
+                <MiniFont text={ `${document.size.toString().slice(0,2)}...` + 'kB'}/>
                 :
-                <MiniFont text={document.size.toString().slice(0,2) + 'Mb'}/>
+                <MiniFont text={document.size.toString().slice(0,1) + 'Mb'}/>
               }
             </View>
             :
@@ -64,7 +70,7 @@ const Documents = () => {
           }
             <View style={styles.addBtn}>
               <MediumFont text={'Upload file'} tc={fontColor.p}/>
-              <TouchableOpacity style={{width: 32, height: 32, borderRadius: 10, backgroundColor: iconColor.bg, alignItems: 'center', justifyContent: 'center', marginHorizontal: 4}}>
+              <TouchableOpacity onPress={() => uploadFile()} style={{width: 32, height: 32, borderRadius: 10, backgroundColor: iconColor.bg, alignItems: 'center', justifyContent: 'center', marginHorizontal: 4}}>
                 <AntDesign name="upload" size={24} color={fontColor.p} />
             </TouchableOpacity>
           </View>
