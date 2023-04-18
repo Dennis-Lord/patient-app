@@ -26,7 +26,7 @@ const ProfileScreen = () => {
           setLoading({s: false, m: ''})
         }
       }).catch(e => {
-        setLoading({s: true, m:e.message})
+        setLoading({s: true, m:"Error getting your profile..."})
       })
       
     })

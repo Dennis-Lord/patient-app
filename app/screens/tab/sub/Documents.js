@@ -1,19 +1,16 @@
-import { StyleSheet, View, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import { StyleSheet, View, TouchableOpacity, ScrollView } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { HeroFont, LightFont, MediumFont, MiniFont } from '../../../components/Font-components'
 import { wrapper, iconColor, fontColor } from '../../../templates/template'
 import { MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 import * as DocumentPicker from 'expo-document-picker';
 import { storage, db, auth } from '../../../../firebaseConfig';
 import {ref,list, uploadBytes, getDownloadURL, getMetadata} from 'firebase/storage'
-import { updateDoc, doc } from 'firebase/firestore';
+import { updateDoc, doc, arrayUnion, getDoc } from 'firebase/firestore';
 
 const Documents = () => {
   const [document, setDocument] = useState(null)
-  const [filesList, setFilesList] = useState({
-    l: null,
-    e: false
-  })
+  const [filesList, setFilesList] = useState()
   const [err, setErr] = useState(false)
 
   const documentPicker = async () => {
@@ -43,69 +40,77 @@ const Documents = () => {
       const metaData = {name: document.name, size: document.size};
       const initials = doc(db, 'records', auth.currentUser.uid)
       updateDoc(initials, {
-        medical_folders: arrayUnion(metaData)
+        "medical_folders.documents": arrayUnion(metaData)
       })
     }, (err) => {
       console.log(err)
     })
   }
 
-  const getList = async () => {
+  useEffect(() => {
     const filesRef = ref(storage, 'docs/')
-    const l = await list(filesRef, {maxResults: 10})
+    const l = list(filesRef, {maxResults: 10})
+    const docRef = doc(db, 'records',  `${auth.currentUser.uid}`);
     const newList = [];
 
-    // const docRef = doc(db, 'records',  `${auth.currentUser.uid}`);
-    // await getDoc(docRef).then(snapshot => {
-    //   if(snapshot.exists()) {
-    //       const userDoc = snapshot.data()
-    //       userDoc.medicalFolders.documents.map((d) => {
-    //         const fileUrl = getDownloadURL(ref(storage, 'docs/' + d.name))
-    //         const a = {
-    //           name: d.name,
-    //           size: d.size,
-    //           url: fileUrl
-    //         }
-    //         newList.push(a)
-    //       })
-          
-    //       setFilesList({
-    //         l:newList,
-    //         e: false
-    //       })
-    //     }
-    //     else{
-    //       setFilesList({
-    //         l: {},
-    //         e: false
-    //       })
-    //     }
-    // }).catch(e => {
-    //   setFilesList({
-    //     e: true
-    //   })
-    // })
-    
-    // l.items.forEach((item) => {
-    //   console.log(item)
-    //   const url = getMetadata(ref(storage, 'docs/' + item._location.path_.slice(4)))
-    //   console.log(url)
-    // })
+    getDoc(docRef).then(snapshot => {
+      if(snapshot.exists()) {
+          const userDoc = snapshot.data()
+          userDoc.medical_folders.documents.map((d) => {
+              let a = {
+                name: d.name,
+                size: d.size,
+              }
+              newList.push(a)
+            })
+            setFilesList(newList)
+        }
+        else{
+          setFilesList({})
+        }
+    }).catch(e => {
+      setFilesList('error')
+    })
+  }, [])
+
+  const getList = async () => {
+    const filesRef = ref(storage, 'docs/')
+    const docRef = doc(db, 'records',  `${auth.currentUser.uid}`);
+    const newList = [];
+
+    getDoc(docRef).then(snapshot => {
+      if(snapshot.exists()) {
+          const userDoc = snapshot.data()
+          userDoc.medical_folders.documents.map((d) => {
+              let a = {
+                name: d.name,
+                size: d.size,
+              }
+              newList.push(a)
+            })
+            setFilesList(newList)
+        }
+        else{
+          setFilesList({})
+        }
+    }).catch(e => {
+      setFilesList('error')
+    })
   }
 
-  const downloadFile = async(url) => {
-    const fileRef = ref(storage, `docs/${url}`)
-
+  const downloadFile = async(fileName) => {
+    const fileRef = ref(storage, `docs/${fileName}`)
     await getDownloadURL(fileRef)
       .then((url) => {
       // This can be downloaded directly:
-      const xhr = new XMLHttpRequest();
-      xhr.responseType = 'blob';
-      xhr.onload = (event) => {
-        const blob = xhr.response;
-      };
-      xhr.open('GET', url);
-      xhr.send();
+      // console.log(url)
+      // const xhr = new XMLHttpRequest();
+      // xhr.responseType = 'blob';
+      // xhr.onload = (event) => {
+      //   const blob = xhr.response;
+      // };
+      // xhr.open('GET', url);
+      // xhr.send();
     })
   }
 
@@ -125,14 +130,16 @@ const Documents = () => {
             {
               document != null && document != {type: 'cancel'} && err != true ?
                 <View style={styles.pdfWrapper}>
-                  <MaterialCommunityIcons name='file-pdf-box' size={26} color={fontColor.r}/>
-                  <LightFont text={document.name.slice(0,20)}/>
-                    {
-                      document.size <= 999999 ?
-                      <MiniFont text={ `${document.size.toString().slice(0,2)}...` + 'kB'}/>
-                      :
-                      <MiniFont text={document.size.toString().slice(0,1) + 'Mb'}/>
-                    }
+                  <MaterialCommunityIcons name='file-pdf-box' size={50} color={fontColor.r}/>
+                  <View style={{justifyContent: 'space-evenly', marginLeft: 10}}>
+                    <LightFont text={document.name.slice(0,25)}/>
+                      {
+                        document.size <= 999999 ?
+                        <MiniFont text={document.size.toString().slice(0,2) + 'kB'}/>
+                        :
+                        <MiniFont text={document.size.toString().slice(0,1) + 'Mb'}/>
+                      }
+                  </View>
                 </View>
               
               :
@@ -142,40 +149,52 @@ const Documents = () => {
               <MediumFont text={'Select a file to upload...'} tc={fontColor.p}/>
             }
           </View>
+
+          <View style={{width: '100%', paddingHorizontal: 10, alignItems: 'flex-end'}}>
             <View style={styles.addBtn}>
               <MediumFont text={'Upload file'} tc={fontColor.p}/>
               <TouchableOpacity onPress={() => uploadFile()} style={{width: 32, height: 32, borderRadius: 10, backgroundColor: iconColor.bg, alignItems: 'center', justifyContent: 'center', marginHorizontal: 4}}>
                 <AntDesign name="upload" size={24} color={fontColor.p} />
-            </TouchableOpacity>
+              </TouchableOpacity>
+            </View>
           </View>
 
+          <View style={styles.addBtn}>
+              <MediumFont text={'Refresh'} tc={fontColor.p}/>
+              <TouchableOpacity onPress={() => getList()} style={{width: 32, height: 32, borderRadius: 10, backgroundColor: iconColor.bg, alignItems: 'center', justifyContent: 'center', marginHorizontal: 4}}>
+                <MaterialCommunityIcons name="refresh" size={24} color={fontColor.p} />
+              </TouchableOpacity>
+            </View>
           <View style={styles.filesWrapper}>
-            <TouchableOpacity onPress={() => getList()} style={{width: 32, height: 32, borderRadius: 10, backgroundColor: iconColor.bg, alignItems: 'center', justifyContent: 'center', marginHorizontal: 4}}>
-              <AntDesign name="download" size={24} color={fontColor.p} />
-            </TouchableOpacity>
-
-          {/* files loaded from cloud storage */}
-          {
-            filesList.l != null  && filesList.l != {} ?
-            filesList.l.forEach((file) => {
-              console.log(file);
-              <View style={styles.pdfWrapper}>
-                <MaterialCommunityIcons name='file-pdf-box' size={26} color={fontColor.r}/>
-                <LightFont text={file.name} tc={fontColor.p}/>
-                  <TouchableOpacity onPress={() => downloadFile(file.url)}  style={{width: 32, height: 32, borderRadius: 10, backgroundColor: iconColor.bg, alignItems: 'center', justifyContent: 'center', marginHorizontal: 4}}>
-                    <AntDesign name="download" size={24} color={fontColor.p} />
-                  </TouchableOpacity>
-              </View>
-            })
-            :
-            filesList.l == {} ?
-            <MediumFont text={"No documents available"} tc={fontColor.p}/>
-            :
-            filesList.e ?
-            <MediumFont text={"Error getting files"} tc={fontColor.p}/>
-            :
-            <></>
-          }
+            {  
+              <ScrollView style={{width: '100%', height: '100%', paddingVertical: 10, paddingHorizontal: 5}} showsVerticalScrollIndicator={false}>
+              {
+                filesList != undefined ?
+                filesList.map((file, i) =>
+                  <View style={styles.pdfWrapperb} key={i}>
+                    <MaterialCommunityIcons name='file-pdf-box' size={50} color={fontColor.r}/>
+                    <View style={{justifyContent: 'space-evenly', marginLeft: 10}}>
+                      <LightFont text={`${file.name.slice(0, 20)}...`} tc={fontColor.p}/>
+                        {
+                          file.size <= 999999 ?
+                          <MiniFont text={file.size + 'kB'} tc={fontColor.p}/>
+                          :
+                          <MiniFont text={file.size + 'Mb'} tc={fontColor.p}/>
+                        }
+                    </View>
+                    <TouchableOpacity onPress={() => downloadFile(file.name)} style={{width: 32, height: 32, borderRadius: 10, backgroundColor: fontColor.w, alignItems: 'center', justifyContent: 'center', marginHorizontal: 4}}>
+                      <AntDesign name="download" size={24} color={fontColor.p} />
+                    </TouchableOpacity>
+                  </View>
+                )
+                :
+                filesList === 'error' ?
+                <MediumFont text={"Error getting files"} tc={fontColor.p}/>
+                :
+                <></>
+              }
+              </ScrollView>
+            }
           </View>
         </View>
     </View>
@@ -197,16 +216,16 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   addBtn: {
-    width: '100%',
+    width: 130,
     height: 30,
     display: 'flex',
     flexDirection: 'row',
     marginVertical: 16,
-    alignItems: 'baseline'
+    justifyContent: 'flex-end'
   },
   pdfContainer: {
     width: '100%',
-    height: 50,
+    height: 120,
     backgroundColor: 'gainsboro',
     borderRadius: 10,
     alignItems: 'center',
@@ -214,18 +233,32 @@ const styles = StyleSheet.create({
   },
   pdfWrapper: {
     width: '90%',
-    height: 36,
+    height: 100,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 6,
+    paddingHorizontal: 4,
     paddingVertical: 4,
-    borderBottomWidth: 2,
+    justifyContent: 'flex-start',
+    backgroundColor: '#fff',
     borderRadius: 10,
-    borderColor: fontColor.p,
-    marginBottom: 6,
-    alignItems: 'baseline'
+    alignItems: 'center'
+  },
+  pdfWrapperb: {
+    width: '98%',
+    height: 100,
+    display: 'flex',
+    flexDirection: 'row',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    justifyContent: 'space-between',
+    backgroundColor: 'gainsboro',
+    borderRadius: 10,
+    alignItems: 'center',
+    marginVertical: 5
   },
   filesWrapper: {
+    height: 100,
+    justifyContent: 'center',
+    flexGrow: 1
   }
 })

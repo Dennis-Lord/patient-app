@@ -30,7 +30,7 @@ const Index = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions= {{headerShown: false}}>
-        {/* {
+        {
           loading ? 
           <Stack.Screen name='splash' component={StatusEffect}/>
           :
@@ -43,8 +43,7 @@ const Index = () => {
             <Stack.Screen name='forgotPass' component={ForgotPassword} />
           </>
     
-        } */}
-        <Stack.Screen name='/' component={Documents}/>
+        }
       </Stack.Navigator>
     </NavigationContainer>
   )
