@@ -1,7 +1,7 @@
 import { StyleSheet, View, TextInput, Text } from 'react-native'
 import React, {useDebugValue, useState} from 'react'
 import { HeroFont, LightFont } from '../../../components/Font-components'
-import { FilterFileCard } from '../../../components/List-components'
+import { FilterFileCard, ReferralCard, AnalysisCard } from '../../../components/List-components'
 import { fontColor, iconColor, wrapper } from '../../../templates/template'
 
 const ListScreen = ({navigation, route}) => {
@@ -44,12 +44,12 @@ const ListScreen = ({navigation, route}) => {
             ):
             title == 'Analysis' && userDoc !== undefined?
             aFiles.map((files, i) => 
-              <FilterFileCard key={i} nav={navigation} route={subRoute} data={files}/>
+              <AnalysisCard key={i} nav={navigation} route={subRoute} data={files}/>
             )
             :
             title == 'Referrals' && userDoc != undefined ?
             referrals.map((referral, i) => 
-              <FilterFileCard key={i} nav={navigation} route={subRoute} data={referral}/>
+              <ReferralCard key={i} nav={navigation} route={subRoute} data={referral}/>
             )
             :
             <LightFont text={'Error'}/>

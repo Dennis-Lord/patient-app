@@ -7,6 +7,7 @@ import StatusEffect from './screens/StatusEffect';
 import { auth } from '../firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 import ForgotPassword from './screens/auth/ForgotPassword';
+import Documents from './screens/tab/sub/Documents';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,7 +30,7 @@ const Index = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions= {{headerShown: false}}>
-        {
+        {/* {
           loading ? 
           <Stack.Screen name='splash' component={StatusEffect}/>
           :
@@ -42,7 +43,8 @@ const Index = () => {
             <Stack.Screen name='forgotPass' component={ForgotPassword} />
           </>
     
-        }
+        } */}
+        <Stack.Screen name='/' component={Documents}/>
       </Stack.Navigator>
     </NavigationContainer>
   )

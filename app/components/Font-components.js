@@ -55,7 +55,7 @@ const fontStyle = StyleSheet.create({
     letterSpacing: 0.3,
   },
   mediumFont: {
-    fontSize: 18, 
+    fontSize: 19, 
     fontWeight: '600',
     letterSpacing: 0.3,
   },

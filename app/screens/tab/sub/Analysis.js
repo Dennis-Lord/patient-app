@@ -5,8 +5,10 @@ import { AnalysisDetailsCard, InvestigationCard } from '../../../components/Card
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { iconColor, wrapper, fontColor } from '../../../templates/template';
 
+
 const Analysis = ({route}) => {
   const analysis = route.params.dataFile;
+  const location = analysis.ref
 
   return (
     <View style={styles.screenView}>

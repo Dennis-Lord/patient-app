@@ -140,6 +140,10 @@
                 "reason": "",
                 "signatureAndStamp": ""
             }
-        ]
+        ],
+        "documents": [{
+            "name": "",
+            "size": ""
+        }]
     }
 }

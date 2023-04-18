@@ -37,7 +37,48 @@ const FilterFileCard = ({nav, route, data}) => {
               <MaterialCommunityIcons name="dots-vertical" size={32} color="black" />
             </TouchableOpacity> */}
           </View>
-          <LightFont text={"since 20.04.2022"}/>
+          <LightFont text={"20.04.2022"}/>
+        </View>
+      </View>
+    </TouchableOpacity>
+  )
+}
+
+const ReferralCard = ({nav, route, data}) => {
+  const dataFile = data;
+  
+  return (
+    <TouchableOpacity onPress={() => nav.navigate(route, {dataFile})}>
+      <View style={styles.cardContainer}>
+        <View style={styles.lc}>
+          <LightFont text={dataFile.referredTo}/>
+          <MediumFont text={dataFile.referredFrom}/>
+        </View>
+        <View style={styles.rc}>
+          <View style={styles.uc}>
+            <FlagComponent flag={"approved"}/>
+          </View>
+          <LightFont text={"20.04.2022"}/>
+        </View>
+      </View>
+    </TouchableOpacity>
+  )
+}
+
+const AnalysisCard = ({nav, route, data}) => {
+  const dataFile = data;
+  
+  return (
+    <TouchableOpacity onPress={() => nav.navigate(route, {dataFile})}>
+      <View style={styles.cardContainerB}>
+        <View style={styles.lc}>
+          <MediumFont text={dataFile.analysisName}/>
+        </View>
+        <View style={styles.rc}>
+          <View style={styles.uc}>
+            <FlagComponent flag={dataFile.result}/>
+          </View>
+          <LightFont text={dataFile.date}/>
         </View>
       </View>
     </TouchableOpacity>
@@ -56,6 +97,17 @@ const styles = StyleSheet.create({
     cardContainer: {
         width: '100%',
         height: 105,
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: iconColor.bgd,
+        padding: 6,
+        marginBottom: 12,
+        flexDirection: 'row',
+        backgroundColor: '#fff'
+    },
+    cardContainerB: {
+        width: '100%',
+        height: 90,
         borderRadius: 10,
         borderWidth: 2,
         borderColor: iconColor.bgd,
@@ -95,4 +147,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export { FilterFileCard }
+export { FilterFileCard, ReferralCard, AnalysisCard }

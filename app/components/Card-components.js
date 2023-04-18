@@ -3,9 +3,9 @@ import React from 'react'
 import { LightFont, MediumFont, MiniFont, SemiBoldFont, SemiFont, SemiLightFont, LFb } from './Font-components'
 import { fontColor, windowHeight, windowWidth } from '../templates/template'
 import { iconColor } from '../templates/template'
-
-// icon import
+import { storage } from '../../firebaseConfig'
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { ref, getDownloadURL } from 'firebase/storage'
 
 // card components for main screen
 
@@ -84,12 +84,30 @@ const OptionsCard = ({iconName, option, o, s, tc, mic}) => {
     )
 }
 
-const DownloadCard = () => {
+const DownloadCard = (fileUrl) => {
+    const downloadRef = ref(storage, 'docs/' + fileUrl)
+
+    const downloadFile = async () => {
+        await getDownloadURL(downloadRef)
+        .then((url) => {
+        // This can be downloaded directly:
+        const xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = (event) => {
+        const blob = xhr.response;
+        };
+        xhr.open('GET', url);
+        xhr.send();
+        })
+    }
+
     return ( 
         <View style={styles.downloadContainer}>
-            <View style={styles.di_container}>
-                <MaterialCommunityIcons name={'download'} size={24} color={iconColor.c} />
-            </View>
+            <TouchableOpacity onPress={() => downloadFile()}>
+                <View style={styles.di_container}>
+                    <MaterialCommunityIcons name={'download'} size={24} color={iconColor.c} />
+                </View>
+            </TouchableOpacity>
             <View style={styles.br} />
             <LFb text={'lab_report.pdf'}/>
         </View>
@@ -178,8 +196,11 @@ const FourHourChart = ({chart}) => {
     const {respirations} = chart
 
     return (
-        <View>
-
+        <View style={fHCStyles.wrapper}>
+            <MediumFont text={'Four Hour Chart'} tc={fontColor.p}/>
+            <MediumFont text={'Temperature'} tc={fontColor.p}/>
+            <MediumFont text={'Pulserate'} tc={fontColor.p}/>
+            <MediumFont text={'Respirations'} tc={fontColor.p}/>
         </View>
     )
 }
@@ -352,6 +373,17 @@ const styles = StyleSheet.create({
         top: 6,
     },
 
+})
+
+const fHCStyles = StyleSheet.create({
+    wrapper: {
+        width: '88%',
+        height: '86%',
+        borderRadius: 10,
+        backgroundColor: fontColor.w,
+        paddingHorizontal: 6,
+        paddingVertical: 10,
+    }
 })
 
 export {MainCard, NavCard, NavCard_s, ProfileCard, OptionsCard, SponsorCard, DownloadCard, DrugCard, VisitsCard, AnalysisDetailsCard, InvestigationCard, FourHourChart}
