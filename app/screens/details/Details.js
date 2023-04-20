@@ -51,12 +51,12 @@ const DetailsScreen = ({route}) => {
                 <></>
               }
                 <View style={styles.profile} />
-                  <MiniFont text={'Name'}/>
+                  <LightFont text={'Name'} tc={iconColor.bg}/>
                   <LightFont text={userProfile.name}/>
-                  <View style={styles.h} />
-                  <MiniFont text={'Email'}/>
+                  <View style={styles.h}/>
+                  <LightFont text={'Email'} tc={iconColor.bg}/>
                 <View style={styles.emailWrapper}>
-                  <MaterialIcons name={'verified'} size={24} color={fontColor.g} />
+                  <MaterialIcons name={'verified'} size={24} color={iconColor.bg} />
                   <View style={styles.w}/>
                   <LightFont text={userProfile.email}/>
                 </View>
@@ -99,11 +99,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profile: {
-    width: 140,
-    height: 140,
-    borderRadius: 70,
+    width: 120,
+    height: 120,
+    borderRadius: 12,
     backgroundColor: 'gray',
-    marginBottom: 14,
+    marginBottom: 12,
   },
   deleteBtn: {
     flexGrow: 1,
