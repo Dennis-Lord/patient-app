@@ -1,7 +1,7 @@
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import React, {useState, useEffect} from 'react'
-import { HeroFont, MediumFont} from '../../components/Font-components'
-import { SponsorCard, OptionsCard } from '../../components/Card-components';
+import { HeroFont, LightFont, MediumFont, MiniFont} from '../../components/Font-components'
+import { OptionsCard } from '../../components/Card-components';
 import { fontColor, iconColor, wrapper } from '../../templates/template';
 import { db, auth } from '../../../firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -22,7 +22,7 @@ const SponsorsScreen = () => {
         setLoading({s: false, m: ''})
       }
     }, (error) => {
-      setLoading({e: true, m: 'error loading profile' + error})
+      setLoading({e: true, m: 'error loading profile...' + error})
     })
   }, [])
 
@@ -30,24 +30,35 @@ const SponsorsScreen = () => {
     <View style={styles.screenView}>
       <View style={styles.header}>
         <HeroFont text={"Sponsors"} tc={fontColor.w}/>
-        <View style={styles.editButton}>
+        {/* <View style={styles.editButton}>
           <TouchableOpacity>
           <OptionsCard iconName={"file-edit"} option={"edit"} s={18} o={'b'} tc={fontColor.w} mic={fontColor.w}/>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
       <View style={[styles.sponsorsContainer, wrapper.bw]}>
         {
-          loading.e ? 
-          <></>
+          loading.s ? 
+          <View style={styles.loadStyle}>
+            <MediumFont text={loading.m} tc={fontColor.p}/>
+          </View>
           : 
-          <>
-            <View style={styles.sponsorName}>
-              <MediumFont text={sponsor.name}/>
-              <MediumFont text={sponsor.acronym}/>
+          <View style={styles.container}>
+            <View style={styles.i_w}>
+              <MaterialCommunityIcons name={'hospital'} size={24} color={iconColor.c} />
             </View>
-            <SponsorCard />
-          </>
+            <View>
+              <MediumFont text={sponsor.name} tc={fontColor.p}/>
+              <View style={{height: 2}}/>
+              <LightFont text={sponsor.acronym} tc={fontColor.p}/>
+              <View style={{height: 2}}/>
+              <MiniFont text={sponsor.id} tc={fontColor.p}/>
+              <View style={{height: 2}}/>
+              <MiniFont text={sponsor.verification} tc={iconColor.c}/>
+              <View style={{height: 2}}/>
+              <MiniFont text={sponsor.expiration} tc={iconColor.bgd}/>
+            </View>
+          </View>
         }
       </View>
     </View>
@@ -75,10 +86,30 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 14,
   },
-  sponsorName: {
-    display: 'flex',
-    marginBottom: 16,
-  }
+  loadStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
+    zIndex: 2,
+    height: '100%',
+    width: '100%'
+  },
+  container: {
+    width: '96%',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    marginVertical: 5,
+    flexDirection: 'row',
+  },
+  i_w: {
+    width: 40,
+    height: 40,
+    borderRadius: 8,
+    backgroundColor: iconColor.bg,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 4
+},
 }) 
 
 export default SponsorsScreen

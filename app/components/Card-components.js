@@ -15,12 +15,6 @@ const MainCard = () => {
   )
 }
 
-const SponsorCard = () => {
-  return (
-    <View style={styles.sponsorCard}></View>
-  )
-}
-
 const NavCard = ({cardText, nav, routeProps}) => {
     const r = routeProps.route
 
@@ -215,15 +209,6 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: iconColor.bgd,
     },
-    sponsorCard: {
-        width: (windowWidth - 30),
-        // height: 149,
-        height: (windowHeight / 3.9),
-        backgroundColor: '#E8E8E8',
-        borderRadius: 7,
-        borderWidth: 2,
-        borderColor: '#707070',
-    },
     navCard: {
         flexGrow: 1,
         borderRadius: 10,
@@ -386,4 +371,4 @@ const fHCStyles = StyleSheet.create({
     }
 })
 
-export {MainCard, NavCard, NavCard_s, ProfileCard, OptionsCard, SponsorCard, DownloadCard, DrugCard, VisitsCard, AnalysisDetailsCard, InvestigationCard, FourHourChart}
+export {MainCard, NavCard, NavCard_s, ProfileCard, OptionsCard, DownloadCard, DrugCard, VisitsCard, AnalysisDetailsCard, InvestigationCard, FourHourChart}

@@ -1,17 +1,22 @@
-import { StyleSheet, View, TouchableOpacity, ScrollView } from 'react-native'
+import { StyleSheet, View, TouchableOpacity, ScrollView, TextInput } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { HeroFont, LightFont, MediumFont, MiniFont } from '../../../components/Font-components'
 import { wrapper, iconColor, fontColor } from '../../../templates/template'
 import { MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 import * as DocumentPicker from 'expo-document-picker';
 import { storage, db, auth } from '../../../../firebaseConfig';
-import {ref,list, uploadBytes, getDownloadURL, getMetadata} from 'firebase/storage'
+import {ref, uploadBytes, getDownloadURL} from 'firebase/storage'
 import { updateDoc, doc, arrayUnion, getDoc } from 'firebase/firestore';
+// import * as FileSystem from 'expo-file-system';
 
 const Documents = () => {
   const [document, setDocument] = useState(null)
   const [filesList, setFilesList] = useState()
   const [err, setErr] = useState(false)
+  const {toggle, setToggle} = useState({
+    link: '',
+    state: false
+  })
 
   const documentPicker = async () => {
     const result = await DocumentPicker.getDocumentAsync({});
@@ -41,15 +46,15 @@ const Documents = () => {
       const initials = doc(db, 'records', auth.currentUser.uid)
       updateDoc(initials, {
         "medical_folders.documents": arrayUnion(metaData)
+      }).then(() => {
+        setDocument('success')
       })
     }, (err) => {
       console.log(err)
     })
   }
 
-  useEffect(() => {
-    const filesRef = ref(storage, 'docs/')
-    const l = list(filesRef, {maxResults: 10})
+  useEffect( () => {
     const docRef = doc(db, 'records',  `${auth.currentUser.uid}`);
     const newList = [];
 
@@ -74,7 +79,6 @@ const Documents = () => {
   }, [])
 
   const getList = async () => {
-    const filesRef = ref(storage, 'docs/')
     const docRef = doc(db, 'records',  `${auth.currentUser.uid}`);
     const newList = [];
 
@@ -88,7 +92,7 @@ const Documents = () => {
               }
               newList.push(a)
             })
-            setFilesList(newList)
+          setFilesList(newList)
         }
         else{
           setFilesList({})
@@ -98,20 +102,50 @@ const Documents = () => {
     })
   }
 
-  const downloadFile = async(fileName) => {
+  // const downloadFile = async(fileName) => {
+  //   const name = fileName
+  //   const fileRef = ref(storage, `docs/${fileName}`)
+  //   const b = getDownloadURL(fileRef).then(async (url) => {
+
+  //     const downloadResumable = FileSystem.createDownloadResumable(
+  //       url,
+  //       FileSystem.documentDirectory + fileName
+  //     );;
+
+  //     const { uri } = await downloadResumable.downloadAsync();
+  //     console.log('Finished downloading to ', uri);
+  //     const p = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync()
+  //     console.log(p)
+  //     if(p.granted) {
+  //       await FileSystem.copyAsync({
+  //         from: uri,
+  //         to: p.directoryUri,
+  //       });
+  //     }
+      
+  //   }).catch(e => console.log('err: '+ e))
+
+    
+  // }
+
+  const toggleLink = (fileName) => {
+    const name = fileName
     const fileRef = ref(storage, `docs/${fileName}`)
-    await getDownloadURL(fileRef)
-      .then((url) => {
-      // This can be downloaded directly:
-      // console.log(url)
-      // const xhr = new XMLHttpRequest();
-      // xhr.responseType = 'blob';
-      // xhr.onload = (event) => {
-      //   const blob = xhr.response;
-      // };
-      // xhr.open('GET', url);
-      // xhr.send();
-    })
+    if (toggle == false) {
+    getDownloadURL(fileRef).then((url) => {
+        setToggle({
+          link: url,
+          state: true
+        })
+      }).catch((e) => {
+        console.log(e)
+      })
+    }else {
+      setToggle({
+        link: '',
+        state: false
+      })
+    }
   }
 
   return (
@@ -128,7 +162,7 @@ const Documents = () => {
           </View>
           <View style={styles.pdfContainer}>
             {
-              document != null && document != {type: 'cancel'} && err != true ?
+              document != null && document != {type: 'cancel'} && document != 'success' && err != true ?
                 <View style={styles.pdfWrapper}>
                   <MaterialCommunityIcons name='file-pdf-box' size={50} color={fontColor.r}/>
                   <View style={{justifyContent: 'space-evenly', marginLeft: 10}}>
@@ -145,6 +179,9 @@ const Documents = () => {
               :
               err == true ?
               <MediumFont text={'File should have the postfix .doc/.pdf'} tc={fontColor.r}/>
+              :
+              document == 'success' ?
+              <MediumFont text={'File uploaded successfully'} tc={fontColor.p}/>
               :
               <MediumFont text={'Select a file to upload...'} tc={fontColor.p}/>
             }
@@ -166,6 +203,19 @@ const Documents = () => {
               </TouchableOpacity>
             </View>
           <View style={styles.filesWrapper}>
+            {
+              toggle.state == true ?
+              <View style={styles.clip}>
+                <View style={styles.cancelWrapper}>
+                  <TouchableOpacity onPress={() => setToggle({link: '', e: false})}>
+                    <MaterialCommunityIcons name="cancel" size={24} color={fontColor.p} />
+                  </TouchableOpacity>
+                </View>
+                <TextInput style={styles.linkWrapper} value={toggle.link}/>
+              </View>
+              :
+              <></>
+            }
             {  
               <ScrollView style={{width: '100%', height: '100%', paddingVertical: 10, paddingHorizontal: 5}} showsVerticalScrollIndicator={false}>
               {
@@ -174,7 +224,7 @@ const Documents = () => {
                   <View style={styles.pdfWrapperb} key={i}>
                     <MaterialCommunityIcons name='file-pdf-box' size={50} color={fontColor.r}/>
                     <View style={{justifyContent: 'space-evenly', marginLeft: 10}}>
-                      <LightFont text={`${file.name.slice(0, 20)}...`} tc={fontColor.p}/>
+                      <LightFont text={file.name + '...'} tc={fontColor.p}/>
                         {
                           file.size <= 999999 ?
                           <MiniFont text={file.size + 'kB'} tc={fontColor.p}/>
@@ -182,7 +232,7 @@ const Documents = () => {
                           <MiniFont text={file.size + 'Mb'} tc={fontColor.p}/>
                         }
                     </View>
-                    <TouchableOpacity onPress={() => downloadFile(file.name)} style={{width: 32, height: 32, borderRadius: 10, backgroundColor: fontColor.w, alignItems: 'center', justifyContent: 'center', marginHorizontal: 4}}>
+                    <TouchableOpacity onPress={() => toggleLink(file.name)} style={{width: 32, height: 32, borderRadius: 10, backgroundColor: fontColor.w, alignItems: 'center', justifyContent: 'center', marginHorizontal: 4}}>
                       <AntDesign name="download" size={24} color={fontColor.p} />
                     </TouchableOpacity>
                   </View>
@@ -260,5 +310,27 @@ const styles = StyleSheet.create({
     height: 100,
     justifyContent: 'center',
     flexGrow: 1
+  },
+  clip: {
+    width: '90%',
+    height: 100,
+    borderRadius: 10,
+    backgroundColor: fontColor.w,
+    zIndex: 2,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    alignSelf: 'center',
+    // position: 'relative'
+  },
+  cancelWrapper: {
+    width: '100%',
+    alignItems: 'flex-end'
+  },
+  linkWrapper: {
+    width: '92%',
+    height: 28,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    fontSize: 24
   }
 })
