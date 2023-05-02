@@ -66,7 +66,9 @@ const fontColor = {
     gd: '#15803d',
     r: '#F84134',
     w: '#fff',
-    b: '#164e63'
+    b: '#164e63',
+    n: "#27272a",
+    a: "#44403c"
 }
 
 // styles to wrap hero text and position all headers equally

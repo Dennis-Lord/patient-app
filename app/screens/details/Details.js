@@ -1,7 +1,7 @@
 import React, {useState} from "react"
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import { wrapper, iconColor, fontColor } from "../../templates/template"
-import { HeroFont, MiniFont, MediumFont, LightFont } from "../../components/Font-components"
+import { HeroFont, MiniFont, MediumFont, LightFont, SemiLightFont } from "../../components/Font-components"
 import { MaterialIcons } from '@expo/vector-icons';
 import {auth} from '../../../firebaseConfig'
 import { deleteUser } from 'firebase/auth'
@@ -51,14 +51,14 @@ const DetailsScreen = ({route}) => {
                 <></>
               }
                 <View style={styles.profile} />
-                  <LightFont text={'Name'} tc={iconColor.bg}/>
-                  <LightFont text={userProfile.name}/>
+                  <MediumFont text={'Name'} tc={fontColor.s}/>
+                  <SemiLightFont text={userProfile.name}/>
                   <View style={styles.h}/>
-                  <LightFont text={'Email'} tc={iconColor.bg}/>
+                  <MediumFont text={'Email'} tc={fontColor.s}/>
                 <View style={styles.emailWrapper}>
                   <MaterialIcons name={'verified'} size={24} color={iconColor.bg} />
                   <View style={styles.w}/>
-                  <LightFont text={userProfile.email}/>
+                  <SemiLightFont text={userProfile.email}/>
                 </View>
                 <TouchableOpacity style={{width: 180, height: 38, borderRadius: 10, marginTop: 40}}>
                   <View style={styles.deleteBtn}>
@@ -101,14 +101,14 @@ const styles = StyleSheet.create({
   profile: {
     width: 120,
     height: 120,
-    borderRadius: 12,
+    borderRadius: 60,
     backgroundColor: 'gray',
-    marginBottom: 12,
+    marginBottom: 20,
   },
   deleteBtn: {
     flexGrow: 1,
     backgroundColor: fontColor.r,
-    borderRadius: 10,
+    borderRadius: 6,
     justifyContent: 'center',
     alignItems: 'center'
   },

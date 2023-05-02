@@ -51,8 +51,9 @@ const ReferralCard = ({nav, route, data}) => {
     <TouchableOpacity onPress={() => nav.navigate(route, {dataFile})}>
       <View style={styles.cardContainer}>
         <View style={styles.lc}>
-          <LightFont text={dataFile.referredTo}/>
-          <MediumFont text={dataFile.referredFrom}/>
+          <MediumFont text={dataFile.referredTo}/>
+          <View style={{height: 10}}/>
+          <LightFont text={dataFile.referredFrom}/>
         </View>
         <View style={styles.rc}>
           <View style={styles.uc}>

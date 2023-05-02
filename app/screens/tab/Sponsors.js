@@ -1,11 +1,12 @@
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import React, {useState, useEffect} from 'react'
-import { HeroFont, LightFont, MediumFont, MiniFont} from '../../components/Font-components'
+import { HeroFont, LightFont, MediumFont, MiniFont, SemiBoldFont, SemiLightFont} from '../../components/Font-components'
 import { OptionsCard } from '../../components/Card-components';
 import { fontColor, iconColor, wrapper } from '../../templates/template';
 import { db, auth } from '../../../firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 const SponsorsScreen = () => {
   const [sponsor, setSponsor] = useState({})
@@ -13,17 +14,23 @@ const SponsorsScreen = () => {
 
   // get data from firestore
   useEffect(() => {
-    onAuthStateChanged(auth, async (cred) => {
-      const docRef = doc(db, 'records',  `${cred.uid}`);
-      const docSnap = await getDoc(docRef);
-      if(docSnap.exists()) {
-        const userDoc = docSnap.data()
-        setSponsor(userDoc.medical_folders[0].patientProfile.sponsor);
-        setLoading({s: false, m: ''})
-      }
-    }, (error) => {
+    try {
+      onAuthStateChanged(auth, async (cred) => {
+        const docRef = doc(db, 'records',  `${cred.uid}`);
+        const docSnap = await getDoc(docRef);
+        if(docSnap.exists()) {
+          const userDoc = docSnap.data()
+          setSponsor(userDoc.medical_folders[0].patientProfile.sponsor);
+          setLoading({s: false, m: ''})
+        }else{
+          setLoading({e: true, m: 'Sorry no data available'})
+        }
+      }).then(() => {
+
+      }).catch(e => console.log(e))
+    } catch (error) {
       setLoading({e: true, m: 'error loading profile...' + error})
-    })
+    }
   }, [])
 
   return (
@@ -47,16 +54,17 @@ const SponsorsScreen = () => {
             <View style={styles.i_w}>
               <MaterialCommunityIcons name={'hospital'} size={24} color={iconColor.c} />
             </View>
-            <View>
-              <MediumFont text={sponsor.name} tc={fontColor.p}/>
+            <View style={{width: '100%'}}>
+              <SemiBoldFont text={sponsor.name} tc={fontColor.n}/>
               <View style={{height: 2}}/>
-              <LightFont text={sponsor.acronym} tc={fontColor.p}/>
+              <MediumFont text={sponsor.acronym} tc={fontColor.a}/>
               <View style={{height: 2}}/>
-              <MiniFont text={sponsor.id} tc={fontColor.p}/>
+              <LightFont text={"ID: " + sponsor.id} tc={fontColor.p}/>
               <View style={{height: 2}}/>
-              <MiniFont text={sponsor.verification} tc={iconColor.c}/>
-              <View style={{height: 2}}/>
-              <MiniFont text={sponsor.expiration} tc={iconColor.bgd}/>
+              <View style={styles.bottom}>
+                <MiniFont text={sponsor.verification} tc={fontColor.gd}/>
+                <MiniFont text={sponsor.expiration} tc={iconColor.b}/>
+              </View>
             </View>
           </View>
         }
@@ -109,7 +117,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 4
-},
+  },
+  bottom: {
+    width: '100%',
+    justifyContent: 'space-between',
+    paddingRight: 20,
+    flexDirection: 'row'
+  }
 }) 
 
 export default SponsorsScreen

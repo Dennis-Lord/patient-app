@@ -108,7 +108,8 @@
                             }
                         ]
                     }
-                }
+                },
+                "fileUrl": ""
             }
         ],
         "analysisFiles": [
@@ -145,5 +146,6 @@
             "name": "",
             "size": ""
         }]
-    }
+    },
+    "analysisFiles": []
 }

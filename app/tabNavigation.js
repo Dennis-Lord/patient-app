@@ -87,11 +87,12 @@ const TabNavigation = () => {
 const tabStyles = StyleSheet.create({
     container: {
         width: '100%',
-        height: 50,
+        height: 60,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
         backgroundColor: '#fff',
+        paddingBottom: 10
     },
 })
 

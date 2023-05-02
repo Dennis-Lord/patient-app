@@ -39,7 +39,6 @@ import { doc, setDoc } from 'firebase/firestore'
         setKeyVal(e)
         try {
             passValue = keyVal.nativeEvent.text
-            console.log(passValue)
         } catch (error) {
             console.log(error)
         }
@@ -113,24 +112,24 @@ import { doc, setDoc } from 'firebase/firestore'
             "medicalFolder": {
                 "files": [
                     {
-                        "disease": "",
-                        "diagnosisDate": "",
+                        "disease": "Corona Virus",
+                        "diagnosisDate": "02.04.2023",
                         "treatementStarted": "",
                         "treatementEnded": "",
-                        "flag": "",
+                        "flag": "Normal",
                         "practisioner": {
-                            "name": "",
-                            "title": "",
+                            "name": "Edna Konadu",
+                            "title": "Doctor",
                             "notes": {
                                 "notesDate": "",
-                                "time": "",
-                                "notes": ""
+                                "time": "12:30",
+                                "notes": "Notes summary"
                             }
                         },
                         "diagnosis": "",
-                        "complaints": "",
+                        "complaints": "Fever",
                         "examinations": {
-                            "bodypart": "", 
+                            "bodypart": "Head, Chest", 
                             "result": ""
                             },
                         "recommendations": [""],
@@ -138,19 +137,21 @@ import { doc, setDoc } from 'firebase/firestore'
                             "startDoses": {
                                 "date": "",
                                 "time": "",
-                                "drugName": "",
+                                "drugName": "Johnson & Johnson",
                                 "route": "",
-                                "dosage": ""
+                                "dosage": "",
+                                "ofType": "bottle-tonic"
                             },
                             "infusions": {
                                 "date": "", 
                                 "time": "", 
-                                "drugName": ""
+                                "ofType": "iv-bag",
+                                "drugName": "Johnson & Johnson"
                             },
                             "drugs": {
-                                "drug": "",
-                                "ofType": "",
-                                "route": "",
+                                "drug": "Johnson & Johnson",
+                                "ofType": "pill",
+                                "route": "mouth",
                                 "dose": ""
                             }
                         },
@@ -183,18 +184,19 @@ import { doc, setDoc } from 'firebase/firestore'
                                 ]
                             }
                         },
+                        "fileUrl": "result.pdf"
                     }
                 ],
                 "analysisFiles": [
                     {
-                        "analysisName": "",
-                        "date": "",
+                        "analysisName": "Blood Test",
+                        "date": "20.09.2023",
                         "result": "Normal",
                         "lab": {
-                            "name": "",
-                            "street": ""
+                            "name": "Fankyenbra Hospital",
+                            "street": "Fankyenebra"
                         },
-                        "ref": ""
+                        "ref": "result.pdf"
                     }
                 ],
                 "referrals": [
@@ -202,20 +204,30 @@ import { doc, setDoc } from 'firebase/firestore'
                         "referredFrom": "Fankyenebra Hospital",
                         "referredTo": "Komfo Anokye Teaching Hopital",
                         "patient": {
-                            "name": "",
-                            "age": "",
-                            "sex": ""
+                            "name": "Patient Name",
+                            "age": "20",
+                            "sex": "M"
                         },
-                        "nameOfDoctor": "",
-                        "summary": "",
-                        "diagnosis": "",
+                        "nameOfDoctor": "Dr. Edna Konadu",
+                        "summary": "summary",
+                        "diagnosis": "diagnosis",
                         "investigationsAndManagement": "",
                         "durationOfManagement": "",
-                        "reason": "",
-                        "signatureAndStamp": ""
+                        "reason": "reason",
+                        "signatureAndStamp": "sig001100"
                     }
                 ]
             }
+        }
+        const aFiles = {
+            "analysisName": "Blood Test",
+            "date": "20.09.2023",
+            "result": "Normal",
+            "lab": {
+                "name": "Fankyenbra Hospital",
+                "street": "Fankyenebra"
+            },
+            "ref": "result.pdf"
         }
         createUserWithEmailAndPassword(auth, emailValue, passValue)
         .then((cred) => {
@@ -227,7 +239,8 @@ import { doc, setDoc } from 'firebase/firestore'
                     email: `${cred.user.email}`,
                 },
                 medical_folders: [tempData],
-                analysis_files: [],
+                analysis_files: [aFiles],
+                documents: [],
                 user_settings: {}
             })
         }).catch((err) => {

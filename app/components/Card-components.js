@@ -1,11 +1,12 @@
 import { StyleSheet, View, TouchableOpacity} from 'react-native'
 import React from 'react'
-import { LightFont, MediumFont, MiniFont, SemiBoldFont, SemiFont, SemiLightFont, LFb } from './Font-components'
+import { LightFont, MediumFont, MiniFont, SemiBoldFont, SemiFont, SemiLightFont, LFb, HeroFont } from './Font-components'
 import { fontColor, windowHeight, windowWidth } from '../templates/template'
 import { iconColor } from '../templates/template'
 import { storage } from '../../firebaseConfig'
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { ref, getDownloadURL } from 'firebase/storage'
+import { Image } from 'expo-image';
 
 // card components for main screen
 
@@ -185,16 +186,55 @@ const InvestigationCard = ({test, resultObserved, flag, unit, refRange}) => {
 }
 
 const FourHourChart = ({chart}) => {
-    const {temperature} = chart
-    const {pulserate} = chart
-    const {respirations} = chart
+    console.log(chart.fourHourChart)
+    const {temperature} = chart.fourHourChart
+    const {pulserate} = chart.fourHourChart
+    const {respirations} = chart.fourHourChart
 
     return (
         <View style={fHCStyles.wrapper}>
             <MediumFont text={'Four Hour Chart'} tc={fontColor.p}/>
+            <View style={{height: 6}}/>
             <MediumFont text={'Temperature'} tc={fontColor.p}/>
+            <View style={fHCStyles.container}>
+                <View style={fHCStyles.imgWrapper}>
+                    <Image
+                        style={fHCStyles.image}
+                        source="thermometer.png"
+                        contentFit="cover"
+                        transition={1000}
+                    />
+                </View>
+                <HeroFont text={temperature.measure.value}/>
+                <MiniFont text={temperature.unit}/>
+            </View>
             <MediumFont text={'Pulserate'} tc={fontColor.p}/>
+            <View style={fHCStyles.container}>
+                <View style={fHCStyles.imgWrapper}>
+                    <Image
+                        style={fHCStyles.image}
+                        source="pulserate.jpg"
+                        contentFit="cover"
+                        transition={1000}
+                    />
+                </View>
+                <HeroFont text={pulserate.measure.value}/>
+                <MiniFont text={pulserate.unit}/>
+            </View>
             <MediumFont text={'Respirations'} tc={fontColor.p}/>
+            <View style={fHCStyles.container}>
+                <View style={fHCStyles.imgWrapper}>
+                    <Image
+                        style={fHCStyles.image}
+                        source="thermometer.png"
+                        contentFit="cover"
+                        transition={1000}
+                    />
+                </View>
+                <HeroFont text={respirations.measure.value}/>
+                <MiniFont text={respirations.unit}/>
+            </View>
+            <LightFont text={chart.fourHourChart.date}/>
         </View>
     )
 }
@@ -362,12 +402,33 @@ const styles = StyleSheet.create({
 
 const fHCStyles = StyleSheet.create({
     wrapper: {
-        width: '88%',
-        height: '86%',
+        width: '90%',
+        height: '96%',
         borderRadius: 10,
         backgroundColor: fontColor.w,
-        paddingHorizontal: 6,
+        paddingHorizontal: 10,
         paddingVertical: 10,
+        borderWidth: 1,
+        zIndex: 2,
+        position: 'absolute',
+        alignSelf: 'center',
+        marginTop: 20
+    },
+    container: {
+        width: '100%',
+        marginHorizontal: 8,
+        flexDirection: 'row'
+    },
+    imgWrapper: {
+        width: 80,
+        height: 80,
+        borderRadius: 6,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    image: {
+        flex: 1,
+        width: '100%',
     }
 })
 

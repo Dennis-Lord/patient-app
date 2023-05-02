@@ -1,23 +1,12 @@
 import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { LightFont, SemiLightFont, MediumFont, MiniFont } from '../../../../components/Font-components'
-import { DownloadCard, DrugCard, InvestigationCard } from '../../../../components/Card-components'
+import { DownloadCard, DrugCard } from '../../../../components/Card-components'
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { iconColor, inv_data } from '../../../../templates/template';
-import { Transition, Transitioning } from 'react-native-reanimated';
 
-// const transition = (
-//   <Transition.Together>
-//     <Transition.In type='fade' durationMs={200} />
-//     <Transition.Change />
-//     <Transition.Out type='fade' durationMs={200} />
-//   </Transition.Together>
-// );
 
 const SecondRoute = ({fileData}) => {
-  // const [currentIndex, setCurrentIndex] = React.useState(null);
-  // const ref = React.useRef();
-
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}> 
@@ -41,47 +30,19 @@ const SecondRoute = ({fileData}) => {
       </View>
       <View style={styles.diagnosisContainer}>
         <MediumFont text={"Medications"}/>
-        <DrugCard icon={'bottle-tonic'} name={'Drug name'} date={'02.03.2023'} dose={'10ml'} time={'2:20pm'}/>
+        <DrugCard icon={'bottle-tonic'} name={fileData.drugsAdministered.drugs.drug} date={'02.03.2023'} dose={'10ml'} time={'2:20pm'}/>
       </View>
       <View style={styles.diagnosisContainer}>
         <MediumFont text={"Start doses"}/>
-        <DrugCard icon={'pill'} name={'Johnson & Johnson'} date={'02.03.2023'} dose={'12ml, oral'} time={'2:20pm'}/>
+        <DrugCard icon={'pill'} name={fileData.drugsAdministered.startDoses.drugName} date={'02.03.2023'} dose={'12ml, oral'} time={'2:20pm'}/>
       </View>
       <View style={styles.diagnosisContainer}>
         <MediumFont text={"Infusions"}/>
-        <DrugCard icon={'iv-bag'} name={'Johnson & Johnson'} date={'02.03.2023'} dose={'12ml, iv-bag'} time={'2:20pm'}/>
+        <DrugCard icon={'iv-bag'} name={fileData.drugsAdministered.infusions.drugName} date={'02.03.2023'} dose={'12ml, iv-bag'} time={'2:20pm'}/>
       </View>
-      {/* <Transitioning.View 
-      ref={ref}
-      transition={transition}
-      style={styles.container}
-      >
-        {
-          inv_data.map(({n}, index) => {
-            return (
-              <View style={styles.collapsible} key={index}>
-                <View style={styles.c_t}>
-                  <View key={index}>
-                  </View>
-                  <TouchableOpacity onPress={() => {
-                    ref.current.animateNextTransition();
-                    setCurrentIndex(index === currentIndex ? null : index);
-                  }}>
-                    <MaterialCommunityIcons name={index === currentIndex ? 'chevron-up-circle' : 'chevron-down-circle'} size={28} color={iconColor.bgd}/>
-                  </TouchableOpacity>
-                </View>
-                {index === currentIndex && 
-                  <DrugCard icon={'iv-bag'} name={'Johnson & Johnson'} date={'02.03.2023'} dose={'12ml, iv-bag'} time={'2:20pm'}/>
-                }
-                
-              </View>
-            )
-          })
-        }
-      </Transitioning.View> */}
       <View style={styles.diagnosisContainer}>
         <MediumFont text={"Medical analysis"}/>
-        <DownloadCard />
+        <DownloadCard fileUrl={fileData.fileUrl}/>
         <MiniFont text={'Download laboratory analysis file'} />
       </View>
       

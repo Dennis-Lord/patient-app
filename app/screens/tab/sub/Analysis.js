@@ -1,13 +1,14 @@
 import { StyleSheet, ScrollView, View, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { HeroFont, MediumFont } from '../../../components/Font-components'
-import { AnalysisDetailsCard, InvestigationCard } from '../../../components/Card-components'
+import { HeroFont, MediumFont, MiniFont } from '../../../components/Font-components'
+import { AnalysisDetailsCard, InvestigationCard, DownloadCard } from '../../../components/Card-components'
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { iconColor, wrapper, fontColor } from '../../../templates/template';
 
 
 const Analysis = ({route}) => {
   const analysis = route.params.dataFile;
+  console.log(analysis)
   const location = analysis.ref
 
   return (
@@ -17,7 +18,7 @@ const Analysis = ({route}) => {
       </View>
         <View style={[styles.divWrapper, wrapper.bw]}>
           <View style={styles.headerContainer}>
-              <MediumFont text={'Blood test'}/>
+              <MediumFont text={analysis.analysisName}/>
               <View style={styles.cardContainer}>
                   <AnalysisDetailsCard label={'Date'} value={analysis.date} icon={'calendar'} option={'a'}/>
                   <AnalysisDetailsCard label={'Result'} value={analysis.result} icon={'check-circle'} option={'a'}/>
@@ -31,15 +32,15 @@ const Analysis = ({route}) => {
           </View>
           <View style={styles.wrapper}>
               <MediumFont text={'Analysis Results'}/>
-              <TouchableOpacity>
-                  <View style={styles.di_container}>
-                      <MaterialCommunityIcons name={'download-circle'} size={24} color={fontColor.g} />
-                  </View>
-              </TouchableOpacity>
           </View>
           <ScrollView showsVerticalScrollIndicator={false}>
               <InvestigationCard />
           </ScrollView>
+          <View style={styles.diagnosisContainer}>
+            <MediumFont text={"Result file"}/>
+            <DownloadCard fileUrl={analysis.ref}/>
+            <MiniFont text={'Download laboratory analysis file format'} />
+          </View>
         </View>
     </View>
   )
@@ -48,35 +49,39 @@ const Analysis = ({route}) => {
 export default Analysis
 
 const styles = StyleSheet.create({
-    screenView: {
-        flex: 1,
-        paddingTop: 40,
-        backgroundColor: iconColor.gbgd
-      },
-      headerContainer: {
-        width: '100%',
-        height: 100,
-        marginBottom: 10,
-      },
-      cardContainer: {
-        flexDirection: 'row'
-      },
-      di_container: {
-        width: 34,
-        height: 34,
-        borderRadius: 8,
-        backgroundColor: '#bdfcbb',
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-      wrapper: {
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-      },
-      divWrapper: {
-        backgroundColor: '#fff',
-        flex: 1,
-        paddingHorizontal: 20,
-        paddingVertical: 20,
-      }
+  screenView: {
+      flex: 1,
+      paddingTop: 40,
+      backgroundColor: iconColor.gbgd
+    },
+    headerContainer: {
+      width: '100%',
+      height: 100,
+      marginBottom: 10,
+    },
+    cardContainer: {
+      flexDirection: 'row'
+    },
+    di_container: {
+      width: 34,
+      height: 34,
+      borderRadius: 8,
+      backgroundColor: iconColor.bg,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    wrapper: {
+      flexDirection: 'row',
+      justifyContent: 'space-between'
+    },
+    divWrapper: {
+      backgroundColor: '#fff',
+      flex: 1,
+      paddingHorizontal: 20,
+      paddingVertical: 20,
+    },
+    diagnosisContainer: {
+      width: '100%',
+      marginTop: 12
+    },
 })

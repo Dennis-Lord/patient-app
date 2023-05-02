@@ -1,9 +1,11 @@
 import { View, StyleSheet, Animated, TouchableOpacity} from 'react-native'
 import * as React from 'react';
-import { HeroFont, LFb, LightFont, SemiLightFont } from '../../../components/Font-components'
+import { HeroFont, LightFont } from '../../../components/Font-components'
 import { OptionsCard } from '../../../components/Card-components';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import { fontColor, iconColor, wrapper } from '../../../templates/template';
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { FourHourChart } from '../../../components/Card-components';
 
 import FirstRoute from './tabView/First';
 import SecondRoute from './tabView/Second';
@@ -17,7 +19,7 @@ class TabViewExample extends React.Component {
       { key: 'first', title: 'General' },
       { key: 'second', title: 'Treatment' },
       { key: 'third', title: 'Visits' },
-    ],
+    ]
   };
 
   _handleIndexChange = (index) => this.setState({ index });
@@ -71,7 +73,6 @@ class TabViewExample extends React.Component {
 
   render() {
     const {data} = this.props
-    console.log(data)
     return (
       <TabView
         navigationState={this.state}
@@ -85,15 +86,36 @@ class TabViewExample extends React.Component {
 
 const MedicalFile = ({route}) => {
   const fileDoc = route.params.dataFile;
+  const [toggle, setToggle] = React.useState(false)
+
+  const Toggle = () => {
+    if(toggle === false) {
+      setToggle(true)
+    }else {
+      setToggle(false)
+    }
+  }
+
   return (
     <View style={styles.screenView}>
-      <View style={[wrapper.heroPos, {marginLeft: 20,}]}>
+      <View style={[wrapper.heroPos, {marginLeft: 20}]}>
         <HeroFont text={fileDoc.disease} tc={fontColor.w}/>
       </View>
           <View style={styles.dateContainer}>
           <OptionsCard iconName={"calendar-month"} option={fileDoc.diseaseDate} s={34} o={'b'} tc={fontColor.w} mic={fontColor.w}/>
+          <TouchableOpacity onPress={() => Toggle()}>
+            <View style={styles.di_container}>
+                <MaterialCommunityIcons name={'chart-timeline-variant'} size={28} color={fontColor.n} />
+            </View>
+          </TouchableOpacity>
           </View>
         <View style={[styles.tabWrapper, wrapper.bw]}>
+          {
+            toggle ?
+            <FourHourChart chart={fileDoc}/>
+            :
+            <></>
+          }
           <View style={styles.tabViewContainer}>
             <TabViewExample data={fileDoc}/>
           </View>
@@ -110,10 +132,12 @@ const styles = StyleSheet.create({
     backgroundColor: iconColor.gbgd,
   },
   dateContainer: {
+    width: '100%',
     flexDirection: 'row',
-    alignItems: 'flex-end',
     marginBottom: 10,
-    paddingLeft: 10
+    paddingLeft: 20,
+    justifyContent: 'space-between',
+    paddingRight: 28
   },
   tabViewContainer: {
     flex: 1,
@@ -136,7 +160,15 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     paddingVertical: 20,
-  }
+  },
+  di_container: {
+    width: 36,
+    height: 36,
+    borderRadius: 8,
+    backgroundColor: fontColor.w,
+    justifyContent: 'center',
+    alignItems: 'center',
+},
 })
 
 export default MedicalFile
