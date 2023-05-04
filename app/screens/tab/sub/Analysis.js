@@ -11,6 +11,25 @@ const Analysis = ({route}) => {
   console.log(analysis)
   const location = analysis.ref
 
+  const [toggle, setToggle] = useState({
+    link: '',
+    state: false
+  })
+
+  const toggleLink = async (fileName) => {
+    const fileRef = ref(storage, `docs/${fileName}`)
+    if (toggle.state === false) {
+    await getDownloadURL(fileRef).then((url) => {
+        setToggle({
+          link: url,
+          state: true
+        })
+      }).catch((e) => {
+        console.log(e)
+      })
+    }
+  }
+
   return (
     <View style={styles.screenView}>
       <View style={[wrapper.heroPos, {marginLeft: 20,}]}>
@@ -33,12 +52,34 @@ const Analysis = ({route}) => {
           <View style={styles.wrapper}>
               <MediumFont text={'Analysis Results'}/>
           </View>
+          {
+              toggle.link != '' ?
+              <View style={styles.clip}>
+                <View style={styles.cancelWrapper}>
+                <MediumFont text={'Copy download link'}/>
+                  <TouchableOpacity onPress={() => setToggle({link: '', state: false})}>
+                    <MaterialCommunityIcons name="close-circle" size={30} color={fontColor.p} />
+                  </TouchableOpacity>
+                </View>
+                <TextInput style={styles.linkWrapper} value={toggle.link}/>
+              </View>
+              :
+              <></>
+            }
           <ScrollView showsVerticalScrollIndicator={false}>
               <InvestigationCard />
           </ScrollView>
           <View style={styles.diagnosisContainer}>
             <MediumFont text={"Result file"}/>
-            <DownloadCard fileUrl={analysis.ref}/>
+            <View style={styles.downloadContainer}>
+            <TouchableOpacity onPress={() => toggleLink(location)}>
+                <View style={styles.di_container}>
+                    <MaterialCommunityIcons name={'download'} size={24} color={iconColor.c} />
+                </View>
+            </TouchableOpacity>
+            <View style={styles.br} />
+            <LFb text={location}/>
+          </View>
             <MiniFont text={'Download laboratory analysis file format'} />
           </View>
         </View>

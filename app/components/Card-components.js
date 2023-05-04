@@ -417,7 +417,8 @@ const fHCStyles = StyleSheet.create({
     container: {
         width: '100%',
         marginHorizontal: 8,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     imgWrapper: {
         width: 80,
@@ -425,6 +426,7 @@ const fHCStyles = StyleSheet.create({
         borderRadius: 6,
         alignItems: 'center',
         justifyContent: 'center',
+        marginRight: 10
     },
     image: {
         flex: 1,
