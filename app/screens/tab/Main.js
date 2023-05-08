@@ -1,7 +1,7 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import React, { useState, setTimeout, useEffect } from 'react'
 import { MainCard, NavCard, NavCard_s } from '../../components/Card-components'
-import { HeroFont, LightFont } from '../../components/Font-components'
+import { HeroFont, LightFont, MiniFont } from '../../components/Font-components'
 import { iconColor, fontColor, wrapper } from '../../templates/template'
 import { onAuthStateChanged } from 'firebase/auth'
 import { db, auth } from '../../../firebaseConfig'
@@ -41,22 +41,41 @@ const MainScreen = ({navigation}) => {
   }
 
   // get user's medical records
-  const getUserDoc = async () => {
-    const docRef = doc(db, 'records',  `${cred.uid}`);
-    return await getDoc(docRef).then(snapshot => {
-      if(snapshot.exists()) {
-          const userDoc = snapshot.data()
-          setDocument(userDoc);
-          console.log('got data')
-        }
-        else{
-          setDocument(undefined)
-          setDocError({isError: true, errorMessage: 'No records available...'})
-        }
-    }).catch(e => {
-        setDocument({})
-        setDocError({isError: true, errorMessage: 'No internet connection'})
-    })
+  const getUserDoc = () => {
+    // const docRef = doc(db, 'records',  `${cred.uid}`);
+    // return await getDoc(docRef).then(snapshot => {
+    //   if(snapshot.exists()) {
+    //       const userDoc = snapshot.data()
+    //       setDocument(userDoc);
+    //       console.log('got data')
+    //     }
+    //     else{
+    //       setDocument(undefined)
+    //       setDocError({isError: true, errorMessage: 'No records available...'})
+    //     }
+    // }).catch(e => {
+    //     setDocument({})
+    //     setDocError({isError: true, errorMessage: 'No internet connection'})
+    // })
+    return onAuthStateChanged(auth, async (cred) => {
+        const docRef = doc(db, 'records',  `${cred.uid}`);
+        return await getDoc(docRef).then(snapshot => {
+          if(snapshot.exists()) {
+              const userDoc = snapshot.data()
+              setDocument(userDoc);
+              console.log('got data')
+            }
+            else{
+              setDocument(undefined)
+              setDocError({isError: true, errorMessage: 'No records available...'})
+            }
+        }).then(() => {
+          setDocError({isError: false, errorMessage: ''})
+        }).catch(e => {
+            const err = e
+            setDocument({})
+            setDocError({isError: true, errorMessage: 'No internet connection'})
+        })})
   }
 
   useEffect(() => {
@@ -90,15 +109,20 @@ const MainScreen = ({navigation}) => {
           </TouchableOpacity>
           :
           docError.isError && docError.errorMessage == 'No internet connection'?
-          <LightFont tc={fontColor.w} text={'No internet connection'}/>
+          <View>
+          <TouchableOpacity onPress={() => getUserDoc()}>
+            <MaterialCommunityIcons name='reload' size={24} color={fontColor.w}/>
+          </TouchableOpacity>
+          <MiniFont tc={fontColor.w} text={'No internet connection'}/>
+          </View>
           : 
           <></>
         }
       </View>
       <View>
-      <MainCard />
       </View>
       <View style={[screenstyle.container, wrapper.bw]}>
+      <MainCard />
         <NavCard cardText={'Medical history'} nav={navigation} routeProps={propObject.folder}/>
         <NavCard cardText={'Analysis'} nav={navigation} routeProps={propObject.analysis}/>
         <View style={screenstyle.flexContainer}>
@@ -113,10 +137,9 @@ const MainScreen = ({navigation}) => {
 const screenstyle = StyleSheet.create({
   screenView: {
     flex: 1,
-    paddingTop: 40,
     display: 'flex',
     alignItems: 'center',
-    backgroundColor: iconColor.gbgd
+    backgroundColor: iconColor.gbg
   },
   container: {
     width: '100%',

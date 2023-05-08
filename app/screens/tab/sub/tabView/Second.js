@@ -2,8 +2,8 @@ import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { LightFont, SemiLightFont, MediumFont, MiniFont } from '../../../../components/Font-components'
 import { DownloadCard, DrugCard } from '../../../../components/Card-components'
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-import { iconColor, inv_data } from '../../../../templates/template';
+import { Ionicons } from '@expo/vector-icons';
+import { fontColor, iconColor, pallete } from '../../../../templates/template';
 
 
 const SecondRoute = ({fileData}) => {
@@ -30,15 +30,15 @@ const SecondRoute = ({fileData}) => {
       </View>
       <View style={styles.diagnosisContainer}>
         <MediumFont text={"Medications"}/>
-        <DrugCard icon={'bottle-tonic'} name={fileData.drugsAdministered.drugs.drug} date={'02.03.2023'} dose={'10ml'} time={'2:20pm'}/>
+        <DrugCard icon={'bottle-tonic'} color={pallete.orange} name={fileData.drugsAdministered.drugs.drug} date={'02.03.2023'} dose={'10ml'} time={'2:20pm'}/>
       </View>
       <View style={styles.diagnosisContainer}>
         <MediumFont text={"Start doses"}/>
-        <DrugCard icon={'pill'} name={fileData.drugsAdministered.startDoses.drugName} date={'02.03.2023'} dose={'12ml, oral'} time={'2:20pm'}/>
+        <DrugCard icon={'pill'} color={pallete.blue} name={fileData.drugsAdministered.startDoses.drugName} date={'02.03.2023'} dose={'12ml, oral'} time={'2:20pm'}/>
       </View>
       <View style={styles.diagnosisContainer}>
         <MediumFont text={"Infusions"}/>
-        <DrugCard icon={'iv-bag'} name={fileData.drugsAdministered.infusions.drugName} date={'02.03.2023'} dose={'12ml, iv-bag'} time={'2:20pm'}/>
+        <DrugCard icon={'iv-bag'} color={pallete.red} name={fileData.drugsAdministered.infusions.drugName} date={'02.03.2023'} dose={'12ml, iv-bag'} time={'2:20pm'}/>
       </View>
       <View style={styles.diagnosisContainer}>
         <MediumFont text={"Medical analysis"}/>

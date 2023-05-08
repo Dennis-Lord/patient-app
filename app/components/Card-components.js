@@ -1,12 +1,14 @@
 import { StyleSheet, View, TouchableOpacity} from 'react-native'
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { LightFont, MediumFont, MiniFont, SemiBoldFont, SemiFont, SemiLightFont, LFb, HeroFont } from './Font-components'
-import { fontColor, windowHeight, windowWidth } from '../templates/template'
-import { iconColor } from '../templates/template'
+import { iconColor, fontColor, windowWidth, pallete } from '../templates/template'
 import { storage } from '../../firebaseConfig'
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { ref, getDownloadURL } from 'firebase/storage'
-import { Image } from 'expo-image';
+import { Ionicons, Fontisto } from '@expo/vector-icons';
+
+const blurhash =
+  '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
 
 // card components for main screen
 
@@ -20,11 +22,17 @@ const NavCard = ({cardText, nav, routeProps}) => {
     const r = routeProps.route
 
     return (
-        <TouchableOpacity style={{height: '30%'}} onPress={() => nav.navigate(r, {routeProps})}>
+        <TouchableOpacity style={{height: '24%'}} onPress={() => nav.navigate(r, {routeProps})}>
             <View style={styles.navCard}>
                 <View style={styles.navtextPos}>
-                    <MediumFont text={cardText}/>
+                    <MediumFont text={cardText} tc={pallete.black}/>
                 </View>
+                {
+                    cardText == 'Medical history' ?
+                    <Ionicons name="folder-outline" size={80} color={pallete.greenB} />
+                    :
+                    <Fontisto name="test-tube" size={60} color={pallete.greenB} />
+                }
             </View>
         </TouchableOpacity>
     )
@@ -33,11 +41,17 @@ const NavCard = ({cardText, nav, routeProps}) => {
 const NavCard_s = ({cardText, nav, routeProps}) => {
     const r = routeProps.route
     return (
-        <TouchableOpacity style={{flexGrow: 1, height: '100%'}} onPress={() => nav.navigate(r, {routeProps})}>
+        <TouchableOpacity style={{flexGrow: 1, height: '84%'}} onPress={() => nav.navigate(r, {routeProps})}>
             <View style={styles.navCard_s}>
                 <View style={styles.navtextPos_s}>
                     <MediumFont text={cardText}/>
                 </View>
+            {
+                    cardText == 'Documents' ?
+                    <Ionicons name="document-attach-outline" size={50} color={pallete.greenB} />
+                    :
+                    <MaterialCommunityIcons name="file-document-edit-outline" size={50} color={pallete.greenB} />
+                }
             </View>
         </TouchableOpacity>
     )
@@ -46,9 +60,9 @@ const NavCard_s = ({cardText, nav, routeProps}) => {
 const ProfileCard = ({name, value, icon}) => {
     return(
         <View style={styles.profileCardContainer}>
-            <MaterialCommunityIcons name={icon} size={24} color={iconColor.c} />
+            <MaterialCommunityIcons name={icon} size={24} color={pallete.darkG} />
             <View style={styles.br} />
-            <MediumFont text={name}/>
+            <MediumFont text={name} tc={pallete.darkG}/>
             <View style={styles.textAlign}>
                 <LFb text={value}/>
             </View>
@@ -58,7 +72,7 @@ const ProfileCard = ({name, value, icon}) => {
 
 const OptionsCard = ({iconName, option, o, s, tc, mic}) => {
     return(o === "a" ?
-            <View style={styles.optionsContainer}>
+        <View style={styles.optionsContainer}>
             <MaterialCommunityIcons name={iconName} size={s} color={iconColor.c} />
             <View style={styles.br}/>
             <MediumFont text={option} tc={tc}/>
@@ -109,11 +123,11 @@ const DownloadCard = (fileUrl) => {
      );
 }
 
-const DrugCard = ({icon, name, dose, time, date}) => {
+const DrugCard = ({icon, name, dose, time, date, color}) => {
     return ( 
         <View style={styles.downloadContainer}>
             <View style={styles.di_container}>
-                <MaterialCommunityIcons name={icon} size={22} color={iconColor.c} />
+                <MaterialCommunityIcons name={icon} size={22} color={color} />
             </View>
             <View style={styles.d_c}>
                 <LightFont text={name}/>
@@ -131,24 +145,24 @@ const VisitsCard = ({data}) => {
     return(
         <View style={styles.visitContainer}>
             <View style={styles.vd_container}>
-                <SemiBoldFont text={'23.09'}/>
-                <SemiLightFont text={'2023'}/>
+                <SemiBoldFont text={'23.09'} tc={pallete.black}/>
+                <SemiLightFont text={'2023'} tc={pallete.tintGray}/>
             </View>
             <View style={styles.v_card}>
                 {/* <SemiLightFont text={'Fankyenebra Hospital'} tc={fontColor.w}/> */}
-                <MediumFont text={'Completion of treatment'} tc={fontColor.w}/>
-                <MiniFont text={data.practisioner.title} tc={fontColor.w}/>
-                <LightFont text={data.practisioner.name} tc={fontColor.w}/>
+                <MediumFont text={'Completion of treatment'} tc={pallete.white}/>
+                <MiniFont text={data.practisioner.title} tc={pallete.white}/>
+                <LightFont text={data.practisioner.name} tc={pallete.white}/>
             </View>
         </View>
     );
 }
 
-const AnalysisDetailsCard = ({icon, label, value, option}) => {
+const AnalysisDetailsCard = ({icon, label, value, option, color}) => {
     return ( option === 'a' ? 
         <View style={styles.ad_Container}>
             <View style={styles.di_container}>
-                <MaterialCommunityIcons name={icon} size={24} color={iconColor.c} />
+                <MaterialCommunityIcons name={icon} size={24} color={color} />
             </View>
             <View style={styles.d_c}>
                 <LightFont text={label}/>
@@ -158,7 +172,7 @@ const AnalysisDetailsCard = ({icon, label, value, option}) => {
         :
         <View style={styles.ad_Container}>
             <View style={styles.di_container}>
-                <MaterialCommunityIcons name={icon} size={24} color={iconColor.c} />
+                <MaterialCommunityIcons name={icon} size={24} color={color} />
             </View>
             <View style={styles.d_c}>
                 <SemiLightFont text={label}/>
@@ -186,52 +200,54 @@ const InvestigationCard = ({test, resultObserved, flag, unit, refRange}) => {
 }
 
 const FourHourChart = ({chart}) => {
-    console.log(chart.fourHourChart)
     const {temperature} = chart.fourHourChart
     const {pulserate} = chart.fourHourChart
     const {respirations} = chart.fourHourChart
 
     return (
         <View style={fHCStyles.wrapper}>
-            <MediumFont text={'Four Hour Chart'} tc={fontColor.p}/>
+            <SemiBoldFont text={'Four Hour Chart'} tc={pallete.tintGray}/>
             <View style={{height: 6}}/>
-            <MediumFont text={'Temperature'} tc={fontColor.p}/>
+            <MediumFont text={'Temperature'} tc={pallete.darkG}/>
             <View style={fHCStyles.container}>
                 <View style={fHCStyles.imgWrapper}>
-                    <Image
-                        style={fHCStyles.image}
-                        source="thermometer.png"
-                        contentFit="cover"
-                        transition={1000}
-                    />
+                    <Ionicons name="md-thermometer" size={24} color={pallete.red} />
                 </View>
-                <HeroFont text={temperature.measure.value}/>
+                <View style={{marginRight: 4,}}>
+                {
+                    temperature.measure.map((rate, i) => 
+                        <HeroFont key={i} text={rate.value} tc={pallete.black}/>
+                    )
+                }
+                </View>
                 <MiniFont text={temperature.unit}/>
             </View>
-            <MediumFont text={'Pulserate'} tc={fontColor.p}/>
+            <MediumFont text={'Pulserate'} tc={pallete.darkG}/>
             <View style={fHCStyles.container}>
                 <View style={fHCStyles.imgWrapper}>
-                    <Image
-                        style={fHCStyles.image}
-                        source="pulserate.jpg"
-                        contentFit="cover"
-                        transition={1000}
-                    />
+                    <Ionicons name="pulse-sharp" size={24} color={pallete.greenB} />
                 </View>
-                <HeroFont text={pulserate.measure.value}/>
+                <View style={{marginRight: 4,}}>
+                {
+                    pulserate.measure.map((rate, i) => 
+                        <HeroFont key={i} text={rate.value} tc={pallete.black}/>
+                    )
+                }
+                </View>
                 <MiniFont text={pulserate.unit}/>
             </View>
-            <MediumFont text={'Respirations'} tc={fontColor.p}/>
+            <MediumFont text={'Respirations'} tc={pallete.darkG}/>
             <View style={fHCStyles.container}>
                 <View style={fHCStyles.imgWrapper}>
-                    <Image
-                        style={fHCStyles.image}
-                        source="thermometer.png"
-                        contentFit="cover"
-                        transition={1000}
-                    />
+                    <MaterialCommunityIcons name="lungs" size={24} color={pallete.blue} />
                 </View>
-                <HeroFont text={respirations.measure.value}/>
+                <View style={{marginRight: 4,}}>
+                {
+                    respirations.measure.map((rate, i) => 
+                        <HeroFont key={i} text={rate.value} tc={pallete.black}/>
+                    )
+                }
+                </View>
                 <MiniFont text={respirations.unit}/>
             </View>
             <LightFont text={chart.fourHourChart.date}/>
@@ -242,21 +258,22 @@ const FourHourChart = ({chart}) => {
 
 const styles = StyleSheet.create({
     mainCard: {
-        width: (windowWidth - 30),
-        height: 149,
-        backgroundColor: iconColor.bg,
+        width: '100%',
+        height: 136,
+        backgroundColor: pallete.greenB,
         borderRadius: 10,
-        borderWidth: 2,
-        borderColor: iconColor.bgd,
+        marginBottom: 16
     },
     navCard: {
         flexGrow: 1,
         borderRadius: 10,
-        borderWidth: 2,
-        borderColor: iconColor.bgd,
-        padding: 6,
-        marginBottom: 12,
-        justifyContent: 'center',
+        backgroundColor: pallete.tint,
+        padding: 8,
+        marginBottom: 10,
+        justifyContent: 'flex-end',
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingRight: 30,
     },
     navtextPos: {
         width: 160,
@@ -269,17 +286,16 @@ const styles = StyleSheet.create({
         width: (windowWidth/2.3),
         height: '55%',
         borderRadius: 10,
-        borderWidth: 2,
-        borderColor: iconColor.bgd,
+        backgroundColor: pallete.tint,
         padding: 6,
-        marginTop: 6,
+        marginTop: 2,
     },
     navtextPos_s: {
         position: 'absolute',
         width: 160,
         height: 30,
         bottom: 6,
-        left: 6
+        left: 10
     },
     profileCardContainer: {
         width: '100%',
@@ -332,7 +348,7 @@ const styles = StyleSheet.create({
         width: 40,
         height: 40,
         borderRadius: 8,
-        backgroundColor: iconColor.bg,
+        backgroundColor: pallete.tint,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -357,7 +373,7 @@ const styles = StyleSheet.create({
         minHeight: '80%',
         maxHeight: '100%',
         borderRadius: 10,
-        backgroundColor: iconColor.gbgd,
+        backgroundColor: pallete.greenB,
         justifyContent: 'space-between',
         padding: 12,
     },
@@ -403,35 +419,38 @@ const styles = StyleSheet.create({
 const fHCStyles = StyleSheet.create({
     wrapper: {
         width: '90%',
-        height: '96%',
-        borderRadius: 10,
-        backgroundColor: fontColor.w,
+        height: '80%',
+        borderRadius: 14,
+        backgroundColor: pallete.white,
         paddingHorizontal: 10,
         paddingVertical: 10,
-        borderWidth: 1,
         zIndex: 2,
         position: 'absolute',
         alignSelf: 'center',
-        marginTop: 20
+        marginTop: 20,
+        borderColor: pallete.tint,
+        borderBottomWidth: 7,
+        borderLeftWidth: 2,
+        borderRightWidth: 2,
+        borderTopWidth: 1
     },
     container: {
         width: '100%',
         marginHorizontal: 8,
         flexDirection: 'row',
-        alignItems: 'center'
+        height: 70,
+        marginVertical: 10
     },
     imgWrapper: {
-        width: 80,
-        height: 80,
+        width: 42,
+        height: 42,
         borderRadius: 6,
         alignItems: 'center',
         justifyContent: 'center',
-        marginRight: 10
+        marginRight: 10,
+        overflow: 'hidden',
+        backgroundColor: "#e5e5e5"
     },
-    image: {
-        flex: 1,
-        width: '100%',
-    }
 })
 
 export {MainCard, NavCard, NavCard_s, ProfileCard, OptionsCard, DownloadCard, DrugCard, VisitsCard, AnalysisDetailsCard, InvestigationCard, FourHourChart}

@@ -8,19 +8,19 @@ import { onAuthStateChanged } from 'firebase/auth';
 const StatusEffect = ({navigation}) => {
   const [txt, setTxt] = useState('Please wait...')
 
-  // const observeAuthState = () => {
-  //   onAuthStateChanged(auth, (user) => {
-  //     if(user) {
-  //       // setLoggedin(true);
-  //       return navigation.navigate('signIn');
-  //     } else {
-  //       return navigation.navigate('auth');
-  //     } 
-  //   }, (err) => {
-  //     console.log(err)
-  //     setTxt('No internet connection')
-  //   })
-  // }
+  const observeAuthState = () => {
+    onAuthStateChanged(auth, (user) => {
+      if(user) {
+        // setLoggedin(true);
+        return navigation.navigate('signIn');
+      } else {
+        return navigation.navigate('auth');
+      } 
+    }, (err) => {
+      console.log(err)
+      setTxt('No internet connection')
+    })
+  }
 
   // // 
   // useEffect(() => {
@@ -41,7 +41,6 @@ export default StatusEffect
 const styles = StyleSheet.create({
     screenView: {
         flex: 1,
-        paddingTop: 40,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

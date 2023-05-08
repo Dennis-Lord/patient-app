@@ -7,7 +7,7 @@ import SettingsNavigation from './settingsNavigation';
 
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import MainNavigation from './screens/tab/mainNavigation';
-import { iconColor } from './templates/template';
+import { iconColor, pallete } from './templates/template';
 
 function MyTabBar({ state, descriptors, navigation }) {
   return (
@@ -55,7 +55,7 @@ function MyTabBar({ state, descriptors, navigation }) {
             onLongPress={onLongPress}
             style={{paddingHorizontal: 4}}
           >
-            <Text style={{ color: isFocused ? iconColor.gbgd : '#44403c', fontSize: 16, fontWeight: '600', }}>
+            <Text style={{ color: isFocused ? pallete.white : pallete.gray, fontSize: 16, fontWeight: '600', }}>
               {label}
             </Text>
           </TouchableOpacity>
@@ -75,6 +75,7 @@ const TabNavigation = () => {
         screenOptions={
             {headerShown: false}
         }
+        backgroundColor={pallete.white}
         tabBar={props => <MyTabBar {...props}/>}>
             <Tab.Screen name="Main" component={MainNavigation} />
             <Tab.Screen name="Profile" component={ProfileScreen} />
@@ -87,12 +88,14 @@ const TabNavigation = () => {
 const tabStyles = StyleSheet.create({
     container: {
         width: '100%',
-        height: 60,
+        height: 50,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        backgroundColor: '#fff',
-        paddingBottom: 10
+        backgroundColor: pallete.greenB,
+        marginBottom: 10,
+        borderRadius: 44,
+        paddingHorizontal: 10
     },
 })
 

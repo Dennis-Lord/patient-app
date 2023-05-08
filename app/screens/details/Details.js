@@ -1,10 +1,12 @@
-import React, {useState} from "react"
-import { StyleSheet, View, TouchableOpacity } from 'react-native'
-import { wrapper, iconColor, fontColor } from "../../templates/template"
+import React, {useState, useEffect} from "react"
+import { StyleSheet, View, TouchableOpacity, Image } from 'react-native'
+import { wrapper, iconColor, fontColor, pallete } from "../../templates/template"
 import { HeroFont, MiniFont, MediumFont, LightFont, SemiLightFont } from "../../components/Font-components"
 import { MaterialIcons } from '@expo/vector-icons';
 import {auth} from '../../../firebaseConfig'
 import { deleteUser } from 'firebase/auth'
+// import { Asset } from 'expo-asset';
+// import { manipulateAsync, FlipType, SaveFormat } from 'expo-image-manipulator';
 
 const DetailsScreen = ({route}) => {
   const [loading, setLoading] = useState({s: true, m: ''})
@@ -16,6 +18,24 @@ const DetailsScreen = ({route}) => {
     verified: user.emailVerified,
     photo: user.photoURL
   }
+
+  // const [ready, setReady] = useState(false);
+  //   const [image, setImage] = useState(null);
+
+  //   useEffect(() => {
+  //       (async () => {
+  //       const image = Asset.fromModule(require(''));
+  //       await image.downloadAsync();
+  //       setImage(image);
+  //       setReady(true);
+  //       })();
+  //   }, []);
+
+  //   const _renderImage = () => (
+  //       <View style={fHCStyles.imgWrapper}>
+  //       <Image source={{ uri: image.localUri || image.uri }} style={fHCStyles.image} />
+  //       </View>
+  //   );
 
   const DeleteAccount = () => {
     deleteUser(user).then(() => {
@@ -31,7 +51,7 @@ const DetailsScreen = ({route}) => {
       
       <View style={styles.screenView}>
         <View style={[wrapper.heroPos, {marginLeft: 20,}]}>
-          <HeroFont text={option} tc={fontColor.w}/>
+          <HeroFont text={option} tc={pallete.white}/>
         </View>
         <View style={[wrapper.bw, styles.wrapper]}>
           <View style={styles.container}>
@@ -56,13 +76,13 @@ const DetailsScreen = ({route}) => {
                   <View style={styles.h}/>
                   <MediumFont text={'Email'} tc={fontColor.s}/>
                 <View style={styles.emailWrapper}>
-                  <MaterialIcons name={'verified'} size={24} color={iconColor.bg} />
+                  <MaterialIcons name={'verified'} size={24} color={pallete.greenB} />
                   <View style={styles.w}/>
                   <SemiLightFont text={userProfile.email}/>
                 </View>
                 <TouchableOpacity style={{width: 180, height: 38, borderRadius: 10, marginTop: 40}}>
                   <View style={styles.deleteBtn}>
-                    <MediumFont text={'Delete account'} tc={fontColor.w}/>
+                    <MediumFont text={'Delete account'} tc={pallete.white}/>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -78,9 +98,8 @@ const DetailsScreen = ({route}) => {
 const styles = StyleSheet.create({
   screenView: {
     flex: 1,
-    paddingTop: 40,
     display: 'flex',
-    backgroundColor: iconColor.gbgd,
+    backgroundColor: pallete.greenB,
   },
     wrapper: {
     flex: 1,
@@ -94,7 +113,7 @@ const styles = StyleSheet.create({
   screen: {
     width: '100%',
     height: '100%',
-    backgroundColor: fontColor.w,
+    backgroundColor: pallete.white,
     paddingTop: 10,
     alignItems: 'center',
   },
@@ -102,13 +121,13 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 60,
-    backgroundColor: 'gray',
+    backgroundColor: pallete.tint,
     marginBottom: 20,
   },
   deleteBtn: {
     flexGrow: 1,
-    backgroundColor: fontColor.r,
-    borderRadius: 6,
+    backgroundColor: pallete.red,
+    borderRadius: 24,
     justifyContent: 'center',
     alignItems: 'center'
   },

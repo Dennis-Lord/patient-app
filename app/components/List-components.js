@@ -1,15 +1,16 @@
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import React, {useState} from 'react'
-import { fontColor, windowWidth } from '../templates/template'
-import { LightFont, MediumFont, SemiLightFont } from './Font-components'
+import { pallete, windowWidth } from '../templates/template'
+import { LightFont, MediumFont, SemiLightFont, HeroFont, MiniFont } from './Font-components'
 import { iconColor } from '../templates/template';
+import { MaterialIcons, Fontisto } from '@expo/vector-icons';
 
 const FlagComponent = ({flag}) => {
   let tc;
   if (flag === 'in process') {
-    tc = fontColor.b
+    tc = pallete.blue
   } else {
-    tc = fontColor.gd
+    tc = pallete.greenB
   }
   return (
     <View style={styles.flagContainer}>
@@ -22,13 +23,20 @@ const FlagComponent = ({flag}) => {
 
 const FilterFileCard = ({nav, route, data}) => {
   const dataFile = data;
+  console.log(dataFile.disease)
   
   return (
     <TouchableOpacity onPress={() => nav.navigate(route, {dataFile})}>
       <View style={styles.cardContainer}>
         <View style={styles.lc}>
-          <LightFont text={"Edna Konadu Donkoh"}/>
-          <MediumFont text={"Coronavirus"}/>
+          <LightFont text={"Edna Konadu Donkoh"} tc={pallete.black}/>
+          <MediumFont text={dataFile.disease}/>
+          { 
+            dataFile.disease == 'Corona virus' || dataFile.disease == 'Corona Virus'  || dataFile.disease == 'Coronavirus' || dataFile.disease == 'Covid-19'?
+            <MaterialIcons name="coronavirus" size={40} color={pallete.greenB} />
+          :
+          <></>
+          }
         </View>
         <View style={styles.rc}>
           <View style={styles.uc}>
@@ -73,7 +81,14 @@ const AnalysisCard = ({nav, route, data}) => {
     <TouchableOpacity onPress={() => nav.navigate(route, {dataFile})}>
       <View style={styles.cardContainerB}>
         <View style={styles.lc}>
-          <MediumFont text={dataFile.analysisName}/>
+          <HeroFont text={dataFile.analysisName} tc={pallete.darkG}/>
+          <View style={{height: 10}}/>
+          { 
+            dataFile.analysisName == 'Blood Test' ?
+            <Fontisto name="blood-test" size={34} color={pallete.red} />
+          :
+          <></>
+          }
         </View>
         <View style={styles.rc}>
           <View style={styles.uc}>
@@ -99,23 +114,19 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 105,
         borderRadius: 10,
-        borderWidth: 2,
-        borderColor: iconColor.bgd,
+        backgroundColor: pallete.tint,
         padding: 6,
         marginBottom: 12,
         flexDirection: 'row',
-        backgroundColor: '#fff'
     },
     cardContainerB: {
         width: '100%',
         height: 90,
         borderRadius: 10,
-        borderWidth: 2,
-        borderColor: iconColor.bgd,
+        backgroundColor: pallete.tint,
         padding: 6,
         marginBottom: 12,
         flexDirection: 'row',
-        backgroundColor: '#fff'
     },
     flagContainer: {
       width: 102,
@@ -123,6 +134,8 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       marginTop: 8,
+      backgroundColor: pallete.tintG,
+      borderRadius: 40,
     },
     lc: {
       width: '50%',

@@ -2,7 +2,7 @@ import { StyleSheet, ScrollView, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { HeroFont, SemiFont, MediumFont, LightFont } from '../../components/Font-components'
 import { ProfileCard } from '../../components/Card-components'
-import { fontColor, iconColor, wrapper } from '../../templates/template'
+import { fontColor, iconColor, wrapper, pallete } from '../../templates/template'
 import { auth, db } from '../../../firebaseConfig'
 import { onAuthStateChanged } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
@@ -42,15 +42,15 @@ const ProfileScreen = () => {
         {
           loading.s ?
           <View style={styles.loadStyle}>
-            <MediumFont text={loading.m} tc={fontColor.p}/>
+            <MediumFont text={loading.m} tc={pallete.black}/>
           </View>
           :
           <>
             <View style={styles.container}>
               <View style={styles.img}/>
               <View style={styles.subContainer}>
-                <MediumFont text={"Provider"}/>
-                <SemiFont text={hospitalProfile.hName}/>
+                <LightFont text={"Provider"} tc={pallete.darkG}/>
+                <MediumFont text={hospitalProfile.hName}/>
               </View>
             </View>
             <View style={styles.dateContainer}>
@@ -82,9 +82,8 @@ const ProfileScreen = () => {
 const styles = StyleSheet.create({
   screenView: {
     flex: 1,
-    paddingTop: 40,
     display: 'flex',
-    backgroundColor: iconColor.gbgd
+    backgroundColor: pallete.greenB
   },
   cWrapper: {
     backgroundColor: iconColor.bgw,

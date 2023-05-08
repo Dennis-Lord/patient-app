@@ -3,8 +3,8 @@ import * as React from 'react';
 import { HeroFont, LightFont } from '../../../components/Font-components'
 import { OptionsCard } from '../../../components/Card-components';
 import { TabView, SceneMap } from 'react-native-tab-view';
-import { fontColor, iconColor, wrapper } from '../../../templates/template';
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { fontColor, iconColor, pallete, wrapper } from '../../../templates/template';
+import { Ionicons } from '@expo/vector-icons'; 
 import { FourHourChart } from '../../../components/Card-components';
 
 import FirstRoute from './tabView/First';
@@ -43,7 +43,7 @@ class TabViewExample extends React.Component {
               style={styles.tabItem}
               onPress={() => this.setState({ index: i })}>
               <Animated.View style={{ opacity }}>
-              <LightFont text={route.title}/>
+              <LightFont text={route.title} tc={pallete.white}/>
               </Animated.View>
             </TouchableOpacity>
           );
@@ -102,10 +102,10 @@ const MedicalFile = ({route}) => {
         <HeroFont text={fileDoc.disease} tc={fontColor.w}/>
       </View>
           <View style={styles.dateContainer}>
-          <OptionsCard iconName={"calendar-month"} option={fileDoc.diseaseDate} s={34} o={'b'} tc={fontColor.w} mic={fontColor.w}/>
+          <OptionsCard iconName={"calendar-month"} option={fileDoc.diagnosisDate} s={30} o={'b'} tc={pallete.white} mic={pallete.white}/>
           <TouchableOpacity onPress={() => Toggle()}>
             <View style={styles.di_container}>
-                <MaterialCommunityIcons name={'chart-timeline-variant'} size={28} color={fontColor.n} />
+                <Ionicons name="md-analytics-outline" size={24} color={pallete.greenB} />
             </View>
           </TouchableOpacity>
           </View>
@@ -127,9 +127,8 @@ const MedicalFile = ({route}) => {
 const styles = StyleSheet.create({
   screenView: {
     flex: 1,
-    paddingTop: 40,
     display: 'flex',
-    backgroundColor: iconColor.gbgd,
+    backgroundColor: pallete.greenB,
   },
   dateContainer: {
     width: '100%',
@@ -145,10 +144,9 @@ const styles = StyleSheet.create({
   },
   tabBar: {
     flexDirection: 'row',
-    borderRadius: 8,
-    borderWidth: 2,
-    borderColor: 'gray',
-    height: 40,
+    borderRadius: 24,
+    backgroundColor: pallete.greenB,
+    height: 38,
     alignItems: 'center'
   },
   tabItem: {
@@ -162,8 +160,8 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   di_container: {
-    width: 36,
-    height: 36,
+    width: 30,
+    height: 30,
     borderRadius: 8,
     backgroundColor: fontColor.w,
     justifyContent: 'center',

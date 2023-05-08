@@ -1,10 +1,11 @@
 import { View, StyleSheet, ScrollView} from 'react-native'
 import * as React from 'react';
 import { HeroFont, MediumFont, SemiFont, SemiLightFont } from '../../../components/Font-components'
-import { iconColor, wrapper, fontColor } from '../../../templates/template';
+import { iconColor, wrapper, fontColor, pallete } from '../../../templates/template';
 
 const Referrals = ({route}) => {
   const referral = route.params.dataFile
+  
     return (
       referral == [] || undefined ?
       <></>
@@ -15,66 +16,66 @@ const Referrals = ({route}) => {
         </View>
         <View style={[styles.wrapper, wrapper.bw]}>
           <View style={styles.subH}>
-            <MediumFont text={'Referral form'}/>
+            <MediumFont text={'Referral form'} tc={pallete.gray}/>
           </View>
           <ScrollView showsVerticalScrollIndicator={false}>  
           <View style={styles.details}>
-            <SemiLightFont text={'To'}/>
+            <SemiLightFont tc={pallete.darkG} text={'To'}/>
             <View style={styles.br} />
             <SemiFont text={referral.referredTo}/>
           </View>
           <View style={styles.details}>
-            <SemiLightFont text={'Name of patient'}/>
+            <SemiLightFont tc={pallete.darkG} text={'Name of patient'}/>
             <View style={styles.br} />
             <SemiFont text={referral.patient.name}/>
           </View>
           <View style={styles.details}>
-            <SemiLightFont text={'Age'}/>
+            <SemiLightFont tc={pallete.darkG} text={'Age'}/>
             <View style={styles.br} />
             <SemiFont text={referral.patient.age}/>
           </View>
           <View style={styles.details}>
-            <SemiLightFont text={'Sex'}/>
+            <SemiLightFont tc={pallete.darkG} text={'Sex'}/>
             <View style={styles.br} />
             <SemiFont text={referral.patient.sex}/>
           </View>
           <View style={styles.details}>
-            <SemiLightFont text={'Name of doctor'}/>
+            <SemiLightFont tc={pallete.darkG} text={'Name of doctor'}/>
             <View style={styles.br} />
             <SemiFont text={referral.nameOfDoctor}/>
           </View>
           <View style={styles.details_}>
-            <SemiLightFont text={'Clinical summary of history'}/>
+            <SemiLightFont tc={pallete.darkG} text={'Clinical summary of history'}/>
             <View style={styles.textArea}>
                 <SemiFont text={referral.summary}/>
             </View>
           </View>
           <View style={styles.details_}>
-            <SemiLightFont text={'Referring diagnosis'}/>
+            <SemiLightFont tc={pallete.darkG} text={'Referring diagnosis'}/>
             <View style={styles.textArea}>
                 <SemiFont text={referral.diagnosis}/>
             </View>
           </View>
           <View style={styles.details_}>
-            <SemiLightFont text={'Investigations and management'}/>
+            <SemiLightFont tc={pallete.darkG} text={'Investigations and management'}/>
             <View style={styles.textArea}>
                 <SemiFont text={referral.investigationAndManagement}/>
             </View>
           </View>
           <View style={styles.details_}>
-            <SemiLightFont text={'Duration of management'}/>
+            <SemiLightFont tc={pallete.darkG} text={'Duration of management'}/>
             <View style={styles.textArea}>
                 <SemiFont text={referral.durationOfManagement}/>
             </View>
           </View>
           <View style={styles.details_}>
-            <SemiLightFont text={'Specific reason for referral'}/>
+            <SemiLightFont tc={pallete.darkG} text={'Specific reason for referral'}/>
             <View style={styles.textArea}>
                 <SemiFont text={referral.reason}/>
             </View>
           </View>
           <View>
-            <SemiLightFont text={'Signature & stamp'}/>
+            <SemiLightFont tc={pallete.darkG} text={'Signature & stamp'}/>
           </View>
           </ScrollView>
           </View>
@@ -85,8 +86,7 @@ const Referrals = ({route}) => {
   const styles = StyleSheet.create({
     screenView: {
       flex: 1,
-      paddingTop: 40,
-      backgroundColor: iconColor.gbgd
+      backgroundColor: pallete.greenB
     },
     wrapper: {
       flex: 1,

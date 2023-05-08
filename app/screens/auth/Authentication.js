@@ -1,6 +1,6 @@
 import { View, StyleSheet, TextInput, TouchableNativeFeedback, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
-import { fontColor, iconColor } from '../../templates/template'
+import { fontColor, iconColor, pallete } from '../../templates/template'
 import { HeroFont, MediumFont, MiniFont, SemiLightFont } from '../../components/Font-components'
 import { OptionsCard } from '../../components/Card-components'
 import { auth, db } from '../../../firebaseConfig'
@@ -276,7 +276,7 @@ import { doc, setDoc } from 'firebase/firestore'
         <View style={screenstyle.errorView}>
         {
             authError.e ? 
-            <SemiLightFont tc={fontColor.r} text={authError.message}/>
+            <SemiLightFont tc={pallete.red} text={authError.message}/>
             :
             <></>
         }
@@ -300,20 +300,20 @@ import { doc, setDoc } from 'firebase/firestore'
         </View>
         <TouchableNativeFeedback onPress={() => handleAuth()}>
             <View style={screenstyle.accBtn}>
-                <SemiLightFont text={change.buttonText} tc={fontColor.w}/>
+                <SemiLightFont text={change.buttonText} tc={pallete.white}/>
             </View>
         </TouchableNativeFeedback>
         <TouchableOpacity onPress={() => handleStates(change)}>
-            <MiniFont text={change.question} tc={fontColor.s}/>
+            <MiniFont text={change.question} tc={pallete.darkG}/>
         </TouchableOpacity>
         <View style={{height: 8}}/>
         <TouchableOpacity onPress={() => navigation.navigate('forgotPass', {emailValue})}>
-            <MiniFont text={'Forgot password?'} tc={fontColor.p}/>
+            <MiniFont text={'Forgot password?'} tc={pallete.darkG}/>
         </TouchableOpacity>
         <View style={screenstyle.lb}/>
         <TouchableNativeFeedback>
             <View style={screenstyle.btn}>
-                <OptionsCard mic={fontColor.w} option={'Continue with Google'} iconName={'google'} s={22} o={'b'} tc={'white'}/>
+                <OptionsCard mic={pallete.tintG} option={'Continue with Google'} iconName={'google'} s={22} o={'b'} tc={'white'}/>
             </View>
         </TouchableNativeFeedback>
       </View>
@@ -323,23 +323,23 @@ import { doc, setDoc } from 'firebase/firestore'
 const screenstyle = StyleSheet.create({
     screenView: {
       flex: 1,
-      paddingTop: 70,
       display: 'flex',
       alignItems: 'center',
+      paddingTop: 20,
       backgroundColor: fontColor.w
     },
     lb: {
         width: '86%',
         height: 2,
         borderRadius: 10,
-        backgroundColor: '#000',
+        backgroundColor: pallete.black,
         marginVertical: 20,
     },
     accBtn: {
         width: 300,
         height: 50,
         borderRadius: 10,
-        backgroundColor: iconColor.gbgd,
+        backgroundColor: pallete.greenB,
         justifyContent: 'center',
         alignItems: 'center',
         marginVertical: 14
@@ -347,7 +347,7 @@ const screenstyle = StyleSheet.create({
     inputWrapper: {
         width: '90%',
         height: 46,
-        backgroundColor: 'gainsboro',
+        backgroundColor: pallete.tint,
         justifyContent: 'center',
         borderRadius: 8,
         marginVertical: 10,
@@ -360,7 +360,7 @@ const screenstyle = StyleSheet.create({
         height: '100%'
     },
     btn: {
-        backgroundColor: iconColor.gbgd, 
+        backgroundColor: pallete.greenB, 
         borderRadius: 10, 
         width: 300, 
         height: 50,

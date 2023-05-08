@@ -1,6 +1,6 @@
 import { StyleSheet, View, TextInput, TouchableNativeFeedback } from 'react-native'
 import React, { useState } from 'react'
-import { wrapper } from '../../templates/template'
+import { pallete, wrapper } from '../../templates/template'
 import { HeroFont, LightFont, SemiLightFont } from '../../components/Font-components'
 import { fontColor, iconColor } from '../../templates/template'
 import { auth } from '../../../firebaseConfig'
@@ -41,14 +41,14 @@ const ForgotPassword = ({route}) => {
 
   return (
     <View style={styles.screenView}>
-        <HeroFont text={'Forgot Password'} tc={fontColor.p}/>
+        <HeroFont text={'Forgot Password'} tc={pallete.black}/>
       <View style={styles.errorView}>
         {
             resetState.state ? 
-            <LightFont text={resetState.message} tc={fontColor.p}/>
+            <LightFont text={resetState.message} tc={pallete.black}/>
             :
             resetError.isError ?
-            <LightFont text={resetError.errorMessage} tc={fontColor.r} />
+            <LightFont text={resetError.errorMessage} tc={pallete.red} />
             :
             <></>
         }
@@ -63,7 +63,7 @@ const ForgotPassword = ({route}) => {
         </View>
         <TouchableNativeFeedback onPress={() => ForgotPass(email)}>
             <View style={styles.accBtn}>
-                <SemiLightFont text={'Submit'} tc={fontColor.w}/>
+                <SemiLightFont text={'Submit'} tc={pallete.white}/>
             </View>
         </TouchableNativeFeedback>
     </View>
@@ -75,15 +75,14 @@ export default ForgotPassword
 const styles = StyleSheet.create({
     screenView: {
         flex: 1,
-        paddingTop: 48,
         display: 'flex',
         alignItems: 'center',
-        backgroundColor: fontColor.w
+        backgroundColor: pallete.tintG
       },
       inputWrapper: {
         width: '90%',
         height: 46,
-        backgroundColor: 'gainsboro',
+        backgroundColor: pallete.white,
         justifyContent: 'center',
         borderRadius: 8,
         marginVertical: 10,
@@ -99,7 +98,7 @@ const styles = StyleSheet.create({
         width: 300,
         height: 50,
         borderRadius: 10,
-        backgroundColor: iconColor.gbgd,
+        backgroundColor: pallete.greenB,
         justifyContent: 'center',
         alignItems: 'center',
         marginVertical: 14

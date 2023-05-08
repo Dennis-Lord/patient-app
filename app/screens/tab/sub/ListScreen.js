@@ -2,7 +2,7 @@ import { StyleSheet, View, TextInput, Text } from 'react-native'
 import React, {useDebugValue, useState} from 'react'
 import { HeroFont, LightFont } from '../../../components/Font-components'
 import { FilterFileCard, ReferralCard, AnalysisCard } from '../../../components/List-components'
-import { fontColor, iconColor, wrapper } from '../../../templates/template'
+import { pallete, iconColor,wrapper } from '../../../templates/template'
 
 const ListScreen = ({navigation, route}) => {
   let userDoc = route.params.routeProps.docs == undefined ? undefined : route.params.routeProps.docs;
@@ -23,7 +23,7 @@ const ListScreen = ({navigation, route}) => {
   return (
     <View style={listStyles.screenView}>
       <View style={[wrapper.heroPos, {marginLeft: 20,}]}>
-        <HeroFont text={title} tc={fontColor.w}/>
+        <HeroFont text={title} tc={pallete.white}/>
         <View style={listStyles.searchBar}>
           <TextInput style={listStyles.txti} placeholder='search' underlineColorAndroid={'#fff'}/>
         </View>
@@ -63,9 +63,8 @@ const ListScreen = ({navigation, route}) => {
 const listStyles = StyleSheet.create({
     screenView: {
         flex: 1,
-        paddingTop: 40,
         display: 'flex',
-        backgroundColor: iconColor.gbgd,
+        backgroundColor: pallete.greenB,
       },
         listWrapper: {
         flex: 1,

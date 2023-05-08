@@ -1,14 +1,15 @@
 import { StyleSheet, ScrollView, View, TouchableOpacity } from 'react-native'
-import React from 'react'
-import { HeroFont, MediumFont, MiniFont } from '../../../components/Font-components'
-import { AnalysisDetailsCard, InvestigationCard, DownloadCard } from '../../../components/Card-components'
+import React, {useState} from 'react'
+import { HeroFont, MediumFont, MiniFont, LFb } from '../../../components/Font-components'
+import { AnalysisDetailsCard, InvestigationCard } from '../../../components/Card-components'
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-import { iconColor, wrapper, fontColor } from '../../../templates/template';
+import { iconColor, wrapper, fontColor, pallete } from '../../../templates/template';
+import { ref, getDownloadURL } from 'firebase/storage';
+import { storage } from '../../../../firebaseConfig';
 
 
 const Analysis = ({route}) => {
   const analysis = route.params.dataFile;
-  console.log(analysis)
   const location = analysis.ref
 
   const [toggle, setToggle] = useState({
@@ -25,7 +26,7 @@ const Analysis = ({route}) => {
           state: true
         })
       }).catch((e) => {
-        console.log(e)
+        const err = e
       })
     }
   }
@@ -33,20 +34,20 @@ const Analysis = ({route}) => {
   return (
     <View style={styles.screenView}>
       <View style={[wrapper.heroPos, {marginLeft: 20,}]}>
-        <HeroFont text={analysis.analysisName} tc={fontColor.w}/>
+        <HeroFont text={analysis.analysisName} tc={pallete.white}/>
       </View>
         <View style={[styles.divWrapper, wrapper.bw]}>
           <View style={styles.headerContainer}>
               <MediumFont text={analysis.analysisName}/>
               <View style={styles.cardContainer}>
-                  <AnalysisDetailsCard label={'Date'} value={analysis.date} icon={'calendar'} option={'a'}/>
-                  <AnalysisDetailsCard label={'Result'} value={analysis.result} icon={'check-circle'} option={'a'}/>
+                  <AnalysisDetailsCard color={pallete.blue} label={'Date'} value={analysis.date} icon={'calendar'} option={'a'}/>
+                  <AnalysisDetailsCard color={pallete.greenB} label={'Result'} value={analysis.result} icon={'check-circle'} option={'a'}/>
               </View>
           </View>
           <View style={styles.headerContainer}>
               <MediumFont text={'Clinic / Laboratory'}/>
               <View style={styles.cardContainer}>
-                  <AnalysisDetailsCard label={analysis.lab.name} value={analysis.lab.street} icon={'google-maps'} option={''}/>
+                  <AnalysisDetailsCard color={pallete.blue} label={analysis.lab.name} value={analysis.lab.street} icon={'google-maps'} option={''}/>
               </View>
           </View>
           <View style={styles.wrapper}>
@@ -58,7 +59,7 @@ const Analysis = ({route}) => {
                 <View style={styles.cancelWrapper}>
                 <MediumFont text={'Copy download link'}/>
                   <TouchableOpacity onPress={() => setToggle({link: '', state: false})}>
-                    <MaterialCommunityIcons name="close-circle" size={30} color={fontColor.p} />
+                    <MaterialCommunityIcons name="close-circle" size={30} color={pallete.black} />
                   </TouchableOpacity>
                 </View>
                 <TextInput style={styles.linkWrapper} value={toggle.link}/>
@@ -74,7 +75,7 @@ const Analysis = ({route}) => {
             <View style={styles.downloadContainer}>
             <TouchableOpacity onPress={() => toggleLink(location)}>
                 <View style={styles.di_container}>
-                    <MaterialCommunityIcons name={'download'} size={24} color={iconColor.c} />
+                    <MaterialCommunityIcons name={'download'} size={24} color={pallete.darkG} />
                 </View>
             </TouchableOpacity>
             <View style={styles.br} />
@@ -92,8 +93,7 @@ export default Analysis
 const styles = StyleSheet.create({
   screenView: {
       flex: 1,
-      paddingTop: 40,
-      backgroundColor: iconColor.gbgd
+      backgroundColor: pallete.greenB
     },
     headerContainer: {
       width: '100%',
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
       width: 34,
       height: 34,
       borderRadius: 8,
-      backgroundColor: iconColor.bg,
+      backgroundColor: pallete.tint,
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -116,10 +116,22 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between'
     },
     divWrapper: {
-      backgroundColor: '#fff',
+      backgroundColor: pallete.white,
       flex: 1,
       paddingHorizontal: 20,
       paddingVertical: 20,
+    },
+    downloadContainer: {
+      width: '100%',
+      MaxHeight: 58,
+      borderRadius: 10,
+      padding: 8,
+      flexDirection: 'row',
+      marginVertical: 4,
+      alignItems: 'center'
+    },
+    br: {
+      width: 10,
     },
     diagnosisContainer: {
       width: '100%',

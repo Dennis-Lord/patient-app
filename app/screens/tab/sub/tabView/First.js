@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
 import { MediumFont, LightFont, SemiLightFont, LFb } from '../../../../components/Font-components'
 import { OptionsCard } from '../../../../components/Card-components'
-import { iconColor } from '../../../../templates/template'
+import { iconColor, pallete } from '../../../../templates/template'
 
 const FirstRoute = ({fileData}) => {
   return (
@@ -21,8 +21,8 @@ const FirstRoute = ({fileData}) => {
             <SemiLightFont text={fileData.practisioner.title}/>
         </View>
         <View>
-            <OptionsCard iconName={'hospital-building'} s={24} option={'Fankyenebra Hospital'} o={'b'} mic={iconColor.gbgd} />
-            <OptionsCard iconName={'phone'} s={24} option={'020 123 1234'} o={'b'} mic={iconColor.gbgd}/>
+            <OptionsCard iconName={'hospital-building'} s={24} option={'Fankyenebra Hospital'} o={'b'} mic={pallete.greenB} />
+            <OptionsCard iconName={'phone'} s={24} option={'020 123 1234'} o={'b'} mic={pallete.greenB}/>
         </View>
       </View>
     </View>

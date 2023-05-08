@@ -1,7 +1,7 @@
 import { StyleSheet, View, TouchableOpacity, ScrollView, TextInput, FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { HeroFont, LightFont, MediumFont, MiniFont } from '../../../components/Font-components'
-import { wrapper, iconColor, fontColor } from '../../../templates/template'
+import { wrapper, iconColor, fontColor, pallete } from '../../../templates/template'
 import { MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 import * as DocumentPicker from 'expo-document-picker';
 import { storage, db, auth } from '../../../../firebaseConfig';
@@ -115,7 +115,7 @@ const Documents = () => {
           state: true
         })
       }).catch((e) => {
-        console.log(e)
+        const err = e;
       })
     }
   }
@@ -127,16 +127,16 @@ const Documents = () => {
         </View>
         <View style={[styles.wrapper, wrapper.bw]}>
           <View style={styles.addBtn}>
-            <MediumFont text={'Add file'} tc={fontColor.p}/>
-            <TouchableOpacity style={{width: 36, height: 36, borderRadius: 10, backgroundColor: iconColor.gbgd, alignItems: 'center', justifyContent: 'center', marginHorizontal: 4}} onPress={() => documentPicker()}>
-              <MaterialCommunityIcons name='file-plus-outline' size={28} color={fontColor.w}/>
+            <MediumFont text={'Add file'} tc={pallete.black}/>
+            <TouchableOpacity style={{width: 34, height: 34, borderRadius: 7, backgroundColor: pallete.gray, alignItems: 'center', justifyContent: 'center', marginHorizontal: 4}} onPress={() => documentPicker()}>
+              <MaterialCommunityIcons name='file-plus-outline' size={24} color={fontColor.w}/>
             </TouchableOpacity>
           </View>
           <View style={styles.pdfContainer}>
             {
               document != null && document != {type: 'cancel'} && document != 'success' && err != true ?
                 <View style={styles.pdfWrapper}>
-                  <MaterialCommunityIcons name='file-pdf-box' size={50} color={fontColor.r}/>
+                  <MaterialCommunityIcons name='file-pdf-box' size={50} color={pallete.red}/>
                   <View style={{justifyContent: 'space-evenly', marginLeft: 10}}>
                     <LightFont text={document.name.slice(0,25)}/>
                       {
@@ -150,12 +150,12 @@ const Documents = () => {
               
               :
               err == true ?
-              <MediumFont text={'File should have the postfix .doc/.pdf'} tc={fontColor.r}/>
+              <MediumFont text={'File should have the postfix .doc/.pdf'} tc={pallete.red}/>
               :
               document == 'success' ?
-              <MediumFont text={'File uploaded successfully'} tc={fontColor.p}/>
+              <MediumFont text={'File uploaded successfully'} tc={pallete.black}/>
               :
-              <MediumFont text={'Select a file to upload...'} tc={fontColor.p}/>
+              <MediumFont text={'Select a file to upload...'} tc={pallete.black}/>
             }
           </View>
 
@@ -164,18 +164,18 @@ const Documents = () => {
               <></>
               :
               <View style={styles.addBtn}>
-              <MediumFont text={'Upload file'} tc={fontColor.p}/>
+              <MediumFont text={'Upload file'} tc={pallete.black}/>
               <TouchableOpacity onPress={() => uploadFile()} style={{width: 32, height: 32, borderRadius: 10, backgroundColor: iconColor.bg, alignItems: 'center', justifyContent: 'center', marginHorizontal: 4}}>
-                <AntDesign name="upload" size={24} color={fontColor.p} />
+                <AntDesign name="upload" size={24} color={pallete.black} />
               </TouchableOpacity>
             </View>
             }
           </View>
 
           <View style={styles.addBtn}>
-              <MediumFont text={'Refresh'} tc={fontColor.p}/>
+              <MediumFont text={'Refresh'} tc={pallete.black}/>
               <TouchableOpacity onPress={() => getList()} style={{width: 32, height: 32, borderRadius: 10, backgroundColor: iconColor.bg, alignItems: 'center', justifyContent: 'center', marginHorizontal: 4}}>
-                <MaterialCommunityIcons name="refresh" size={24} color={fontColor.p} />
+                <MaterialCommunityIcons name="refresh" size={24} color={pallete.black} />
               </TouchableOpacity>
             </View>
             {
@@ -184,7 +184,7 @@ const Documents = () => {
                 <View style={styles.cancelWrapper}>
                 <MediumFont text={'Copy download link'}/>
                   <TouchableOpacity onPress={() => setToggle({link: '', state: false})}>
-                    <MaterialCommunityIcons name="close-circle" size={30} color={fontColor.p} />
+                    <MaterialCommunityIcons name="close-circle" size={30} color={pallete.black} />
                   </TouchableOpacity>
                 </View>
                 <TextInput style={styles.linkWrapper} value={toggle.link}/>
@@ -195,27 +195,27 @@ const Documents = () => {
           <View style={styles.filesWrapper}>
               {
                 filesList === undefined || filesList == [] ?
-                <MediumFont text={"😓 Files haven't been backed up"} tc={fontColor.p}/>
+                <MediumFont text={"😓 Files haven't been backed up"} tc={pallete.black}/>
                 :
                 filesList == 'error' ?
-                <MediumFont text={"😓 Error getting files."} tc={fontColor.p}/>
+                <MediumFont text={"😓 Error getting files."} tc={pallete.black}/>
                 :
                 <FlatList
                   data={filesList}
                   renderItem={({item}) =>
                   <View style={styles.pdfWrapperb}>
-                     <MaterialCommunityIcons name='file-pdf-box' size={50} color={fontColor.r}/>
+                     <MaterialCommunityIcons name='file-pdf-box' size={50} color={pallete.red}/>
                      <View style={{justifyContent: 'space-evenly', marginLeft: 10}}>
-                       <LightFont text={item.name + '...'} tc={fontColor.p}/>
+                       <LightFont text={item.name + '...'} tc={pallete.black}/>
                          {
                            item.size <= 999999 ?
-                           <MiniFont text={item.size + 'kB'} tc={fontColor.p}/>
+                           <MiniFont text={item.size + 'kB'} tc={pallete.black}/>
                            :
-                           <MiniFont text={item.size + 'Mb'} tc={fontColor.p}/>
+                           <MiniFont text={item.size + 'Mb'} tc={pallete.black}/>
                          }
                      </View>
                      <TouchableOpacity onPress={() => toggleLink(item.name)} style={{width: 32, height: 32, borderRadius: 10, backgroundColor: fontColor.w, alignItems: 'center', justifyContent: 'center', marginHorizontal: 4}}>
-                       <AntDesign name="download" size={24} color={fontColor.p} />
+                       <AntDesign name="download" size={24} color={pallete.black} />
                      </TouchableOpacity>
                    </View>
                 }
@@ -232,8 +232,7 @@ export default Documents
 const styles = StyleSheet.create({
   screenView: {
     flex: 1,
-    paddingTop: 40,
-    backgroundColor: iconColor.gbgd
+    backgroundColor: pallete.greenB
   },
   wrapper: {
     flex: 1,
@@ -247,37 +246,38 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     marginVertical: 16,
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end'
   },
   pdfContainer: {
     width: '100%',
-    height: 120,
-    backgroundColor: 'gainsboro',
+    height: 100,
+    backgroundColor: pallete.tint,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center'
   },
   pdfWrapper: {
     width: '90%',
-    height: 100,
+    height: 80,
     display: 'flex',
     flexDirection: 'row',
     paddingHorizontal: 4,
     paddingVertical: 4,
     justifyContent: 'flex-start',
-    backgroundColor: '#fff',
+    backgroundColor: pallete.white,
     borderRadius: 10,
     alignItems: 'center'
   },
   pdfWrapperb: {
     width: '98%',
-    height: 100,
+    height: 90,
     display: 'flex',
     flexDirection: 'row',
     paddingHorizontal: 8,
     paddingVertical: 4,
     justifyContent: 'space-between',
-    backgroundColor: 'gainsboro',
+    backgroundColor: pallete.tint,
     borderRadius: 10,
     alignItems: 'center',
     marginVertical: 5
@@ -297,7 +297,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     alignSelf: 'center',
     position: 'absolute',
-    backgroundColor: 'gainsboro',
+    backgroundColor: pallete.tint,
     top: 200
   },
   cancelWrapper: {
